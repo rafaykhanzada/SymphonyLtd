@@ -8,19 +8,19 @@
 <html lang="en">
 
 
-<!-- Mirrored from www.radixtouch.in/templates/admin/lorax/source/light/pages/examples/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Feb 2021 19:52:05 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>@ViewBag.Title</title>
     <!-- Favicon-->
-    <link rel="icon" href="~/App_assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/App_Assets/images/favicon.ico" type="image/x-icon">
+    @Styles.Render("~/Admin/css")
     <!-- Plugins Core Css -->
-    <link href="~/App_assets/css/app.min.css" rel="stylesheet">
+    <!--<link href="~/App_Assets/css/app.min.css" rel="stylesheet">-->
     <!-- Custom Css -->
-    <link href="~/App_assets/css/style.css" rel="stylesheet" />
+    <!--<link href="~/App_Assets/css/style.css" rel="stylesheet" />-->
     <!-- You can choose a theme from css/styles instead of get all themes -->
-    <link href="~/App_assets/css/styles/all-themes.css" rel="stylesheet" />
+    <!--<link href="~/App_Assets/css/styles/all-themes.css" rel="stylesheet" />-->
 </head>
 
 <body class="light">
@@ -28,7 +28,7 @@
     <div class="page-loader-wrapper">
         <div class="loader">
             <div class="m-t-30">
-                <img class="loading-img-spin" src="~/App_assets/Admin/images/loading.png" width="20" height="20" alt="admin">
+                <img class="loading-img-spin" src="~/App_Assets/Admin/images/loading.png" width="20" height="20" alt="admin">
             </div>
             <p>Please wait...</p>
         </div>
@@ -45,7 +45,7 @@
                    data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="#" onClick="return false;" class="bars"></a>
                 <a class="navbar-brand" href="../../index.html">
-                    <img src="~/App_assets/Admin/images/logo.png" alt="" />
+                    <img src="~/App_Assets/Admin/images/logo.png" alt="" />
                     <span class="logo-name">Lorax</span>
                 </a>
             </div>
@@ -79,7 +79,7 @@
                                     <li>
                                         <a href="#" onClick="return false;">
                                             <span class="table-img msg-user">
-                                                <img src="~/App_assets/Admin/images/user/user1.jpg" alt="">
+                                                <img src="~/App_Assets/Admin/images/user/user1.jpg" alt="">
                                             </span>
                                             <span class="menu-info">
                                                 <span class="menu-title">Sarah Smith</span>
@@ -93,7 +93,7 @@
                                     <li>
                                         <a href="#" onClick="return false;">
                                             <span class="table-img msg-user">
-                                                <img src="~/App_assets/Admin/images/user/user2.jpg" alt="">
+                                                <img src="~/App_Assets/Admin/images/user/user2.jpg" alt="">
                                             </span>
                                             <span class="menu-info">
                                                 <span class="menu-title">Airi Satou</span>
@@ -107,7 +107,7 @@
                                     <li>
                                         <a href="#" onClick="return false;">
                                             <span class="table-img msg-user">
-                                                <img src="~/App_assets/Admin/images/user/user3.jpg" alt="">
+                                                <img src="~/App_Assets/Admin/images/user/user3.jpg" alt="">
                                             </span>
                                             <span class="menu-info">
                                                 <span class="menu-title">John Doe</span>
@@ -121,7 +121,7 @@
                                     <li>
                                         <a href="#" onClick="return false;">
                                             <span class="table-img msg-user">
-                                                <img src="~/App_assets/Admin/images/user/user4.jpg" alt="">
+                                                <img src="~/App_Assets/Admin/images/user/user4.jpg" alt="">
                                             </span>
                                             <span class="menu-info">
                                                 <span class="menu-title">Ashton Cox</span>
@@ -135,7 +135,7 @@
                                     <li>
                                         <a href="#" onClick="return false;">
                                             <span class="table-img msg-user">
-                                                <img src="~/App_assets/Admin/images/user/user5.jpg" alt="">
+                                                <img src="~/App_Assets/Admin/images/user/user5.jpg" alt="">
                                             </span>
                                             <span class="menu-info">
                                                 <span class="menu-title">Cara Stevens</span>
@@ -149,7 +149,7 @@
                                     <li>
                                         <a href="#" onClick="return false;">
                                             <span class="table-img msg-user">
-                                                <img src="~/App_assets/Admin/images/user/user6.jpg" alt="">
+                                                <img src="~/App_Assets/Admin/images/user/user6.jpg" alt="">
                                             </span>
                                             <span class="menu-info">
                                                 <span class="menu-title">Charde Marshall</span>
@@ -163,7 +163,7 @@
                                     <li>
                                         <a href="#" onClick="return false;">
                                             <span class="table-img msg-user">
-                                                <img src="~/App_assets/Admin/images/user/user7.jpg" alt="">
+                                                <img src="~/App_Assets/Admin/images/user/user7.jpg" alt="">
                                             </span>
                                             <span class="menu-info">
                                                 <span class="menu-title">John Doe</span>
@@ -185,7 +185,7 @@
                     <li class="dropdown user_profile">
                         <a href="#" onClick="return false;" class="dropdown-toggle" data-toggle="dropdown"
                            role="button">
-                            <img src="~/App_assets/Admin/images/user.jpg" width="32" height="32" alt="User">
+                            <img src="~/App_Assets/Admin/images/user.jpg" width="32" height="32" alt="User">
                         </a>
                         <ul class="dropdown-menu pullDown">
                             <li class="body">
@@ -234,7 +234,7 @@
                     <li class="sidebar-user-panel active">
                         <div class="user-panel">
                             <div class=" image">
-                                <img src="~/App_assets/Admin/images/usrbig.jpg" class="img-circle user-img-circle"
+                                <img src="~/App_Assets/Admin/images/usrbig.jpg" class="img-circle user-img-circle"
                                      alt="User Image" />
                             </div>
                         </div>
@@ -861,14 +861,14 @@
     </div>
     <section class="content">
         <div class="container-fluid">
-           @RenderBody()
+            @RenderBody()
         </div>
     </section>
-    <script src="~/App_assets/Admin/js/app.min.js"></script>
+    @Scripts.Render("~/Admin/script")
+    <!--<script src="~/App_Assets/Admin/js/app.min.js"></script>-->
     <!-- Custom Js -->
-    <script src="~/App_assets/Admin/js/admin.js"></script>
+    <!--<script src="~/App_Assets/Admin/js/admin.js"></script>-->
 </body>
 
 
-<!-- Mirrored from www.radixtouch.in/templates/admin/lorax/source/light/pages/examples/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Feb 2021 19:52:05 GMT -->
 </html>
