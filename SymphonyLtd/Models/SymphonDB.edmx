@@ -1,0 +1,839 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SymphonyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CourseCategory_FK" Type="int" />
+          <Property Name="CourseDuration" Type="nvarchar" MaxLength="250" />
+          <Property Name="CourseFees" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1500" />
+          <Property Name="Term" Type="nvarchar" MaxLength="1500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblCourseCategory">
+          <Key>
+            <PropertyRef Name="CourseCategoryID" />
+          </Key>
+          <Property Name="CourseCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseCategory" Type="nvarchar" MaxLength="250" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1500" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblEnrollment">
+          <Key>
+            <PropertyRef Name="EnrollmentID" />
+          </Key>
+          <Property Name="EnrollmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="CourseID" Type="int" />
+          <Property Name="GRNumber" Type="nvarchar" MaxLength="250" />
+          <Property Name="EntrollmentDate" Type="datetime" />
+          <Property Name="EnrollFrom" Type="datetime" />
+          <Property Name="EntrollTo" Type="datetime" />
+          <Property Name="IsValid" Type="bit" />
+          <Property Name="IsDropOff" Type="bit" />
+          <Property Name="IsDefaulter" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblExam">
+          <Key>
+            <PropertyRef Name="ExamID" />
+          </Key>
+          <Property Name="ExamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Studen_FK" Type="int" />
+          <Property Name="Course_FK" Type="int" />
+          <Property Name="CurrentSemister" Type="int" />
+          <Property Name="ExamDuration" Type="time" Precision="3" />
+          <Property Name="ExamScheduleFrom" Type="datetime" />
+          <Property Name="ExamScheduleTo" Type="datetime" />
+          <Property Name="ExamType_FK" Type="int" />
+          <Property Name="TotalMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PassingMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsValid" Type="bit" Nullable="false" />
+          <Property Name="IsCancled" Type="bit" Nullable="false" />
+          <Property Name="IsCancledReason" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeleteOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="tblExamType">
+          <Key>
+            <PropertyRef Name="ExamTypeID" />
+          </Key>
+          <Property Name="ExamTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamName" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="DeleteBy" Type="int" />
+        </EntityType>
+        <EntityType Name="tblResult">
+          <Key>
+            <PropertyRef Name="ResultID" />
+          </Key>
+          <Property Name="ResultID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamID" Type="int" />
+          <Property Name="ObtainNo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsFailed" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="Password" Type="nvarchar" MaxLength="250" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1500" />
+          <Property Name="Profile" Type="nvarchar" MaxLength="500" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserRole_FK" Type="int" />
+          <Property Name="TokenCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_tblCourse_tblCourseCategory">
+          <End Role="tblCourseCategory" Type="Self.tblCourseCategory" Multiplicity="0..1" />
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourseCategory">
+              <PropertyRef Name="CourseCategoryID" />
+            </Principal>
+            <Dependent Role="tblCourse">
+              <PropertyRef Name="CourseCategory_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCourse_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblCourse">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCourseCategory_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblCourseCategory" Type="Self.tblCourseCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblCourseCategory">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExam_tblExamType">
+          <End Role="tblExamType" Type="Self.tblExamType" Multiplicity="0..1" />
+          <End Role="tblExam" Type="Self.tblExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExamType">
+              <PropertyRef Name="ExamTypeID" />
+            </Principal>
+            <Dependent Role="tblExam">
+              <PropertyRef Name="ExamType_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExam_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblExam" Type="Self.tblExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblExam">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExamType_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblExamType" Type="Self.tblExamType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblExamType">
+              <PropertyRef Name="DeleteBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblResult_tblExam">
+          <End Role="tblExam" Type="Self.tblExam" Multiplicity="0..1" />
+          <End Role="tblResult" Type="Self.tblResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExam">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="tblResult">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblResult_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblResult" Type="Self.tblResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblResult">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRole_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblRole">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblRole">
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="UserRole_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SymphonyDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCourseCategory" EntityType="Self.tblCourseCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEnrollment" EntityType="Self.tblEnrollment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblExam" EntityType="Self.tblExam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblExamType" EntityType="Self.tblExamType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblResult" EntityType="Self.tblResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblCourse_tblCourseCategory" Association="Self.FK_tblCourse_tblCourseCategory">
+            <End Role="tblCourseCategory" EntitySet="tblCourseCategory" />
+            <End Role="tblCourse" EntitySet="tblCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCourse_tblUser" Association="Self.FK_tblCourse_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblCourse" EntitySet="tblCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCourseCategory_tblUser" Association="Self.FK_tblCourseCategory_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblCourseCategory" EntitySet="tblCourseCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExam_tblExamType" Association="Self.FK_tblExam_tblExamType">
+            <End Role="tblExamType" EntitySet="tblExamType" />
+            <End Role="tblExam" EntitySet="tblExam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExam_tblUser" Association="Self.FK_tblExam_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblExam" EntitySet="tblExam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExamType_tblUser" Association="Self.FK_tblExamType_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblExamType" EntitySet="tblExamType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblResult_tblExam" Association="Self.FK_tblResult_tblExam">
+            <End Role="tblExam" EntitySet="tblExam" />
+            <End Role="tblResult" EntitySet="tblResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblResult_tblUser" Association="Self.FK_tblResult_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblResult" EntitySet="tblResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRole_tblUser" Association="Self.FK_tblRole_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblRole" EntitySet="tblRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblRole" Association="Self.FK_tblUser_tblRole">
+            <End Role="tblRole" EntitySet="tblRole" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SymphonyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CourseCategory_FK" Type="Int32" />
+          <Property Name="CourseDuration" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CourseFees" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="Term" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblCourseCategory" Relationship="Self.FK_tblCourse_tblCourseCategory" FromRole="tblCourse" ToRole="tblCourseCategory" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblCourse_tblUser" FromRole="tblCourse" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblCourseCategory">
+          <Key>
+            <PropertyRef Name="CourseCategoryID" />
+          </Key>
+          <Property Name="CourseCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseCategory" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblCourses" Relationship="Self.FK_tblCourse_tblCourseCategory" FromRole="tblCourseCategory" ToRole="tblCourse" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblCourseCategory_tblUser" FromRole="tblCourseCategory" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblEnrollment">
+          <Key>
+            <PropertyRef Name="EnrollmentID" />
+          </Key>
+          <Property Name="EnrollmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="CourseID" Type="Int32" />
+          <Property Name="GRNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EntrollmentDate" Type="DateTime" Precision="3" />
+          <Property Name="EnrollFrom" Type="DateTime" Precision="3" />
+          <Property Name="EntrollTo" Type="DateTime" Precision="3" />
+          <Property Name="IsValid" Type="Boolean" />
+          <Property Name="IsDropOff" Type="Boolean" />
+          <Property Name="IsDefaulter" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblExam">
+          <Key>
+            <PropertyRef Name="ExamID" />
+          </Key>
+          <Property Name="ExamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Studen_FK" Type="Int32" />
+          <Property Name="Course_FK" Type="Int32" />
+          <Property Name="CurrentSemister" Type="Int32" />
+          <Property Name="ExamDuration" Type="Time" Precision="3" />
+          <Property Name="ExamScheduleFrom" Type="DateTime" Precision="3" />
+          <Property Name="ExamScheduleTo" Type="DateTime" Precision="3" />
+          <Property Name="ExamType_FK" Type="Int32" />
+          <Property Name="TotalMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PassingMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsValid" Type="Boolean" Nullable="false" />
+          <Property Name="IsCancled" Type="Boolean" Nullable="false" />
+          <Property Name="IsCancledReason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeleteOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <NavigationProperty Name="tblExamType" Relationship="Self.FK_tblExam_tblExamType" FromRole="tblExam" ToRole="tblExamType" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblExam_tblUser" FromRole="tblExam" ToRole="tblUser" />
+          <NavigationProperty Name="tblResults" Relationship="Self.FK_tblResult_tblExam" FromRole="tblExam" ToRole="tblResult" />
+        </EntityType>
+        <EntityType Name="tblExamType">
+          <Key>
+            <PropertyRef Name="ExamTypeID" />
+          </Key>
+          <Property Name="ExamTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeleteBy" Type="Int32" />
+          <NavigationProperty Name="tblExams" Relationship="Self.FK_tblExam_tblExamType" FromRole="tblExamType" ToRole="tblExam" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblExamType_tblUser" FromRole="tblExamType" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblResult">
+          <Key>
+            <PropertyRef Name="ResultID" />
+          </Key>
+          <Property Name="ResultID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamID" Type="Int32" />
+          <Property Name="ObtainNo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsFailed" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <NavigationProperty Name="tblExam" Relationship="Self.FK_tblResult_tblExam" FromRole="tblResult" ToRole="tblExam" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblResult_tblUser" FromRole="tblResult" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblRole_tblUser" FromRole="tblRole" ToRole="tblUser" />
+          <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUser_tblRole" FromRole="tblRole" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="Profile" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserRole_FK" Type="Int32" />
+          <Property Name="TokenCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblCourses" Relationship="Self.FK_tblCourse_tblUser" FromRole="tblUser" ToRole="tblCourse" />
+          <NavigationProperty Name="tblCourseCategories" Relationship="Self.FK_tblCourseCategory_tblUser" FromRole="tblUser" ToRole="tblCourseCategory" />
+          <NavigationProperty Name="tblExams" Relationship="Self.FK_tblExam_tblUser" FromRole="tblUser" ToRole="tblExam" />
+          <NavigationProperty Name="tblExamTypes" Relationship="Self.FK_tblExamType_tblUser" FromRole="tblUser" ToRole="tblExamType" />
+          <NavigationProperty Name="tblResults" Relationship="Self.FK_tblResult_tblUser" FromRole="tblUser" ToRole="tblResult" />
+          <NavigationProperty Name="tblRoles" Relationship="Self.FK_tblRole_tblUser" FromRole="tblUser" ToRole="tblRole" />
+          <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
+        </EntityType>
+        <Association Name="FK_tblCourse_tblCourseCategory">
+          <End Role="tblCourseCategory" Type="Self.tblCourseCategory" Multiplicity="0..1" />
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourseCategory">
+              <PropertyRef Name="CourseCategoryID" />
+            </Principal>
+            <Dependent Role="tblCourse">
+              <PropertyRef Name="CourseCategory_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCourse_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblCourse">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCourseCategory_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblCourseCategory" Type="Self.tblCourseCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblCourseCategory">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExam_tblExamType">
+          <End Role="tblExamType" Type="Self.tblExamType" Multiplicity="0..1" />
+          <End Role="tblExam" Type="Self.tblExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExamType">
+              <PropertyRef Name="ExamTypeID" />
+            </Principal>
+            <Dependent Role="tblExam">
+              <PropertyRef Name="ExamType_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExam_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblExam" Type="Self.tblExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblExam">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblResult_tblExam">
+          <End Role="tblExam" Type="Self.tblExam" Multiplicity="0..1" />
+          <End Role="tblResult" Type="Self.tblResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExam">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="tblResult">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExamType_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblExamType" Type="Self.tblExamType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblExamType">
+              <PropertyRef Name="DeleteBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblResult_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblResult" Type="Self.tblResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblResult">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRole_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblRole">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblRole">
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="UserRole_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SymphonyDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tblCourses" EntityType="Self.tblCourse" />
+          <EntitySet Name="tblCourseCategories" EntityType="Self.tblCourseCategory" />
+          <EntitySet Name="tblEnrollments" EntityType="Self.tblEnrollment" />
+          <EntitySet Name="tblExams" EntityType="Self.tblExam" />
+          <EntitySet Name="tblExamTypes" EntityType="Self.tblExamType" />
+          <EntitySet Name="tblResults" EntityType="Self.tblResult" />
+          <EntitySet Name="tblRoles" EntityType="Self.tblRole" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_tblCourse_tblCourseCategory" Association="Self.FK_tblCourse_tblCourseCategory">
+            <End Role="tblCourseCategory" EntitySet="tblCourseCategories" />
+            <End Role="tblCourse" EntitySet="tblCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCourse_tblUser" Association="Self.FK_tblCourse_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblCourse" EntitySet="tblCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCourseCategory_tblUser" Association="Self.FK_tblCourseCategory_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblCourseCategory" EntitySet="tblCourseCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExam_tblExamType" Association="Self.FK_tblExam_tblExamType">
+            <End Role="tblExamType" EntitySet="tblExamTypes" />
+            <End Role="tblExam" EntitySet="tblExams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExam_tblUser" Association="Self.FK_tblExam_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblExam" EntitySet="tblExams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblResult_tblExam" Association="Self.FK_tblResult_tblExam">
+            <End Role="tblExam" EntitySet="tblExams" />
+            <End Role="tblResult" EntitySet="tblResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExamType_tblUser" Association="Self.FK_tblExamType_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblExamType" EntitySet="tblExamTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblResult_tblUser" Association="Self.FK_tblResult_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblResult" EntitySet="tblResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRole_tblUser" Association="Self.FK_tblRole_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblRole" EntitySet="tblRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblRole" Association="Self.FK_tblUser_tblRole">
+            <End Role="tblRole" EntitySet="tblRoles" />
+            <End Role="tblUser" EntitySet="tblUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SymphonyDBModelStoreContainer" CdmEntityContainer="SymphonyDBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SymphonyDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCourses">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblCourse">
+              <MappingFragment StoreEntitySet="tblCourse">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCategory_FK" ColumnName="CourseCategory_FK" />
+                <ScalarProperty Name="CourseDuration" ColumnName="CourseDuration" />
+                <ScalarProperty Name="CourseFees" ColumnName="CourseFees" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCourseCategories">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblCourseCategory">
+              <MappingFragment StoreEntitySet="tblCourseCategory">
+                <ScalarProperty Name="CourseCategoryID" ColumnName="CourseCategoryID" />
+                <ScalarProperty Name="CourseCategory" ColumnName="CourseCategory" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEnrollments">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblEnrollment">
+              <MappingFragment StoreEntitySet="tblEnrollment">
+                <ScalarProperty Name="EnrollmentID" ColumnName="EnrollmentID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="GRNumber" ColumnName="GRNumber" />
+                <ScalarProperty Name="EntrollmentDate" ColumnName="EntrollmentDate" />
+                <ScalarProperty Name="EnrollFrom" ColumnName="EnrollFrom" />
+                <ScalarProperty Name="EntrollTo" ColumnName="EntrollTo" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="IsDropOff" ColumnName="IsDropOff" />
+                <ScalarProperty Name="IsDefaulter" ColumnName="IsDefaulter" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblExams">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblExam">
+              <MappingFragment StoreEntitySet="tblExam">
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+                <ScalarProperty Name="Studen_FK" ColumnName="Studen_FK" />
+                <ScalarProperty Name="Course_FK" ColumnName="Course_FK" />
+                <ScalarProperty Name="CurrentSemister" ColumnName="CurrentSemister" />
+                <ScalarProperty Name="ExamDuration" ColumnName="ExamDuration" />
+                <ScalarProperty Name="ExamScheduleFrom" ColumnName="ExamScheduleFrom" />
+                <ScalarProperty Name="ExamScheduleTo" ColumnName="ExamScheduleTo" />
+                <ScalarProperty Name="ExamType_FK" ColumnName="ExamType_FK" />
+                <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
+                <ScalarProperty Name="PassingMarks" ColumnName="PassingMarks" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="IsCancled" ColumnName="IsCancled" />
+                <ScalarProperty Name="IsCancledReason" ColumnName="IsCancledReason" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeleteOn" ColumnName="DeleteOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblExamTypes">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblExamType">
+              <MappingFragment StoreEntitySet="tblExamType">
+                <ScalarProperty Name="ExamTypeID" ColumnName="ExamTypeID" />
+                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="DeleteBy" ColumnName="DeleteBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblResults">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblResult">
+              <MappingFragment StoreEntitySet="tblResult">
+                <ScalarProperty Name="ResultID" ColumnName="ResultID" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="ObtainNo" ColumnName="ObtainNo" />
+                <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IsFailed" ColumnName="IsFailed" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRoles">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblRole">
+              <MappingFragment StoreEntitySet="tblRole">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Profile" ColumnName="Profile" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="UserRole_FK" ColumnName="UserRole_FK" />
+                <ScalarProperty Name="TokenCode" ColumnName="TokenCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -121,11 +129,56 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SymphonDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SymphonDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SymphonDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SymphonDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SymphonDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCourse.cs">
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCourseCategory.cs">
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblEnrollment.cs">
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblExam.cs">
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblExamType.cs">
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblResult.cs">
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblRole.cs">
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblUser.cs">
+      <DependentUpon>SymphonDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Login.cs" />
+    <Compile Include="ViewModels\Signup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Assets\Admin\css\app.min.css" />
@@ -344,6 +397,7 @@
     <Content Include="App_Assets\Public\css\swiper.min.css" />
     <Content Include="App_Assets\Public\css\tiny-slider.css" />
     <Content Include="App_Assets\Public\css\tobii.min.css" />
+    <Content Include="App_Assets\Public\css\unicons.iconscout.com\release\v3.0.6\css\line.css" />
     <Content Include="App_Assets\Public\fonts\materialdesignicons-webfont3e71-2.html" />
     <Content Include="App_Assets\Public\fonts\materialdesignicons-webfont3e71.html" />
     <Content Include="App_Assets\Public\images\1.jpg" />
@@ -855,6 +909,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\SymphonDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SymphonDB.Context.cs</LastGenOutput>
+      <DependentUpon>SymphonDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\SymphonDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SymphonDB.edmx</DependentUpon>
+      <LastGenOutput>SymphonDB.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -889,6 +953,13 @@
     <Content Include="App_Assets\Public\fonts\materialdesignicons-webfont3e71.eot" />
     <Content Include="App_Assets\Public\fonts\materialdesignicons-webfont3e71.woff" />
     <Content Include="App_Assets\Public\fonts\materialdesignicons-webfontd41d.eot" />
+    <EntityDeploy Include="Models\SymphonDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SymphonDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SymphonDB.edmx.diagram">
+      <DependentUpon>SymphonDB.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -916,12 +987,14 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Shared\_PublicLayout.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -935,6 +1008,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -9,11 +9,13 @@ function toggleSwitcher() {
 };
 
 function setColor(theme) {
-    document.getElementById('color-opt').href = './css/colors/' + theme + '.css';
+    var url = '../css/colors/' + theme + '.css';
+    document.getElementById('color-opt').href = url;
     toggleSwitcher(false);
 };
 
 function setTheme(theme) {
-    document.getElementById('theme-opt').href = './css/' + theme + '.min.css';
+    var url = '../css/' + theme + '.min.css';
+    document.getElementById('theme-opt').href = url;
     toggleSwitcher(false);
 };

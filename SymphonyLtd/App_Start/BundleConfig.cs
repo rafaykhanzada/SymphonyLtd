@@ -35,21 +35,24 @@ namespace SymphonyLtd
                         "~/App_Assets/Admin/js/app.min.js",
                         "~/App_Assets/Admin/js/admin.js"));
             //Custom Bundling Public Side
-            bundles.Add(new StyleBundle("~/Public/script").Include(
+            bundles.Add(new StyleBundle("~/Public/css").Include(
                         "~/App_Assets/Public/css/bootstrap.min.css",
                         "~/App_Assets/Public/css/tobii.min.css",
                         "~/App_Assets/Public/css/materialdesignicons.min.css",
                         "~/App_Assets/Public/css/tiny-slider.css",
                         "~/App_Assets/Public/css/style.min.css",
-                        "~/App_Assets/Public/css/colors/default.css"));
-            bundles.Add(new ScriptBundle("~/Public/css").Include(
-                  "~/App_Assets/Public/css/bootstrap.bundle.min.js",
-                  "~/App_Assets/Public/css/tiny-slider.js",
-                  "~/App_Assets/Public/css/tobii.min.js",
-                  "~/App_Assets/Public/css/feather.min.js",
-                  "~/App_Assets/Public/css/switcher.js",
-                  "~/App_Assets/Public/css/plugins.init.js",
-                  "~/App_Assets/Public/css/app.js"));
+                        "~/App_Assets/Public/css/colors/default.css",
+                        "~/App_Assets/Public/css/unicons.iconscout.com/release/v3.0.6/css/line.css"
+                        ));
+            bundles.Add(new ScriptBundle("~/Public/script").Include(
+                  "~/App_Assets/Public/js/bootstrap.bundle.min.js",
+                  "~/App_Assets/Public/js/tiny-slider.js",
+                  "~/App_Assets/Public/js/tobii.min.js",
+                  "~/App_Assets/Public/js/feather.min.js",
+                 // "~/App_Assets/Public/js/switcher.js",
+                  "~/App_Assets/Public/js/plugins.init.js",
+                  "~/App_Assets/Public/js/app.js"
+                  ));
            
         }
     }
