@@ -36,8 +36,12 @@ namespace SymphonyLtd
                         "~/App_Assets/Admin/js/admin.js"));
             //Custom Bundling Public Side
             bundles.Add(new StyleBundle("~/Public/script").Include(
-                        "~/App_Assets/Admin/js/app.min.js",
-                        "~/App_Assets/Admin/js/admin.js"));
+                        "~/App_Assets/Public/css/bootstrap.min.css",
+                        "~/App_Assets/Public/css/tobii.min.css",
+                        "~/App_Assets/Public/css/materialdesignicons.min.css",
+                        "~/App_Assets/Public/css/tiny-slider.css",
+                        "~/App_Assets/Public/css/style.min.css",
+                        "~/App_Assets/Public/css/colors/default.css"));
             bundles.Add(new ScriptBundle("~/Public/css").Include(
                   "~/App_Assets/Public/css/bootstrap.bundle.min.js",
                   "~/App_Assets/Public/css/tiny-slider.js",
