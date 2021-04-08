@@ -60,7 +60,7 @@ namespace SymphonyLtd.Controllers
                 Session["User"] = user;
                 if (user[0].tblRole.RoleID==1)
                 {
-                    return RedirectToAction("Dashboard", "Index");
+                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
                 else if (user[0].tblRole.RoleID == 2)
                 {

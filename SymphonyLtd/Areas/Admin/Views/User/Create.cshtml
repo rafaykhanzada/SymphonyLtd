@@ -1,0 +1,111 @@
+﻿@model SymphonyLtd.Models.tblUser
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!--From-->
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { enctype = "multipart/form-data", id = "form_validation" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        <strong>Input</strong> Elements
+                    </h2>
+                    @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @type = "hidden" } })
+
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="#" onclick="return false;">Rest Form</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <h2 class="card-inside-title">Create a New User</h2>
+                    <div class="row clearfix">
+                        <div class="col-sm-4">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                                    <label class="form-label">Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "" } })
+                                    <label class="form-label">PhoneNumber</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    @Html.DropDownList("UserRole_FK", null, htmlAttributes: new { @class = "form-control", required = "" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "validate", id = "email", @type = "email", required = "" } })
+                                <label for="email">Email</label>
+                                <span class="helper-text" data-error="Invalid Email" data-success="Valid Email">
+                                    Please Provide Valid Email
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password", required = "" } })
+                                    <label class="form-label">Password</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="card-inside-title">Please Provide Full User Address</h2>
+                    <div class="row clearfix">
+
+                        <div class="col-sm-6">
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "materialize-textarea", required = "", id = "textarea2", style = "height: 41px;" } })
+                                @*<textarea id="textarea2" class="materialize-textarea" data-length="120" style="height: 41px;"></textarea>*@
+                                <label for="textarea2">Address</label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>Select Image</span>
+                                    <input type="file" name="Profile">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12"><button class="btn btn-primary" type="button" style="float:right">Submit</button></div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

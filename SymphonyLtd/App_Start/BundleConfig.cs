@@ -27,9 +27,9 @@ namespace SymphonyLtd
                       "~/Content/site.css"));
             //Custom Bundling Admin Side
             bundles.Add(new StyleBundle("~/Admin/css").Include(
-                    "~/App_Assets/css/app.min.css",
-                    "~/App_Assets/css/style.css",
-                    "~/App_Assets/css/styles/all-themes.css"
+                    "~/App_Assets/Admin/css/app.min.css",
+                    "~/App_Assets/Admin/css/style.css",
+                    "~/App_Assets/Admin/css/styles/all-themes.css"
                     ));
             bundles.Add(new ScriptBundle("~/Admin/script").Include(
                         "~/App_Assets/Admin/js/app.min.js",

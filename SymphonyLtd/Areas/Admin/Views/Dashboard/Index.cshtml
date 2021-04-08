@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+                <li class="breadcrumb-item">
+                    <h4 class="page-title">Dashboard</h4>
+                </li>
+                <li class="breadcrumb-item bcrumb-1">
+                    <a href="index.html">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-sm-6">
+        <div class="counter-box text-center white">
+            <div class="text font-17 m-b-5">Total Income</div>
+            <h3 class="m-b-10">
+                $758
+                <i class="material-icons col-green">trending_up</i>
+            </h3>
+            <div class="icon">
+                <div class="chart chart-bar"><canvas width="109" height="45" style="display: inline-block; width: 109px; height: 45px; vertical-align: top;"></canvas></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="counter-box text-center white">
+            <div class="text font-17 m-b-5">Orders Received</div>
+            <h3 class="m-b-10">
+                1025
+                <i class="material-icons col-red">trending_down</i>
+            </h3>
+            <div class="icon">
+                <span class="chart chart-line"><canvas width="60" height="45" style="display: inline-block; width: 60px; height: 45px; vertical-align: top;"></canvas></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="counter-box text-center white">
+            <div class="text font-17 m-b-5">Total Sales</div>
+            <h3 class="m-b-10">
+                956
+                <i class="material-icons col-green">trending_up</i>
+            </h3>
+            <div class="icon">
+                <div class="chart chart-pie"><canvas width="45" height="45" style="display: inline-block; width: 45px; height: 45px; vertical-align: top;"></canvas></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="counter-box text-center white">
+            <div class="text font-17 m-b-5">Total Active Users</div>
+            <h3 class="m-b-10">
+                214
+                <i class="material-icons col-red">trending_down</i>
+            </h3>
+            <div class="icon">
+                <div class="chart" id="liveChart"><canvas width="60" height="45" style="display: inline-block; width: 60px; height: 45px; vertical-align: top;"></canvas></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/App_Assets/Admin/js/app.min.js"></script>
+<script src="~/App_Assets/Admin/js/chart.min.js"></script>
+<script src="~/App_Assets/Admin/js/pages/charts/jquery-knob.js"></script>
+<script src="~/App_Assets/Admin/js/pages/sparkline/sparkline-data.js"></script>
+<!-- Custom Js -->
+@*<script src="assets/js/admin.js"></script>
+    <script src="assets/js/pages/index.js"></script>
+    <script src="assets/js/pages/medias/carousel.js"></script*@
