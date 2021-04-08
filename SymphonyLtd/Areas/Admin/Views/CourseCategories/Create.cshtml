@@ -11,7 +11,7 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    <strong>Basic</strong> Validation
+                    <strong>Create</strong> Course Category
                 </h2>
                 <ul class="header-dropdown m-r--5">
                     <li class="dropdown">
@@ -34,7 +34,7 @@
                 </ul>
             </div>
             <div class="body">
-                @using (Html.BeginForm("", "", FormMethod.Post, new { id = "form_validation" }))
+                @using (Html.BeginForm("Create", "CourseCategories", FormMethod.Post, new { enctype = "multipart/form-data", id = "form_validation" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group form-float">
@@ -47,7 +47,7 @@
 
                     <div class="form-group form-float">
                         <div class="form-line">
-                            @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { cols = "30", rows = "5", @class = "form-control no-resize", required = ""  } })
+                            @Html.TextAreaFor(model => model.Description, new { cols = "30", rows = "5", @class = "form-control no-resize", required = ""  } )
 
                             <label class="form-label">Description</label>
                         </div>
@@ -60,9 +60,9 @@
                     <div class="form-group">
                         <div class="form-check m-l-10">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="checkbox"
-                                       name="checkbox">
-                                I have read and accept the terms
+                                @Html.CheckBoxFor(model=>model.IsActive,new { @class = "form-check-input" , type="checkbox", id= "checkbox" })
+                               
+                               If you want to active this now?
                                 <span class="form-check-sign">
                                     <span class="check"></span>
                                 </span>

@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SymphonyLtd.Models;
+using SymphonyLtd.Helper;
+using System.IO;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
@@ -38,36 +40,12 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         }
 
         // GET: Admin/CourseCategories/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create(int? id)
         {
-            ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name");
-            return View();
-        }
-
-        // POST: Admin/CourseCategories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "CourseCategoryID,CourseCategory,Description,Image,IsActive,CreatedOn,ModifiedOn,DeletedBy,DeletedOn")] tblCourseCategory tblCourseCategory)
-        {
-            if (ModelState.IsValid)
+             if (id == null)
             {
-                db.tblCourseCategories.Add(tblCourseCategory);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name", tblCourseCategory.DeletedBy);
-            return View(tblCourseCategory);
-        }
-
-        // GET: Admin/CourseCategories/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name");
+                return View();
             }
             tblCourseCategory tblCourseCategory = await db.tblCourseCategories.FindAsync(id);
             if (tblCourseCategory == null)
@@ -75,22 +53,39 @@ namespace SymphonyLtd.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name", tblCourseCategory.DeletedBy);
-            return View(tblCourseCategory);
+            return View(tblCourseCategory);         
         }
 
-        // POST: Admin/CourseCategories/Edit/5
+        // POST: Admin/CourseCategories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "CourseCategoryID,CourseCategory,Description,Image,IsActive,CreatedOn,ModifiedOn,DeletedBy,DeletedOn")] tblCourseCategory tblCourseCategory)
+        public async Task<ActionResult> Create([Bind(Include = "CourseCategoryID,CourseCategory,Description,IsActive")] tblCourseCategory tblCourseCategory, HttpPostedFileBase Image)
         {
-            if (ModelState.IsValid)
+            if (Image.ContentLength > 0)
             {
+                var UniqueName = Common.GenerateRandomDigitCode(20);
+                var extension = Path.GetExtension(Image.FileName);
+                var path = Path.Combine(Server.MapPath("~/uploads"), UniqueName + extension);
+                Image.SaveAs(path);
+               tblCourseCategory.Image = UniqueName + extension;
+            }
+            if (tblCourseCategory.CourseCategoryID==0)
+            {
+                tblCourseCategory.CreatedOn = DateTime.Now;
+                db.tblCourseCategories.Add(tblCourseCategory);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            else if (tblCourseCategory.CourseCategoryID > 0)
+            {
+                tblCourseCategory.ModifiedOn = DateTime.Now;
                 db.Entry(tblCourseCategory).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
             ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name", tblCourseCategory.DeletedBy);
             return View(tblCourseCategory);
         }
