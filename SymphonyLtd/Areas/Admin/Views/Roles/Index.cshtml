@@ -1,9 +1,12 @@
-﻿@model IEnumerable<SymphonyLtd.Models.tblCourseCategory>
+﻿@model IEnumerable<SymphonyLtd.Models.tblRole>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+
+
+<!--Table-->
 
 <div class="block-header">
     <div class="row">
@@ -41,7 +44,7 @@
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <li>
-                                @Html.ActionLink("Create New", "Create", "User", new { area = "Admin" })
+                                @Html.ActionLink("Create New", "Create", "Roles", new { area = "Admin" })
                             </li>
                             <li>
                                 <a href="#" onclick="return false;">Refresh Data</a>
@@ -55,13 +58,13 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.CourseCategory)
+                                @Html.DisplayNameFor(model => model.RoleName)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.IsActive)
-                            </th>
+                            </th>          
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedOn)
+                                @Html.DisplayNameFor(model => model.tblUser.Name)
                             </th>
                             <th>Action</th>
                         </tr>
@@ -71,20 +74,18 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CourseCategory)
+                                    @Html.DisplayFor(modelItem => item.RoleName)
                                 </td>
-
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IsActive)
+                                </td>                               
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.tblUser.Name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                                </td>
-
-                                <td>
-                                    @Html.ActionLink("Edit", "Create", new { id = item.CourseCategoryID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.CourseCategoryID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseCategoryID })
+                                    @Html.ActionLink("Edit", "Create", new { id = item.RoleID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.RoleID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.RoleID })
                                 </td>
                             </tr>
                         }

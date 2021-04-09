@@ -156,6 +156,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CourseCategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -1001,6 +1002,11 @@
     <Content Include="Areas\Admin\Views\CourseCategories\Details.cshtml" />
     <Content Include="Areas\Admin\Views\CourseCategories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CourseCategories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1012,6 +1018,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="uploads\09QN560ANN1JLR35FQDZ.jpg" />
+    <Content Include="uploads\E70XZ85S7IZK8OX5GLTT.jpg" />
+    <Content Include="uploads\HH7JCPWEONL2G3QR334H.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1036,7 +1045,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Assets\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="uploads\" />
     <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>

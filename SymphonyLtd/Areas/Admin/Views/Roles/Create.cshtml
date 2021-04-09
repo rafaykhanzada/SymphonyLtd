@@ -1,11 +1,30 @@
-﻿@model SymphonyLtd.Models.tblCourseCategory
+﻿@model SymphonyLtd.Models.tblRole
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-
+<div class="block-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+                <li class="breadcrumb-item">
+                    <h4 class="page-title">Normal Table</h4>
+                </li>
+                <li class="breadcrumb-item bcrumb-1">
+                    <a href="../../index.html">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item bcrumb-2">
+                    <a href="#" onclick="return false;">Tables</a>
+                </li>
+                <li class="breadcrumb-item active">Normal</li>
+            </ul>
+        </div>
+    </div>
+</div>
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
@@ -21,44 +40,31 @@
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <li>
-                                <a href="#" onClick="return false;">Action</a>
+                                <a href="#" onClick="return false;">Back to List</a>
                             </li>
                             <li>
-                                <a href="#" onClick="return false;">Another action</a>
+                                <a href="#" onClick="return false;">Rest Form</a>
                             </li>
-                            <li>
-                                <a href="#" onClick="return false;">Something else here</a>
-                            </li>
+                           
                         </ul>
                     </li>
                 </ul>
             </div>
             <div class="body">
-                @using (Html.BeginForm("Create", "CourseCategories", FormMethod.Post, new { enctype = "multipart/form-data", id = "form_validation" }))
+                @using (Html.BeginForm("Create", "Roles", FormMethod.Post, new { id = "form_validation" }))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.EditorFor(model => model.CourseCategoryID, new { htmlAttributes = new { @type = "hidden" } })
-
+                    @Html.EditorFor(model=>model.RoleID,new { htmlAttributes=new { @type="hidden"} })
                     <div class="form-group form-float">
                         <div class="form-line">
-                            @Html.EditorFor(model => model.CourseCategory, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                            @Html.EditorFor(model => model.RoleName, new { htmlAttributes = new { @class = "form-control" } })
+
 
                             <label class="form-label">Name</label>
                         </div>
                     </div>
 
-                    <div class="form-group form-float">
-                        <div class="form-line">
-                            @Html.TextAreaFor(model => model.Description, new { cols = "30", rows = "5", @class = "form-control no-resize", required = "" })
 
-                            <label class="form-label">Description</label>
-                        </div>
-                    </div>
-                    <div class="form-group form-float">
-                        <div class="form-line">
-                            <input type="file" class="form-control" name="Image" required="">
-                        </div>
-                    </div>
                     <div class="form-group">
                         <div class="form-check m-l-10">
                             <label class="form-check-label">
@@ -74,13 +80,18 @@
                                         <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox">
                                     }
 
-                                }
-                                else
-                                {
-                                    <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox">
+                            }
+                            else
+                            {
+                                <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox">
 
-                                }
+                            }
+
                                 If you want to active this now?
+
+
+
+
                                 <span class="form-check-sign">
                                     <span class="check"></span>
                                 </span>
