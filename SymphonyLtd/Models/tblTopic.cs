@@ -12,23 +12,30 @@ namespace SymphonyLtd.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblExamType
+    public partial class tblTopic
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblExamType()
+        public tblTopic()
         {
+            this.tblCourseTopicsMappings = new HashSet<tblCourseTopicsMapping>();
             this.tblExams = new HashSet<tblExam>();
         }
     
-        public int ExamTypeID { get; set; }
-        public string ExamName { get; set; }
-        public Nullable<decimal> ExamFees { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public int TopicID { get; set; }
+        public string Topic { get; set; }
+        public string LearningOutcome { get; set; }
+        public string Description { get; set; }
+        public string ClassSchedule { get; set; }
+        public string ClassTime { get; set; }
+        public string Thumbnail { get; set; }
+        public bool IsActive { get; set; }
+        public Nullable<System.DateTime> CreateOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public Nullable<int> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedOn { get; set; }
-        public Nullable<int> DeleteBy { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCourseTopicsMapping> tblCourseTopicsMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblExam> tblExams { get; set; }
         public virtual tblUser tblUser { get; set; }

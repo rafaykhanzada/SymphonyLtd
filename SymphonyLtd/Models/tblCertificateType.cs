@@ -12,24 +12,24 @@ namespace SymphonyLtd.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblEnrollment
+    public partial class tblCertificateType
     {
-        public int EnrollmentID { get; set; }
-        public Nullable<int> StudentID { get; set; }
-        public Nullable<int> CourseID { get; set; }
-        public string GRNumber { get; set; }
-        public Nullable<System.DateTime> EntrollmentDate { get; set; }
-        public Nullable<System.DateTime> EnrollFrom { get; set; }
-        public Nullable<System.DateTime> EntrollTo { get; set; }
-        public Nullable<bool> IsValid { get; set; }
-        public Nullable<bool> IsDropOff { get; set; }
-        public Nullable<bool> IsDefaulter { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblCertificateType()
+        {
+            this.tblCertificates = new HashSet<tblCertificate>();
+        }
+    
+        public int CertificateID { get; set; }
+        public string CertificateTypeName { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<int> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedOn { get; set; }
     
-        public virtual tblCourse tblCourse { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCertificate> tblCertificates { get; set; }
         public virtual tblUser tblUser { get; set; }
     }
 }

@@ -14,6 +14,13 @@ namespace SymphonyLtd.Models
     
     public partial class tblCourse
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblCourse()
+        {
+            this.tblCourseTopicsMappings = new HashSet<tblCourseTopicsMapping>();
+            this.tblEnrollments = new HashSet<tblEnrollment>();
+        }
+    
         public int CourseID { get; set; }
         public string CourseName { get; set; }
         public Nullable<int> CourseCategory_FK { get; set; }
@@ -30,5 +37,9 @@ namespace SymphonyLtd.Models
     
         public virtual tblCourseCategory tblCourseCategory { get; set; }
         public virtual tblUser tblUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCourseTopicsMapping> tblCourseTopicsMappings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblEnrollment> tblEnrollments { get; set; }
     }
 }

@@ -12,25 +12,20 @@ namespace SymphonyLtd.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblExamType
+    public partial class tblCountry
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblExamType()
+        public tblCountry()
         {
-            this.tblExams = new HashSet<tblExam>();
+            this.tblStates = new HashSet<tblState>();
         }
     
-        public int ExamTypeID { get; set; }
-        public string ExamName { get; set; }
-        public Nullable<decimal> ExamFees { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
-        public Nullable<System.DateTime> DeletedOn { get; set; }
-        public Nullable<int> DeleteBy { get; set; }
+        public int CountryID { get; set; }
+        public string ISO { get; set; }
+        public string Name { get; set; }
+        public int PhoneCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblExam> tblExams { get; set; }
-        public virtual tblUser tblUser { get; set; }
+        public virtual ICollection<tblState> tblStates { get; set; }
     }
 }

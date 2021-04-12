@@ -12,25 +12,23 @@ namespace SymphonyLtd.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblExamType
+    public partial class tblFeesType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblExamType()
+        public tblFeesType()
         {
-            this.tblExams = new HashSet<tblExam>();
+            this.tblFees = new HashSet<tblFee>();
         }
     
-        public int ExamTypeID { get; set; }
-        public string ExamName { get; set; }
-        public Nullable<decimal> ExamFees { get; set; }
+        public int FeesTypeID { get; set; }
+        public string FeesType { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public Nullable<System.DateTime> CreateOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public Nullable<int> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedOn { get; set; }
-        public Nullable<int> DeleteBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblExam> tblExams { get; set; }
-        public virtual tblUser tblUser { get; set; }
+        public virtual ICollection<tblFee> tblFees { get; set; }
     }
 }

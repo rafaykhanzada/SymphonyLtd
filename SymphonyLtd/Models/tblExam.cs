@@ -23,8 +23,7 @@ namespace SymphonyLtd.Models
         public int ExamID { get; set; }
         public string ExamName { get; set; }
         public Nullable<int> Studen_FK { get; set; }
-        public Nullable<int> Course_FK { get; set; }
-        public Nullable<int> CurrentSemister { get; set; }
+        public Nullable<int> Topic_FK { get; set; }
         public Nullable<System.TimeSpan> ExamDuration { get; set; }
         public Nullable<System.DateTime> ExamScheduleFrom { get; set; }
         public Nullable<System.DateTime> ExamScheduleTo { get; set; }
@@ -40,6 +39,7 @@ namespace SymphonyLtd.Models
         public Nullable<int> DeletedBy { get; set; }
     
         public virtual tblExamType tblExamType { get; set; }
+        public virtual tblTopic tblTopic { get; set; }
         public virtual tblUser tblUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblResult> tblResults { get; set; }

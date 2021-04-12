@@ -1,0 +1,123 @@
+﻿@model SymphonyLtd.Models.tblEnrollment
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblEnrollment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GRNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GRNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntrollmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EntrollmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntrollTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EntrollTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsValid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsValid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDropOff)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDropOff)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDefaulter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDefaulter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblCourse.CourseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblCourse.CourseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblUser.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblUser.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EnrollmentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

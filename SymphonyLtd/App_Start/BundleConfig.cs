@@ -29,13 +29,22 @@ namespace SymphonyLtd
             bundles.Add(new StyleBundle("~/Admin/css").Include(
                     "~/App_Assets/Admin/css/app.min.css",
                     "~/App_Assets/Admin/css/style.css",
-                    "~/App_Assets/Admin/css/styles/all-themes.css"
+                    "~/App_Assets/Admin/css/styles/all-themes.css",
+                    "~/App_Assets/Admin/js/bundles/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css",
+                    "~/App_Assets/Admin/js/bundles/multiselect/css/multi-select.css",
+                    "~/App_Assets/Admin/css/form.min.css"
                     ));
             bundles.Add(new ScriptBundle("~/Admin/script").Include(
                         "~/App_Assets/Admin/js/app.min.js",
-                        "~/App_Assets/Admin/js/admin.js"));
-            //Custom Bundling Public Side
-            bundles.Add(new StyleBundle("~/Public/css").Include(
+                        "~/App_Assets/Admin/js/admin.js",
+                        "~/App_Assets/Admin/js/form.min.js",
+                        "~/App_Assets/Admin/js/pages/forms/advanced-form-elements.js",
+                        "~/App_Assets/Admin/js/bundles/multiselect/js/jquery.multi-select.js",
+                        "~/App_Assets/Admin/js/bundles/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js",
+                        "~/App_Assets/Admin/js/pages/forms/form-wizard.js"
+                        ));
+             //Custom Bundling Public Side
+             bundles.Add(new StyleBundle("~/Public/css").Include(
                         "~/App_Assets/Public/css/bootstrap.min.css",
                         "~/App_Assets/Public/css/tobii.min.css",
                         "~/App_Assets/Public/css/materialdesignicons.min.css",

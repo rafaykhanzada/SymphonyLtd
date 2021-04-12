@@ -57,7 +57,7 @@ namespace SymphonyLtd.Controllers
             var user =await tblUsers.Where(x => x.Email == model.Email && x.Password == model.Password).ToListAsync();
             if (user.Count()==1)
             {
-                Session["User"] = user;
+                Session["User"] = user[0];
                 if (user[0].tblRole.RoleID==1)
                 {
                     return RedirectToAction("Index", "Dashboard", new { area = "Admin" });

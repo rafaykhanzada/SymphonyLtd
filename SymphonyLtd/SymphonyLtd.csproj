@@ -154,9 +154,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BranchesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CourseCategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CoursesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EnrollmentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TopicsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -165,47 +169,92 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Common.cs" />
-    <Compile Include="Models\SymphonDB.Context.cs">
+    <Compile Include="Models\Symphon.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SymphonDB.Context.tt</DependentUpon>
+      <DependentUpon>Symphon.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SymphonDB.cs">
+    <Compile Include="Models\Symphon.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SymphonDB.Designer.cs">
+    <Compile Include="Models\Symphon.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SymphonDB.edmx</DependentUpon>
+      <DependentUpon>Symphon.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblAboutU.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblBranch.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCertificate.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCertificateType.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCity.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblContactU.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCountry.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCourse.cs">
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCourseCategory.cs">
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCourseTopicsMapping.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblEnrollment.cs">
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblExam.cs">
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblExamType.cs">
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblFAQ.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblFAQType.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblFee.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblFeesType.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPartner.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblResult.cs">
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblRole.cs">
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblState.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblTopic.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblUser.cs">
-      <DependentUpon>SymphonDB.tt</DependentUpon>
+      <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Login.cs" />
@@ -940,15 +989,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\SymphonDB.Context.tt">
+    <Content Include="Models\Symphon.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SymphonDB.Context.cs</LastGenOutput>
-      <DependentUpon>SymphonDB.edmx</DependentUpon>
+      <DependentUpon>Symphon.edmx</DependentUpon>
+      <LastGenOutput>Symphon.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SymphonDB.tt">
+    <Content Include="Models\Symphon.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SymphonDB.edmx</DependentUpon>
-      <LastGenOutput>SymphonDB.cs</LastGenOutput>
+      <DependentUpon>Symphon.edmx</DependentUpon>
+      <LastGenOutput>Symphon.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -984,13 +1033,6 @@
     <Content Include="App_Assets\Public\fonts\materialdesignicons-webfont3e71.eot" />
     <Content Include="App_Assets\Public\fonts\materialdesignicons-webfont3e71.woff" />
     <Content Include="App_Assets\Public\fonts\materialdesignicons-webfontd41d.eot" />
-    <EntityDeploy Include="Models\SymphonDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SymphonDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\SymphonDB.edmx.diagram">
-      <DependentUpon>SymphonDB.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Create.cshtml" />
     <Content Include="Areas\Admin\Views\User\Delete.cshtml" />
@@ -1007,6 +1049,33 @@
     <Content Include="Areas\Admin\Views\Roles\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
+    <EntityDeploy Include="Models\Symphon.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Symphon.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Symphon.edmx.diagram">
+      <DependentUpon>Symphon.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Views\Courses\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Topics\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Topics\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Topics\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Topics\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Topics\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Branches\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Branches\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Branches\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Branches\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Branches\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -262,7 +262,11 @@ namespace SymphonyLtd.Helper
 
             return fi.GetValue(target);
         }
-
+        public static List<string> GetDays()
+        {
+            string[] Days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+            return Days.ToList();
+        }
         #endregion
     }
 }

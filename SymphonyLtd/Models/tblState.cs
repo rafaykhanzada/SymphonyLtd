@@ -12,24 +12,25 @@ namespace SymphonyLtd.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblEnrollment
+    public partial class tblState
     {
-        public int EnrollmentID { get; set; }
-        public Nullable<int> StudentID { get; set; }
-        public Nullable<int> CourseID { get; set; }
-        public string GRNumber { get; set; }
-        public Nullable<System.DateTime> EntrollmentDate { get; set; }
-        public Nullable<System.DateTime> EnrollFrom { get; set; }
-        public Nullable<System.DateTime> EntrollTo { get; set; }
-        public Nullable<bool> IsValid { get; set; }
-        public Nullable<bool> IsDropOff { get; set; }
-        public Nullable<bool> IsDefaulter { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblState()
+        {
+            this.tblCities = new HashSet<tblCity>();
+        }
+    
+        public int StateID { get; set; }
+        public string StateName { get; set; }
+        public Nullable<int> Country_FK { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<int> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedOn { get; set; }
     
-        public virtual tblCourse tblCourse { get; set; }
-        public virtual tblUser tblUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCity> tblCities { get; set; }
+        public virtual tblCountry tblCountry { get; set; }
     }
 }
