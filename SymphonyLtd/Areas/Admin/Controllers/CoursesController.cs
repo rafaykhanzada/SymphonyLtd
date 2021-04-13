@@ -63,13 +63,12 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "CourseID,CourseName,CourseCategory_FK,CourseDuration,CourseFees,Description,Term,IsActive")] tblCourse tblCourse, HttpPostedFileBase Image,string Topics_FK)
         {
-            ViewBag.CourseCategory_FK = new SelectList(db.tblCourseCategories, "CourseCategoryID", "CourseCategory", tblCourse.CourseCategory_FK);
-            ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name", tblCourse.DeletedBy);
+            ViewBag.CourseCategory_FK = new SelectList(db.tblCourseCategories, "CourseCategoryID", "CourseCategory", tblCourse.CourseCategory_FK);            
             ViewBag.Topics_FK = new SelectList(db.tblTopics, "TopicID", "Topic");
-            if (Image.ContentLength > 0)
+          
+            if (Image != null)
             {
                 var UniqueName = Common.GenerateRandomDigitCode(20);
                 var extension = Path.GetExtension(Image.FileName);
@@ -84,15 +83,31 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             if (tblCourse.CourseID > 0)
             {
                 db.Entry(tblCourse).State = EntityState.Modified;
+                db.tblCourseTopicsMappings.RemoveRange(db.tblCourseTopicsMappings.Where(x => x.CourseID == tblCourse.CourseID));
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             if (tblCourse.CourseID==0)
             {
+                tblCourse.CreatedOn = DateTime.Now;
                 db.tblCourses.Add(tblCourse);
                 await db.SaveChangesAsync();
+            }
+            if (!String.IsNullOrEmpty(Topics_FK))
+            {
+                var Topic = Topics_FK.Split(',');
+                foreach (var item in Topic)
+                {
+                    tblCourseTopicsMapping courseTopicsMapping = new tblCourseTopicsMapping();
+                    courseTopicsMapping.CourseID = tblCourse.CourseID;
+                    courseTopicsMapping.TopicID = int.Parse(item);
+                    courseTopicsMapping.CreateOn = DateTime.Now;  
+                    db.tblCourseTopicsMappings.Add(courseTopicsMapping);
+                     await db.SaveChangesAsync();
+
+                }
                 return RedirectToAction("Index");
-            }           
+            }
             return View(tblCourse);
         }
         // GET: Admin/Courses/Delete/5

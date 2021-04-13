@@ -80,9 +80,9 @@
           <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CityName" Type="nvarchar" MaxLength="50" />
           <Property Name="State_FK" Type="int" />
-          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" />
-          <Property Name="ModifiedOn" Type="nchar" MaxLength="10" />
+          <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
           <Property Name="DeletedOn" Type="datetime" />
         </EntityType>
@@ -160,7 +160,7 @@
           <Property Name="GRNumber" Type="nvarchar" MaxLength="250" />
           <Property Name="EntrollmentDate" Type="datetime" />
           <Property Name="EnrollFrom" Type="datetime" />
-          <Property Name="EntrollTo" Type="datetime" />
+          <Property Name="EnrollTo" Type="datetime" />
           <Property Name="IsValid" Type="bit" />
           <Property Name="IsDropOff" Type="bit" />
           <Property Name="IsDefaulter" Type="bit" />
@@ -168,6 +168,7 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
           <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Branch_FK" Type="int" />
         </EntityType>
         <EntityType Name="tblExam">
           <Key>
@@ -175,8 +176,7 @@
           </Key>
           <Property Name="ExamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ExamName" Type="nvarchar" MaxLength="250" />
-          <Property Name="Studen_FK" Type="int" />
-          <Property Name="Topic_FK" Type="int" />
+          <Property Name="Topics_FK" Type="int" />
           <Property Name="ExamDuration" Type="time" Precision="3" />
           <Property Name="ExamScheduleFrom" Type="datetime" />
           <Property Name="ExamScheduleTo" Type="datetime" />
@@ -191,12 +191,20 @@
           <Property Name="DeleteOn" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
         </EntityType>
+        <EntityType Name="tblExamStudentMapping">
+          <Key>
+            <PropertyRef Name="ExamStudentMappingID" />
+          </Key>
+          <Property Name="ExamStudentMappingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamID" Type="int" />
+          <Property Name="StudentID" Type="int" />
+        </EntityType>
         <EntityType Name="tblExamType">
           <Key>
             <PropertyRef Name="ExamTypeID" />
           </Key>
           <Property Name="ExamTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ExamName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ExamTypeName" Type="nvarchar" MaxLength="250" />
           <Property Name="ExamFees" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedOn" Type="datetime" />
@@ -306,7 +314,7 @@
           <Property Name="StateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="250" />
           <Property Name="Country_FK" Type="int" />
-          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
@@ -469,6 +477,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblEnrollment_tblBranch">
+          <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="0..1" />
+          <End Role="tblEnrollment" Type="Self.tblEnrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="tblEnrollment">
+              <PropertyRef Name="Branch_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblEnrollment_tblCourse">
           <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="0..1" />
           <End Role="tblEnrollment" Type="Self.tblEnrollment" Multiplicity="*" />
@@ -513,7 +533,7 @@
               <PropertyRef Name="TopicID" />
             </Principal>
             <Dependent Role="tblExam">
-              <PropertyRef Name="Topic_FK" />
+              <PropertyRef Name="Topics_FK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -526,6 +546,30 @@
             </Principal>
             <Dependent Role="tblExam">
               <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExamStudentMapping_tblExam">
+          <End Role="tblExam" Type="Self.tblExam" Multiplicity="0..1" />
+          <End Role="tblExamStudentMapping" Type="Self.tblExamStudentMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExam">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="tblExamStudentMapping">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExamStudentMapping_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblExamStudentMapping" Type="Self.tblExamStudentMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblExamStudentMapping">
+              <PropertyRef Name="StudentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -651,6 +695,7 @@
           <EntitySet Name="tblCourseTopicsMapping" EntityType="Self.tblCourseTopicsMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEnrollment" EntityType="Self.tblEnrollment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblExam" EntityType="Self.tblExam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblExamStudentMapping" EntityType="Self.tblExamStudentMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblExamType" EntityType="Self.tblExamType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFAQ" EntityType="Self.tblFAQ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFAQType" EntityType="Self.tblFAQType" Schema="dbo" store:Type="Tables" />
@@ -702,6 +747,10 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblCourseTopicsMapping" EntitySet="tblCourseTopicsMapping" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblEnrollment_tblBranch" Association="Self.FK_tblEnrollment_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranch" />
+            <End Role="tblEnrollment" EntitySet="tblEnrollment" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblEnrollment_tblCourse" Association="Self.FK_tblEnrollment_tblCourse">
             <End Role="tblCourse" EntitySet="tblCourse" />
             <End Role="tblEnrollment" EntitySet="tblEnrollment" />
@@ -721,6 +770,14 @@
           <AssociationSet Name="FK_tblExam_tblUser" Association="Self.FK_tblExam_tblUser">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblExam" EntitySet="tblExam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExamStudentMapping_tblExam" Association="Self.FK_tblExamStudentMapping_tblExam">
+            <End Role="tblExam" EntitySet="tblExam" />
+            <End Role="tblExamStudentMapping" EntitySet="tblExamStudentMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExamStudentMapping_tblUser" Association="Self.FK_tblExamStudentMapping_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblExamStudentMapping" EntitySet="tblExamStudentMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_tblExamType_tblUser1" Association="Self.FK_tblExamType_tblUser1">
             <End Role="tblUser" EntitySet="tblUser" />
@@ -803,6 +860,38 @@
           <Property Name="Country" Type="Int32" />
           <Property Name="StreetAddress" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
           <Property Name="Time" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblEnrollments" Relationship="Self.FK_tblEnrollment_tblBranch" FromRole="tblBranch" ToRole="tblEnrollment" />
+        </EntityType>
+        <EntityType Name="tblCertificate">
+          <Key>
+            <PropertyRef Name="CertificateID" />
+          </Key>
+          <Property Name="CertificateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CertificateType" Type="Int32" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="ValidationCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CertificateIssueDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblCertificateType" Relationship="Self.FK_tblCertificate_tblCertificateType" FromRole="tblCertificate" ToRole="tblCertificateType" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblCertificate_tblUser" FromRole="tblCertificate" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblCertificateType">
+          <Key>
+            <PropertyRef Name="CertificateID" />
+          </Key>
+          <Property Name="CertificateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CertificateTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblCertificates" Relationship="Self.FK_tblCertificate_tblCertificateType" FromRole="tblCertificateType" ToRole="tblCertificate" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblCertificateType_tblUser" FromRole="tblCertificateType" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblCity">
           <Key>
@@ -811,12 +900,23 @@
           <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="State_FK" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedOn" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="DeletedBy" Type="Int32" />
           <Property Name="DeletedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblState" Relationship="Self.FK_tblCity_tblState" FromRole="tblCity" ToRole="tblState" />
+        </EntityType>
+        <EntityType Name="tblContactU">
+          <Key>
+            <PropertyRef Name="ContactID" />
+          </Key>
+          <Property Name="ContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tblCountry">
           <Key>
@@ -891,7 +991,7 @@
           <Property Name="GRNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="EntrollmentDate" Type="DateTime" Precision="3" />
           <Property Name="EnrollFrom" Type="DateTime" Precision="3" />
-          <Property Name="EntrollTo" Type="DateTime" Precision="3" />
+          <Property Name="EnrollTo" Type="DateTime" Precision="3" />
           <Property Name="IsValid" Type="Boolean" />
           <Property Name="IsDropOff" Type="Boolean" />
           <Property Name="IsDefaulter" Type="Boolean" />
@@ -899,6 +999,8 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="DeletedBy" Type="Int32" />
           <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Branch_FK" Type="Int32" />
+          <NavigationProperty Name="tblBranch" Relationship="Self.FK_tblEnrollment_tblBranch" FromRole="tblEnrollment" ToRole="tblBranch" />
           <NavigationProperty Name="tblCourse" Relationship="Self.FK_tblEnrollment_tblCourse" FromRole="tblEnrollment" ToRole="tblCourse" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblEnrollment_tblUser1" FromRole="tblEnrollment" ToRole="tblUser" />
         </EntityType>
@@ -908,8 +1010,7 @@
           </Key>
           <Property Name="ExamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ExamName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Studen_FK" Type="Int32" />
-          <Property Name="Topic_FK" Type="Int32" />
+          <Property Name="Topics_FK" Type="Int32" />
           <Property Name="ExamDuration" Type="Time" Precision="3" />
           <Property Name="ExamScheduleFrom" Type="DateTime" Precision="3" />
           <Property Name="ExamScheduleTo" Type="DateTime" Precision="3" />
@@ -926,14 +1027,24 @@
           <NavigationProperty Name="tblExamType" Relationship="Self.FK_tblExam_tblExamType" FromRole="tblExam" ToRole="tblExamType" />
           <NavigationProperty Name="tblTopic" Relationship="Self.FK_tblExam_tblTopic" FromRole="tblExam" ToRole="tblTopic" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblExam_tblUser" FromRole="tblExam" ToRole="tblUser" />
+          <NavigationProperty Name="tblExamStudentMappings" Relationship="Self.FK_tblExamStudentMapping_tblExam" FromRole="tblExam" ToRole="tblExamStudentMapping" />
           <NavigationProperty Name="tblResults" Relationship="Self.FK_tblResult_tblExam" FromRole="tblExam" ToRole="tblResult" />
+        </EntityType>
+        <EntityType Name="tblExamStudentMapping">
+          <Key>
+            <PropertyRef Name="ExamStudentMappingID" />
+          </Key>
+          <Property Name="ExamStudentMappingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamID" Type="Int32" />
+          <Property Name="StudentID" Type="Int32" />
+          <NavigationProperty Name="tblExam" Relationship="Self.FK_tblExamStudentMapping_tblExam" FromRole="tblExamStudentMapping" ToRole="tblExam" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblExamStudentMapping_tblUser" FromRole="tblExamStudentMapping" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblExamType">
           <Key>
             <PropertyRef Name="ExamTypeID" />
           </Key>
           <Property Name="ExamTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ExamName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ExamFees" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -942,6 +1053,7 @@
           <Property Name="DeleteBy" Type="Int32" />
           <NavigationProperty Name="tblExams" Relationship="Self.FK_tblExam_tblExamType" FromRole="tblExamType" ToRole="tblExam" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblExamType_tblUser1" FromRole="tblExamType" ToRole="tblUser" />
+          <Property Name="ExamTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblFAQ">
           <Key>
@@ -1053,7 +1165,7 @@
           <Property Name="StateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Country_FK" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="DeletedBy" Type="Int32" />
@@ -1100,19 +1212,68 @@
           <Property Name="DeletedBy" Type="Int32" />
           <Property Name="DeletedOn" Type="DateTime" Precision="3" />
           <Property Name="Gender" Type="Int32" />
+          <NavigationProperty Name="tblCertificates" Relationship="Self.FK_tblCertificate_tblUser" FromRole="tblUser" ToRole="tblCertificate" />
+          <NavigationProperty Name="tblCertificateTypes" Relationship="Self.FK_tblCertificateType_tblUser" FromRole="tblUser" ToRole="tblCertificateType" />
           <NavigationProperty Name="tblCourses" Relationship="Self.FK_tblCourse_tblUser1" FromRole="tblUser" ToRole="tblCourse" />
           <NavigationProperty Name="tblCourseCategories" Relationship="Self.FK_tblCourseCategory_tblUser" FromRole="tblUser" ToRole="tblCourseCategory" />
           <NavigationProperty Name="tblCourseTopicsMappings" Relationship="Self.FK_tblCourseTopicsMapping_tblUser" FromRole="tblUser" ToRole="tblCourseTopicsMapping" />
           <NavigationProperty Name="tblEnrollments" Relationship="Self.FK_tblEnrollment_tblUser1" FromRole="tblUser" ToRole="tblEnrollment" />
           <NavigationProperty Name="tblExams" Relationship="Self.FK_tblExam_tblUser" FromRole="tblUser" ToRole="tblExam" />
+          <NavigationProperty Name="tblExamStudentMappings" Relationship="Self.FK_tblExamStudentMapping_tblUser" FromRole="tblUser" ToRole="tblExamStudentMapping" />
           <NavigationProperty Name="tblExamTypes" Relationship="Self.FK_tblExamType_tblUser1" FromRole="tblUser" ToRole="tblExamType" />
           <NavigationProperty Name="tblResults" Relationship="Self.FK_tblResult_tblUser" FromRole="tblUser" ToRole="tblResult" />
           <NavigationProperty Name="tblRoles" Relationship="Self.FK_tblRole_tblUser" FromRole="tblUser" ToRole="tblRole" />
           <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
           <NavigationProperty Name="tblTopics" Relationship="Self.FK_tblTopic_tblUser" FromRole="tblUser" ToRole="tblTopic" />
-          <NavigationProperty Name="tblCertificates" Relationship="SymphonyDBModel.FK_tblCertificate_tblUser" FromRole="tblUser" ToRole="tblCertificate" />
-          <NavigationProperty Name="tblCertificateTypes" Relationship="SymphonyDBModel.FK_tblCertificateType_tblUser" FromRole="tblUser" ToRole="tblCertificateType" />
         </EntityType>
+        <Association Name="FK_tblEnrollment_tblBranch">
+          <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="0..1" />
+          <End Role="tblEnrollment" Type="Self.tblEnrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="tblEnrollment">
+              <PropertyRef Name="Branch_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCertificate_tblCertificateType">
+          <End Role="tblCertificateType" Type="Self.tblCertificateType" Multiplicity="0..1" />
+          <End Role="tblCertificate" Type="Self.tblCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCertificateType">
+              <PropertyRef Name="CertificateID" />
+            </Principal>
+            <Dependent Role="tblCertificate">
+              <PropertyRef Name="CertificateType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCertificate_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblCertificate" Type="Self.tblCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblCertificate">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCertificateType_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblCertificateType" Type="Self.tblCertificateType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblCertificateType">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblCity_tblState">
           <End Role="tblState" Type="Self.tblState" Multiplicity="0..1" />
           <End Role="tblCity" Type="Self.tblCity" Multiplicity="*" />
@@ -1253,7 +1414,7 @@
               <PropertyRef Name="TopicID" />
             </Principal>
             <Dependent Role="tblExam">
-              <PropertyRef Name="Topic_FK" />
+              <PropertyRef Name="Topics_FK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1269,6 +1430,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblExamStudentMapping_tblExam">
+          <End Role="tblExam" Type="Self.tblExam" Multiplicity="0..1" />
+          <End Role="tblExamStudentMapping" Type="Self.tblExamStudentMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExam">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="tblExamStudentMapping">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblResult_tblExam">
           <End Role="tblExam" Type="Self.tblExam" Multiplicity="0..1" />
           <End Role="tblResult" Type="Self.tblResult" Multiplicity="*" />
@@ -1278,6 +1451,18 @@
             </Principal>
             <Dependent Role="tblResult">
               <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExamStudentMapping_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblExamStudentMapping" Type="Self.tblExamStudentMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblExamStudentMapping">
+              <PropertyRef Name="StudentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1369,13 +1554,17 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="tblAboutUs" EntityType="Self.tblAboutU" />
           <EntitySet Name="tblBranches" EntityType="Self.tblBranch" />
+          <EntitySet Name="tblCertificates" EntityType="Self.tblCertificate" />
+          <EntitySet Name="tblCertificateTypes" EntityType="Self.tblCertificateType" />
           <EntitySet Name="tblCities" EntityType="Self.tblCity" />
+          <EntitySet Name="tblContactUs" EntityType="Self.tblContactU" />
           <EntitySet Name="tblCountries" EntityType="Self.tblCountry" />
           <EntitySet Name="tblCourses" EntityType="Self.tblCourse" />
           <EntitySet Name="tblCourseCategories" EntityType="Self.tblCourseCategory" />
           <EntitySet Name="tblCourseTopicsMappings" EntityType="Self.tblCourseTopicsMapping" />
           <EntitySet Name="tblEnrollments" EntityType="Self.tblEnrollment" />
           <EntitySet Name="tblExams" EntityType="Self.tblExam" />
+          <EntitySet Name="tblExamStudentMappings" EntityType="Self.tblExamStudentMapping" />
           <EntitySet Name="tblExamTypes" EntityType="Self.tblExamType" />
           <EntitySet Name="tblFAQs" EntityType="Self.tblFAQ" />
           <EntitySet Name="tblFAQTypes" EntityType="Self.tblFAQType" />
@@ -1387,6 +1576,22 @@
           <EntitySet Name="tblStates" EntityType="Self.tblState" />
           <EntitySet Name="tblTopics" EntityType="Self.tblTopic" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_tblEnrollment_tblBranch" Association="Self.FK_tblEnrollment_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranches" />
+            <End Role="tblEnrollment" EntitySet="tblEnrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCertificate_tblCertificateType" Association="Self.FK_tblCertificate_tblCertificateType">
+            <End Role="tblCertificateType" EntitySet="tblCertificateTypes" />
+            <End Role="tblCertificate" EntitySet="tblCertificates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCertificate_tblUser" Association="Self.FK_tblCertificate_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblCertificate" EntitySet="tblCertificates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCertificateType_tblUser" Association="Self.FK_tblCertificateType_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblCertificateType" EntitySet="tblCertificateTypes" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblCity_tblState" Association="Self.FK_tblCity_tblState">
             <End Role="tblState" EntitySet="tblStates" />
             <End Role="tblCity" EntitySet="tblCities" />
@@ -1439,9 +1644,17 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblExam" EntitySet="tblExams" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblExamStudentMapping_tblExam" Association="Self.FK_tblExamStudentMapping_tblExam">
+            <End Role="tblExam" EntitySet="tblExams" />
+            <End Role="tblExamStudentMapping" EntitySet="tblExamStudentMappings" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblResult_tblExam" Association="Self.FK_tblResult_tblExam">
             <End Role="tblExam" EntitySet="tblExams" />
             <End Role="tblResult" EntitySet="tblResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExamStudentMapping_tblUser" Association="Self.FK_tblExamStudentMapping_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblExamStudentMapping" EntitySet="tblExamStudentMappings" />
           </AssociationSet>
           <AssociationSet Name="FK_tblExamType_tblUser1" Association="Self.FK_tblExamType_tblUser1">
             <End Role="tblUser" EntitySet="tblUsers" />
@@ -1471,100 +1684,7 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblTopic" EntitySet="tblTopics" />
           </AssociationSet>
-          <EntitySet Name="tblCertificates" EntityType="SymphonyDBModel.tblCertificate" />
-          <EntitySet Name="tblCertificateTypes" EntityType="SymphonyDBModel.tblCertificateType" />
-          <AssociationSet Name="FK_tblCertificate_tblCertificateType" Association="SymphonyDBModel.FK_tblCertificate_tblCertificateType">
-            <End Role="tblCertificateType" EntitySet="tblCertificateTypes" />
-            <End Role="tblCertificate" EntitySet="tblCertificates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCertificate_tblUser" Association="SymphonyDBModel.FK_tblCertificate_tblUser">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblCertificate" EntitySet="tblCertificates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCertificateType_tblUser" Association="SymphonyDBModel.FK_tblCertificateType_tblUser">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblCertificateType" EntitySet="tblCertificateTypes" />
-          </AssociationSet>
-          <EntitySet Name="tblContactUs" EntityType="SymphonyDBModel.tblContactU" />
         </EntityContainer>
-        <EntityType Name="tblCertificate">
-          <Key>
-            <PropertyRef Name="CertificateID" />
-          </Key>
-          <Property Name="CertificateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CertificateType" Type="Int32" />
-          <Property Name="StudentID" Type="Int32" />
-          <Property Name="ValidationCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CertificateIssueDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="Int32" />
-          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCertificateType" Relationship="SymphonyDBModel.FK_tblCertificate_tblCertificateType" FromRole="tblCertificate" ToRole="tblCertificateType" />
-          <NavigationProperty Name="tblUser" Relationship="SymphonyDBModel.FK_tblCertificate_tblUser" FromRole="tblCertificate" ToRole="tblUser" />
-        </EntityType>
-        <EntityType Name="tblCertificateType">
-          <Key>
-            <PropertyRef Name="CertificateID" />
-          </Key>
-          <Property Name="CertificateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CertificateTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="Int32" />
-          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCertificates" Relationship="SymphonyDBModel.FK_tblCertificate_tblCertificateType" FromRole="tblCertificateType" ToRole="tblCertificate" />
-          <NavigationProperty Name="tblUser" Relationship="SymphonyDBModel.FK_tblCertificateType_tblUser" FromRole="tblCertificateType" ToRole="tblUser" />
-        </EntityType>
-        <Association Name="FK_tblCertificate_tblCertificateType">
-          <End Type="SymphonyDBModel.tblCertificateType" Role="tblCertificateType" Multiplicity="0..1" />
-          <End Type="SymphonyDBModel.tblCertificate" Role="tblCertificate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCertificateType">
-              <PropertyRef Name="CertificateID" />
-            </Principal>
-            <Dependent Role="tblCertificate">
-              <PropertyRef Name="CertificateType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCertificate_tblUser">
-          <End Type="SymphonyDBModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="SymphonyDBModel.tblCertificate" Role="tblCertificate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblCertificate">
-              <PropertyRef Name="DeletedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCertificateType_tblUser">
-          <End Type="SymphonyDBModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="SymphonyDBModel.tblCertificateType" Role="tblCertificateType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblCertificateType">
-              <PropertyRef Name="DeletedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="tblContactU">
-          <Key>
-            <PropertyRef Name="ContactID" />
-          </Key>
-          <Property Name="ContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Subject" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1615,6 +1735,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblCertificates">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblCertificate">
+              <MappingFragment StoreEntitySet="tblCertificate">
+                <ScalarProperty Name="CertificateID" ColumnName="CertificateID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CertificateType" ColumnName="CertificateType" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ValidationCode" ColumnName="ValidationCode" />
+                <ScalarProperty Name="CertificateIssueDate" ColumnName="CertificateIssueDate" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCertificateTypes">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblCertificateType">
+              <MappingFragment StoreEntitySet="tblCertificateType">
+                <ScalarProperty Name="CertificateID" ColumnName="CertificateID" />
+                <ScalarProperty Name="CertificateTypeName" ColumnName="CertificateTypeName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblCities">
             <EntityTypeMapping TypeName="SymphonyDBModel.tblCity">
               <MappingFragment StoreEntitySet="tblCity">
@@ -1626,6 +1775,18 @@
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
                 <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblContactUs">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblContactU">
+              <MappingFragment StoreEntitySet="tblContactUs">
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1695,7 +1856,7 @@
                 <ScalarProperty Name="GRNumber" ColumnName="GRNumber" />
                 <ScalarProperty Name="EntrollmentDate" ColumnName="EntrollmentDate" />
                 <ScalarProperty Name="EnrollFrom" ColumnName="EnrollFrom" />
-                <ScalarProperty Name="EntrollTo" ColumnName="EntrollTo" />
+                <ScalarProperty Name="EnrollTo" ColumnName="EnrollTo" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="IsDropOff" ColumnName="IsDropOff" />
                 <ScalarProperty Name="IsDefaulter" ColumnName="IsDefaulter" />
@@ -1703,6 +1864,7 @@
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
                 <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Branch_FK" ColumnName="Branch_FK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1711,8 +1873,7 @@
               <MappingFragment StoreEntitySet="tblExam">
                 <ScalarProperty Name="ExamID" ColumnName="ExamID" />
                 <ScalarProperty Name="ExamName" ColumnName="ExamName" />
-                <ScalarProperty Name="Studen_FK" ColumnName="Studen_FK" />
-                <ScalarProperty Name="Topic_FK" ColumnName="Topic_FK" />
+                <ScalarProperty Name="Topics_FK" ColumnName="Topics_FK" />
                 <ScalarProperty Name="ExamDuration" ColumnName="ExamDuration" />
                 <ScalarProperty Name="ExamScheduleFrom" ColumnName="ExamScheduleFrom" />
                 <ScalarProperty Name="ExamScheduleTo" ColumnName="ExamScheduleTo" />
@@ -1729,11 +1890,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblExamStudentMappings">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblExamStudentMapping">
+              <MappingFragment StoreEntitySet="tblExamStudentMapping">
+                <ScalarProperty Name="ExamStudentMappingID" ColumnName="ExamStudentMappingID" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblExamTypes">
             <EntityTypeMapping TypeName="SymphonyDBModel.tblExamType">
               <MappingFragment StoreEntitySet="tblExamType">
+                <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
                 <ScalarProperty Name="ExamTypeID" ColumnName="ExamTypeID" />
-                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
                 <ScalarProperty Name="ExamFees" ColumnName="ExamFees" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
@@ -1895,47 +2065,6 @@
                 <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
                 <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblCertificates">
-            <EntityTypeMapping TypeName="SymphonyDBModel.tblCertificate">
-              <MappingFragment StoreEntitySet="tblCertificate">
-                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CertificateIssueDate" ColumnName="CertificateIssueDate" />
-                <ScalarProperty Name="ValidationCode" ColumnName="ValidationCode" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="CertificateType" ColumnName="CertificateType" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CertificateID" ColumnName="CertificateID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblCertificateTypes">
-            <EntityTypeMapping TypeName="SymphonyDBModel.tblCertificateType">
-              <MappingFragment StoreEntitySet="tblCertificateType">
-                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CertificateTypeName" ColumnName="CertificateTypeName" />
-                <ScalarProperty Name="CertificateID" ColumnName="CertificateID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblContactUs">
-            <EntityTypeMapping TypeName="SymphonyDBModel.tblContactU">
-              <MappingFragment StoreEntitySet="tblContactUs">
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

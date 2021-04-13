@@ -49,21 +49,21 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.LearningOutcome, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-12">
-                                 @Html.TextAreaFor(model => model.LearningOutcome, new { htmlAttributes = new { @class = "form-control no-resize",rows="4" } })
+                                @Html.TextAreaFor(model => model.LearningOutcome, new { htmlAttributes = new { @class = "form-control no-resize", rows = "4" } })
                                 @*<textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>*@
                                 @Html.ValidationMessageFor(model => model.LearningOutcome, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                      
+
                         <div class="col-md-6">
                             <p>
                                 <b>Course Category</b>
                             </p>
                             <div class="form-group default-select select2Style">
-                                @Html.DropDownList("Days", null, htmlAttributes: new { @class = "form-control select2",multiple="",name= "ClassSchedule" })
+                                @Html.DropDownList("Days", null, htmlAttributes: new { @class = "form-control select2", multiple = "", name = "ClassSchedule" })
 
                             </div>
-                        </div>                     
+                        </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.ClassTime, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-12">
@@ -84,7 +84,7 @@
                                     @* @Html.CheckBoxFor(model=>model.IsActive,new { @class = "form-check-input" , type="checkbox", id= "checkbox" })*@
                                     @if (Model != null)
                                     {
-                                        if (Model.IsActive)
+                                        if (Model.IsActive.Value)
                                         {
                                             <input class="form-check-input" type="checkbox" id="checkbox" checked name="IsActive">
                                         }
@@ -113,3 +113,28 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $("#form_validation").submit((e) => {
+        e.preventDefault();
+        var url = '@Url.Action("Create","Topics")';
+        var model = {
+            "Topic": $("#Topic").val(),
+            "LearningOutcome": $("#LearningOutcome").val(),
+            "Days": $("#Days").val().toString(),
+            "ClassTime": $("#ClassTime").val(),
+            "Description": $("#Description").val(),
+            "IsActive": $("#checkbox").is(':checked'),
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: model, // serializes the form's elements.
+            success: function (data) {
+                alert(data); // show response from the php script.
+            }
+        });
+
+    });
+</script>

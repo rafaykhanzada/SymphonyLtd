@@ -17,13 +17,13 @@ namespace SymphonyLtd.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblExam()
         {
+            this.tblExamStudentMappings = new HashSet<tblExamStudentMapping>();
             this.tblResults = new HashSet<tblResult>();
         }
     
         public int ExamID { get; set; }
         public string ExamName { get; set; }
-        public Nullable<int> Studen_FK { get; set; }
-        public Nullable<int> Topic_FK { get; set; }
+        public Nullable<int> Topics_FK { get; set; }
         public Nullable<System.TimeSpan> ExamDuration { get; set; }
         public Nullable<System.DateTime> ExamScheduleFrom { get; set; }
         public Nullable<System.DateTime> ExamScheduleTo { get; set; }
@@ -41,6 +41,8 @@ namespace SymphonyLtd.Models
         public virtual tblExamType tblExamType { get; set; }
         public virtual tblTopic tblTopic { get; set; }
         public virtual tblUser tblUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblExamStudentMapping> tblExamStudentMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblResult> tblResults { get; set; }
     }

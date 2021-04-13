@@ -37,9 +37,25 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         }
 
         // GET: Admin/Branches/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create(int? id)
         {
-            return View();
+            if (id == null)
+            {               
+                ViewBag.Country = new SelectList(db.tblCountries, "CountryID", "Name");
+                ViewBag.State = new SelectList(db.tblStates, "StateID", "StateName");
+                ViewBag.City = new SelectList(db.tblCities, "CityID", "CityName");
+
+                return View();
+            }
+            tblBranch tblBranch = await db.tblBranches.FindAsync(id);
+            if (tblBranch == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Country = new SelectList(db.tblCountries, "CountryID", "Name",tblBranch.Country);
+            ViewBag.State = new SelectList(db.tblStates.Where(x=>x.Country_FK== tblBranch.Country), "StateID", "StateName", tblBranch.State);
+            ViewBag.City = new SelectList(db.tblCities.Where(x=>x.State_FK== tblBranch.State), "CityID", "CityName", tblBranch.City);
+            return View(tblBranch);
         }
 
         // POST: Admin/Branches/Create
@@ -49,13 +65,21 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "BranchID,BranchName,Email,Phone,City,State,Country,StreetAddress,Time")] tblBranch tblBranch)
         {
-            if (ModelState.IsValid)
+            if (tblBranch.BranchID==0)
             {
                 db.tblBranches.Add(tblBranch);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+            if (tblBranch.BranchID > 0)
+            {
+                db.Entry(tblBranch).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            ViewBag.Country = new SelectList(db.tblCountries, "CountryID", "Name", tblBranch.Country);
+            ViewBag.State = new SelectList(db.tblStates.Where(x => x.Country_FK == tblBranch.Country), "StateID", "StateName", tblBranch.State);
+            ViewBag.City = new SelectList(db.tblCities.Where(x => x.State_FK == tblBranch.State), "CityID", "CityName", tblBranch.City);
             return View(tblBranch);
         }
 

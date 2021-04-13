@@ -38,39 +38,15 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         }
 
         // GET: Admin/Enrollments/Create
-        public ActionResult Create()
-        {
-            ViewBag.StudentID = new SelectList(db.tblUsers, "UserID", "Name");
-            ViewBag.CourseID = new SelectList(db.tblCourses, "CourseID", "CourseName");
-            ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name");
-            return View();
-        }
-
-        // POST: Admin/Enrollments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "EnrollmentID,StudentID,CourseID,GRNumber,EntrollmentDate,EnrollFrom,EntrollTo,IsValid,IsDropOff,IsDefaulter,CreatedOn,ModifiedOn,DeletedBy,DeletedOn")] tblEnrollment tblEnrollment)
-        {
-            if (ModelState.IsValid)
-            {
-                db.tblEnrollments.Add(tblEnrollment);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.CourseID = new SelectList(db.tblCourses, "CourseID", "CourseName", tblEnrollment.CourseID);
-            ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name", tblEnrollment.DeletedBy);
-            return View(tblEnrollment);
-        }
-
-        // GET: Admin/Enrollments/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Create(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.CourseID = new SelectList(db.tblCourses, "CourseID", "CourseName");
+                ViewBag.StudentID = new SelectList(db.tblUsers, "UserID", "Name");
+                ViewBag.Branches = new SelectList(db.tblBranches, "BranchID", "BranchName");
+
+                return View();
             }
             tblEnrollment tblEnrollment = await db.tblEnrollments.FindAsync(id);
             if (tblEnrollment == null)
@@ -78,28 +54,36 @@ namespace SymphonyLtd.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.CourseID = new SelectList(db.tblCourses, "CourseID", "CourseName", tblEnrollment.CourseID);
-            ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name", tblEnrollment.DeletedBy);
+            ViewBag.StudentID = new SelectList(db.tblUsers, "UserID", "Name",tblEnrollment.StudentID);
+            ViewBag.Branches = new SelectList(db.tblBranches, "BranchID", "BranchName", tblEnrollment.Branch_FK);
+
             return View(tblEnrollment);
         }
 
-        // POST: Admin/Enrollments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "EnrollmentID,StudentID,CourseID,GRNumber,EntrollmentDate,EnrollFrom,EntrollTo,IsValid,IsDropOff,IsDefaulter,CreatedOn,ModifiedOn,DeletedBy,DeletedOn")] tblEnrollment tblEnrollment)
+        public async Task<ActionResult> Create(tblEnrollment tblEnrollment)
         {
-            if (ModelState.IsValid)
+            ViewBag.CourseID = new SelectList(db.tblCourses, "CourseID", "CourseName", tblEnrollment.CourseID);
+            ViewBag.Branches = new SelectList(db.tblBranches, "BranchID", "BranchName", tblEnrollment.CourseID);
+
+            if (tblEnrollment.EnrollmentID == 0)
             {
+                Random random = new Random();
+                tblEnrollment.CreatedOn = DateTime.Now;
+                tblEnrollment.GRNumber = random.Next(000001,999999).ToString();
+                db.tblEnrollments.Add(tblEnrollment);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }           
+            if (tblEnrollment.EnrollmentID > 0)
+            {
+                tblEnrollment.GRNumber = db.tblEnrollments.Where(x => x.EnrollmentID == tblEnrollment.EnrollmentID).FirstOrDefault().GRNumber;
                 db.Entry(tblEnrollment).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
-            }
-            ViewBag.CourseID = new SelectList(db.tblCourses, "CourseID", "CourseName", tblEnrollment.CourseID);
-            ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name", tblEnrollment.DeletedBy);
+            }          
             return View(tblEnrollment);
         }
-
         // GET: Admin/Enrollments/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {

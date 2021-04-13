@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+@*<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.EnrollFrom)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EntrollTo)
+            @Html.DisplayNameFor(model => model.EnrollTo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IsValid)
@@ -70,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.EnrollFrom)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EntrollTo)
+                @Html.DisplayFor(modelItem => item.EnrollTo)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsValid)
@@ -104,7 +104,7 @@
         </tr>
     }
 
-</table>
+</table>*@
 
 
 
@@ -171,7 +171,7 @@
                                 @Html.DisplayNameFor(model => model.EnrollFrom)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.EntrollTo)
+                                @Html.DisplayNameFor(model => model.EnrollTo)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.IsValid)
@@ -209,7 +209,7 @@
                                     @Html.DisplayFor(modelItem => item.EnrollFrom)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.EntrollTo)
+                                    @Html.DisplayFor(modelItem => item.EnrollTo)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IsValid)
@@ -227,7 +227,7 @@
                                     @Html.DisplayFor(modelItem => item.tblUser.Name)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.EnrollmentID }) |
+                                    @Html.ActionLink("Edit", "Create", new { id = item.EnrollmentID }) |
                                     @Html.ActionLink("Details", "Details", new { id = item.EnrollmentID }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = item.EnrollmentID })
                                 </td>

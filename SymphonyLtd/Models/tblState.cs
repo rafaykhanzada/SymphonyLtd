@@ -23,7 +23,7 @@ namespace SymphonyLtd.Models
         public int StateID { get; set; }
         public string StateName { get; set; }
         public Nullable<int> Country_FK { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public bool IsActive { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<int> DeletedBy { get; set; }

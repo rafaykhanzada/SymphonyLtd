@@ -14,6 +14,12 @@ namespace SymphonyLtd.Models
     
     public partial class tblBranch
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblBranch()
+        {
+            this.tblEnrollments = new HashSet<tblEnrollment>();
+        }
+    
         public int BranchID { get; set; }
         public string BranchName { get; set; }
         public string Email { get; set; }
@@ -23,5 +29,8 @@ namespace SymphonyLtd.Models
         public Nullable<int> Country { get; set; }
         public string StreetAddress { get; set; }
         public string Time { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblEnrollment> tblEnrollments { get; set; }
     }
 }

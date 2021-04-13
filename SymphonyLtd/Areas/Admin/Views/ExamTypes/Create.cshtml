@@ -1,0 +1,195 @@
+﻿@model SymphonyLtd.Models.tblExamType
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h2>Create</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>tblExamType</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExamTypeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ExamTypeName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ExamTypeName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExamFees, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ExamFees, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ExamFees, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsActive)
+                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CreatedOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CreatedOn, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ModifiedOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ModifiedOn, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ModifiedOn, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DeletedOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DeletedOn, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DeletedOn, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DeleteBy, "DeleteBy", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DeleteBy", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DeleteBy, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+                <li class="breadcrumb-item">
+                    <h4 class="page-title">Normal Table</h4>
+                </li>
+                <li class="breadcrumb-item bcrumb-1">
+                    <a href="../../index.html">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item bcrumb-2">
+                    <a href="#" onclick="return false;">Tables</a>
+                </li>
+                <li class="breadcrumb-item active">Normal</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    <strong>Create</strong> Course Category
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="#" onClick="return false;" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="#" onClick="return false;">Back to List</a>
+                            </li>
+                            <li>
+                                <a href="#" onClick="return false;">Rest Form</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm("Create", "ExamTypes", FormMethod.Post, new { id = "form_validation" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.ExamTypeID)
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.ExamTypeName, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                            <label class="form-label">Exam Type Name</label>
+                        </div>
+                    </div> <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.ExamFees, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                            <label class="form-label">Exam Fees</label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="form-check m-l-10">
+                            <label class="form-check-label">
+                                @* @Html.CheckBoxFor(model=>model.IsActive,new { @class = "form-check-input" , type="checkbox", id= "checkbox" })*@
+                                @if (Model != null)
+                                {
+                                    if (Model.IsActive)
+                                    {
+                                        <input class="form-check-input" type="checkbox" id="checkbox" checked name="IsActive">
+                                    }
+                                    else
+                                    {
+                                        <input class="form-check-input" type="checkbox" id="checkbox" name="IsActive">
+                                    }
+
+                                }
+                                else
+                                {
+                                    <input class="form-check-input" type="checkbox" id="checkbox" name="IsActive">
+
+                                }
+
+                                If you want to active this now?
+
+
+
+
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <button style="float:right" class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

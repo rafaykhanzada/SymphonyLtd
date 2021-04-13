@@ -17,9 +17,9 @@ namespace SymphonyLtd.Models
         public int CityID { get; set; }
         public string CityName { get; set; }
         public Nullable<int> State_FK { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public bool IsActive { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
-        public string ModifiedOn { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<int> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedOn { get; set; }
     

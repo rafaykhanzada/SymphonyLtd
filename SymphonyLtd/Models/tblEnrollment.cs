@@ -20,7 +20,7 @@ namespace SymphonyLtd.Models
         public string GRNumber { get; set; }
         public Nullable<System.DateTime> EntrollmentDate { get; set; }
         public Nullable<System.DateTime> EnrollFrom { get; set; }
-        public Nullable<System.DateTime> EntrollTo { get; set; }
+        public Nullable<System.DateTime> EnrollTo { get; set; }
         public Nullable<bool> IsValid { get; set; }
         public Nullable<bool> IsDropOff { get; set; }
         public Nullable<bool> IsDefaulter { get; set; }
@@ -28,7 +28,9 @@ namespace SymphonyLtd.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<int> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedOn { get; set; }
+        public Nullable<int> Branch_FK { get; set; }
     
+        public virtual tblBranch tblBranch { get; set; }
         public virtual tblCourse tblCourse { get; set; }
         public virtual tblUser tblUser { get; set; }
     }

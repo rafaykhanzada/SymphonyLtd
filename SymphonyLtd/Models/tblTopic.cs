@@ -28,7 +28,7 @@ namespace SymphonyLtd.Models
         public string ClassSchedule { get; set; }
         public string ClassTime { get; set; }
         public string Thumbnail { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreateOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<int> DeletedBy { get; set; }

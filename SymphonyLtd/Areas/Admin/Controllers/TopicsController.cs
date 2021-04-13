@@ -55,9 +55,9 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             return View(tblTopic);           
         }       
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TopicID,Topic,LearningOutcome,Description,ClassSchedule,ClassTime,Thumbnail,IsActive")] tblTopic tblTopic)
+        public async Task<ActionResult> Create([Bind(Include = "TopicID,Topic,LearningOutcome,Description,ClassSchedule,ClassTime,Thumbnail,IsActive")] tblTopic tblTopic,string Days)
         {
+            tblTopic.ClassSchedule = Days;
             if (tblTopic.TopicID==0)
             {
                 tblTopic.CreateOn = DateTime.Now;

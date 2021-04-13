@@ -1,0 +1,43 @@
+﻿@model SymphonyLtd.Models.tblCountry
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblCountry</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ISO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ISO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CountryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

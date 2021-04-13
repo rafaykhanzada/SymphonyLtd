@@ -17,17 +17,18 @@ namespace SymphonyLtd.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblUser()
         {
+            this.tblCertificates = new HashSet<tblCertificate>();
+            this.tblCertificateTypes = new HashSet<tblCertificateType>();
             this.tblCourses = new HashSet<tblCourse>();
             this.tblCourseCategories = new HashSet<tblCourseCategory>();
             this.tblCourseTopicsMappings = new HashSet<tblCourseTopicsMapping>();
             this.tblEnrollments = new HashSet<tblEnrollment>();
             this.tblExams = new HashSet<tblExam>();
+            this.tblExamStudentMappings = new HashSet<tblExamStudentMapping>();
             this.tblExamTypes = new HashSet<tblExamType>();
             this.tblResults = new HashSet<tblResult>();
             this.tblRoles = new HashSet<tblRole>();
             this.tblTopics = new HashSet<tblTopic>();
-            this.tblCertificates = new HashSet<tblCertificate>();
-            this.tblCertificateTypes = new HashSet<tblCertificateType>();
         }
     
         public int UserID { get; set; }
@@ -47,6 +48,10 @@ namespace SymphonyLtd.Models
         public Nullable<int> Gender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCertificate> tblCertificates { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCertificateType> tblCertificateTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCourse> tblCourses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCourseCategory> tblCourseCategories { get; set; }
@@ -57,6 +62,8 @@ namespace SymphonyLtd.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblExam> tblExams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblExamStudentMapping> tblExamStudentMappings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblExamType> tblExamTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblResult> tblResults { get; set; }
@@ -65,9 +72,5 @@ namespace SymphonyLtd.Models
         public virtual tblRole tblRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTopic> tblTopics { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblCertificate> tblCertificates { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblCertificateType> tblCertificateTypes { get; set; }
     }
 }

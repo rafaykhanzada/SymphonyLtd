@@ -1,0 +1,278 @@
+﻿@model IEnumerable<SymphonyLtd.Models.tblExam>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamDuration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamScheduleFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamScheduleTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalMarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassingMarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsValid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCancled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCancledReason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeleteOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tblExamType.ExamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tblTopic.Topic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tblUser.Name)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExamDuration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExamScheduleFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExamScheduleTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalMarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassingMarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsValid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCancled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCancledReason)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeleteOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblExamType.ExamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblTopic.Topic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblUser.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ExamID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ExamID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ExamID })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+                <li class="breadcrumb-item">
+                    <h4 class="page-title">Normal Table</h4>
+                </li>
+                <li class="breadcrumb-item bcrumb-1">
+                    <a href="../../index.html">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item bcrumb-2">
+                    <a href="#" onclick="return false;">Tables</a>
+                </li>
+                <li class="breadcrumb-item active">Normal</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--Custom Table-->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    <strong>Striped</strong> Rows
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                @Html.ActionLink("Create New", "Create", "Exams", new { area = "Admin" })
+                            </li>
+                            <li>
+                                <a href="#" onclick="return false;">Refresh Data</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ExamName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ExamDuration)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ExamScheduleFrom)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ExamScheduleTo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalMarks)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PassingMarks)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsValid)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsCancled)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsCancledReason)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedOn)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ModifiedOn)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DeleteOn)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.tblExamType.ExamName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.tblTopic.Topic)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.tblUser.Name)
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExamName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExamDuration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExamScheduleFrom)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExamScheduleTo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalMarks)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PassingMarks)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsValid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsCancled)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsCancledReason)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedOn)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ModifiedOn)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DeleteOn)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tblExamType.ExamName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tblTopic.Topic)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tblUser.Name)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ExamID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ExamID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ExamID })
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
