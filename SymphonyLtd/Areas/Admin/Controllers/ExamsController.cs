@@ -40,7 +40,7 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         // GET: Admin/Exams/Create
         public ActionResult Create()
         {
-            ViewBag.ExamType_FK = new SelectList(db.tblExamTypes, "ExamTypeID", "ExamName");
+            ViewBag.ExamType_FK = new SelectList(db.tblExamTypes, "ExamTypeID", "ExamTypeName");
             ViewBag.Topics_FK = new SelectList(db.tblTopics, "TopicID", "Topic");
             ViewBag.DeletedBy = new SelectList(db.tblUsers, "UserID", "Name");
             return View();

@@ -1,0 +1,113 @@
+﻿@model SymphonyLtd.Models.tblFee
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tblFee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaidAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaidAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaidDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaidDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ForMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ForMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChargeBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChargeBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeleteBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeleteBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeleteOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeleteOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblFeesType.FeesType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblFeesType.FeesType)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

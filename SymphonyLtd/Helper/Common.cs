@@ -267,6 +267,11 @@ namespace SymphonyLtd.Helper
             string[] Days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             return Days.ToList();
         }
+        public static List<string> GetMonths()
+        {
+            string[] names = DateTimeFormatInfo.CurrentInfo.MonthNames;
+            return names.ToList();
+        }
         #endregion
     }
 }

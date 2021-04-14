@@ -1,0 +1,185 @@
+﻿@model IEnumerable<SymphonyLtd.Models.tblFee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EnrollmentID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaidAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaidDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChargeBy)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.tblFeesType.FeesType)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaidAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaidDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ForMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChargeBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblFeesType.FeesType)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.FeesID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.FeesID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.FeesID })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+                <li class="breadcrumb-item">
+                    <h4 class="page-title">Normal Table</h4>
+                </li>
+                <li class="breadcrumb-item bcrumb-1">
+                    <a href="../../index.html">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item bcrumb-2">
+                    <a href="#" onclick="return false;">Tables</a>
+                </li>
+                <li class="breadcrumb-item active">Normal</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--Custom Table-->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    <strong>Striped</strong> Rows
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                @Html.ActionLink("Create New", "Create", "Branches", new { area = "Admin" })
+                            </li>
+                            <li>
+                                <a href="#" onclick="return false;">Refresh Data</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EnrollmentID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.StudentID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaidAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaidDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ForMonth)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ChargeBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.tblFeesType.FeesType)
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EnrollmentID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PaidAmount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PaidDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ForMonth)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ChargeBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tblFeesType.FeesType)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.FeesID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.FeesID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.FeesID })
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

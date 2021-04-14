@@ -163,6 +163,8 @@
     <Compile Include="Areas\Admin\Controllers\EnrollmentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExamsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExamTypesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FeesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FeesTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\GeneralController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\StatesController.cs" />
@@ -1118,6 +1120,16 @@
     <Content Include="Areas\Admin\Views\ExamTypes\Details.cshtml" />
     <Content Include="Areas\Admin\Views\ExamTypes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ExamTypes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\FeesTypes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\FeesTypes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\FeesTypes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\FeesTypes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\FeesTypes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Fees\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Fees\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Fees\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Fees\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Fees\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
