@@ -9,6 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using SymphonyLtd.Models;
 using SymphonyLtd.ViewModels;
+using System.Web.Security;
+using System.Security.Principal;
+using SymphonyLtd.Security;
 
 namespace SymphonyLtd.Controllers
 {
@@ -57,6 +60,7 @@ namespace SymphonyLtd.Controllers
             var user =await tblUsers.Where(x => x.Email == model.Email && x.Password == model.Password).ToListAsync();
             if (user.Count()==1)
             {
+                FormsAuthentication.SetAuthCookie(user[0].Email, false);
                 Session["User"] = user[0];
                 if (user[0].tblRole.RoleID==1)
                 {
@@ -73,6 +77,23 @@ namespace SymphonyLtd.Controllers
             }
             return View();
         }
-        
+        public ActionResult Logout()
+        {
+            try
+            {
+                FormsAuthentication.SignOut();
+                HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
+                Session.Clear();
+                System.Web.HttpContext.Current.Session.RemoveAll();
+                DisableCache.IgnoreCookie();
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            catch
+            {
+                ModelState.AddModelError("unhandled", "Oops, something is wrong, have you tried checking your connection?");
+            }
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
+
     }
 }

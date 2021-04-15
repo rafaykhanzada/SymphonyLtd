@@ -3,7 +3,20 @@
     Layout = null;
 }
 
+@{
 
+    SymphonyLtd.Models.SymphonyDBEntities db = new SymphonyLtd.Models.SymphonyDBEntities();
+    SymphonyLtd.Models.tblUser user = (SymphonyLtd.Models.tblUser)Session["User"];
+    if (user == null)
+    {
+        user = new SymphonyLtd.Models.SymphonyDBEntities().tblUsers.FirstOrDefault(x => x.Email == User.Identity.Name);
+    }
+    var name = (user == null) ? "No Name" : user.Name;
+    var email = (user == null) ? "No Email" : user.Email;
+    //ViewBag.Services = db.tbl_Services.OrderByDescending(o => o.PK_ID).Where(c => c.Allow == true);
+
+
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +37,7 @@
     <link rel="shortcut icon" href="images/favicon.ico">
 
     @Styles.Render("~/Public/css")
-   
+
 </head>
 
 <body>
@@ -50,10 +63,30 @@
                 <img src="images/logo-light.png" height="24" class="logo-dark-mode" alt="">
             </a>
             <div class="buy-button">
-                <a href="~/Account/Login">
-                    <div class="btn btn-primary login-btn-primary">Login Now</div>
-                    <div class="btn btn-light login-btn-light">Login Now</div>
-                </a>
+                @if (user != null)
+                {
+                    if (user.UserRole_FK == 1)
+                    {
+                        <a href="~/Admin/Dashboard/Index">
+                            <div class="btn btn-primary login-btn-primary">Dashboard</div>
+                            <div class="btn btn-light login-btn-light">Dashboard</div>
+                        </a>
+                    }
+                    else if (user.UserRole_FK == 2)
+                    {
+                        <a href="~/UserProfile/Index">
+                            <div class="btn btn-primary login-btn-primary">My Account</div>
+                            <div class="btn btn-light login-btn-light">My Account</div>
+                        </a>
+                    }
+                }
+                else
+                {
+                    <a href="~/Account/Login">
+                        <div class="btn btn-primary login-btn-primary">Login Now</div>
+                        <div class="btn btn-light login-btn-light">Login Now</div>
+                    </a>
+                }
             </div><!--end login button-->
             <!-- End Logo container-->
             <div class="menu-extras">
