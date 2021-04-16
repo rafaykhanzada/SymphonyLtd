@@ -3,6 +3,22 @@
     Layout = null;
 }
 
+@{
+
+    SymphonyLtd.Models.SymphonyDBEntities db = new SymphonyLtd.Models.SymphonyDBEntities();
+    SymphonyLtd.Models.tblUser user = (SymphonyLtd.Models.tblUser)Session["User"];
+    if (user == null)
+    {
+        user = new SymphonyLtd.Models.SymphonyDBEntities().tblUsers.FirstOrDefault(x => x.Email == User.Identity.Name);
+    }
+    var name = (user == null) ? "No Name" : user.Name;
+    var email = (user == null) ? "No Email" : user.Email;
+    var date = DateTime.Now.Date;
+
+    //ViewBag.Services = db.tbl_Services.OrderByDescending(o => o.PK_ID).Where(c => c.Allow == true);
+
+
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -277,7 +293,7 @@
                         <ul class="ml-menu">
                             <li>
                                 <a href="~/Admin/Topics">Topics List</a>
-                            </li>                          
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -306,7 +322,7 @@
                             <li>
                                 <a href="~/Admin/ExamTypes">Exam Type</a>
                             </li>
-                           
+
                         </ul>
                     </li>
                     <li>

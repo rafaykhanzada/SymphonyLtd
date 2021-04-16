@@ -180,7 +180,7 @@
                 </ul>
             </div>
             <div class="body">
-                @using (Html.BeginForm("Create", "Courses", FormMethod.Post, new { enctype = "multipart/form-data", id = "form_validation" }))
+                @using (Html.BeginForm("Create", "Exam", FormMethod.Post, new { enctype = "multipart/form-data", id = "form_validation" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -198,7 +198,7 @@
                             <b>Topic Cover</b>
                         </p>
                         <div class="form-group default-select select2Style">
-                            @Html.DropDownList("Topics_FK", null, htmlAttributes: new { @class = "form-control select2", multiple = "", name = "Topics_FK" })
+                            @Html.DropDownList("Topics_FK", null, htmlAttributes: new { @class = "form-control select2", name = "Topics_FK" })
 
                         </div>
                     </div>
@@ -235,26 +235,35 @@
                         </div>
                     </div>
                     <div class="form-group">
-    @Html.LabelFor(model => model.PassingMarks, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.PassingMarks, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.PassingMarks, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-                    <div class="form-group">
+                        @Html.LabelFor(model => model.PassingMarks, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-12">
-                            <!-- Tags Input -->
-                            <div class="card">
-                                <div class="form-group demo-tagsinput-area">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="Students" data-role="tagsinput"
-                                               value="Amsterdam,Washington,Sydney,Beijing,Cairo">
-                                    </div>
-                                </div>
-                            </div>
+                            @Html.EditorFor(model => model.PassingMarks, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PassingMarks, "", new { @class = "text-danger" })
                         </div>
-                        <!-- #END# Tags Input -->
+                    </div>
+
+                    <!--<div class="form-group">
+        <div class="col-md-12">-->
+                    <!-- Tags Input -->
+                    <!--<div class="card">
+            <div class="form-group demo-tagsinput-area">
+                <div class="form-line">
+                    <input type="text" class="form-control" name="Students" id="Students" data-role="tagsinput"
+                           value="Amsterdam,Washington,Sydney,Beijing,Cairo">
+                </div>
+            </div>
+        </div>
+    </div>-->
+                    <!-- #END# Tags Input -->
+                    <!--</div>-->
+                    <div class="col-md-6">
+                        <p>
+                            <b>Topic Cover</b>
+                        </p>
+                        <div class="form-group default-select select2Style">
+                            @Html.DropDownList("Students", null, htmlAttributes: new { @class = "form-control select2", multiple = "", name = "Students" })
+
+                        </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.IsCancledReason, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -318,6 +327,7 @@
     </div>
 </div>
 <script>
+    
     $("#IsValid").on('change', function () {
         if ($(this).is(':checked')) {
             if ($("#IsCancled").is(':checked')) {
@@ -341,4 +351,62 @@
         }
 
     });
+    $("#form_validation").submit((e) => {
+        e.preventDefault();
+        var url = '@Url.Action("Create","Exams")';
+        var model = {
+            "ExamID": $("#ExamID").val(),
+            "ExamName": $("#ExamName").val(),
+            "Topics_FK": $("#Topics_FK").val(),
+            "ExamType_FK": $("#ExamType_FK").val(),
+            "ExamScheduleFrom": $("#ExamScheduleFrom").val(),
+            "ExamScheduleTo": $("#ExamScheduleTo").val(),
+            "TotalMarks": $("#TotalMarks").val(),
+            "PassingMarks": $("#PassingMarks").val(),
+            "Students": $("#Students").val().toString(),
+            "IsValid": $("#IsValid").is(':checked'),
+            "IsCancled": $("#IsCancled").is(':checked'),
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: model, // serializes the form's elements.
+            success: function (data) {
+                console.log(data); // show response from the php script.
+            }
+        });
+
+    });
+   
 </script>
+
+@if (Model !=null)
+{
+<script>
+    $('#Students').val('2')
+    $('#Students').trigger('change')
+
+         function loadStoresList(selector, selectedItems) {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetAllStuentForExamByID", "Ajax")',
+            dataType: "json",
+            contentType: "application/json",
+            success: function (res) {
+                //$('#StoreId').append($("<option></option>").val("0").html(res.data[0].name));
+                //$(selector).append($("<option></option>").val('0').html('Select'));
+                //$.each(res.data, function (data, value) {
+                //    if (selectedItems && selectedItems.includes(+value.id)) {
+                //        $(selector).append($("<option selected></option>").val(value.id).html(value.name));
+                //    } else {
+                //        $(selector).append($("<option></option>").val(value.id).html(value.name));
+                //    }
+                //})
+                console.log(res);
+            }
+
+        });
+    }
+    $(document).ready(() => { loadStoresList();})
+</script>
+}

@@ -154,6 +154,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AjaxController.cs" />
     <Compile Include="Areas\Admin\Controllers\BranchesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CountriesController.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="Security\DisableCache.cs" />
     <Compile Include="Security\FormAuthenticationAttribute.cs" />
     <Compile Include="Security\ImageValidation.cs" />
+    <Compile Include="ViewModels\ExamVM.cs" />
     <Compile Include="ViewModels\Login.cs" />
     <Compile Include="ViewModels\Signup.cs" />
   </ItemGroup>
@@ -483,6 +485,7 @@
     <Content Include="App_Assets\Admin\js\table.min.js" />
     <Content Include="App_Assets\Custom\duDialog\duDialog.css" />
     <Content Include="App_Assets\Custom\duDialog\duDialog.js" />
+    <Content Include="App_Assets\Custom\Javascript\Custom.js" />
     <Content Include="App_Assets\Custom\Pace\barber-shop.css" />
     <Content Include="App_Assets\Custom\Pace\minimal.css" />
     <Content Include="App_Assets\Custom\Pace\pace.js" />
@@ -1134,6 +1137,7 @@
     <Content Include="Areas\Admin\Views\Fees\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Fees\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Fees\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Exams\GetAllExamnationStudent.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1172,6 +1176,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Assets\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Ajax\" />
     <Folder Include="Areas\Admin\Views\General\" />
     <Folder Include="Views\Dashboard\" />
     <Folder Include="Views\Error\" />
