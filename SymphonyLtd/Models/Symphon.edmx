@@ -32,6 +32,21 @@
           <Property Name="DeletedBy" Type="int" />
           <Property Name="DeletedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblApplication">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="250" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="ApplyStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="GetInTouch" Type="bit" />
+        </EntityType>
         <EntityType Name="tblBranch">
           <Key>
             <PropertyRef Name="BranchID" />
@@ -86,6 +101,14 @@
           <Property Name="DeletedBy" Type="int" />
           <Property Name="DeletedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblClassType">
+          <Key>
+            <PropertyRef Name="ClassTypeID" />
+          </Key>
+          <Property Name="ClassTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="datetime" />
+        </EntityType>
         <EntityType Name="tblContactUs">
           <Key>
             <PropertyRef Name="ContactID" />
@@ -123,6 +146,8 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
           <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="500" />
+          <Property Name="ClassType_FK" Type="int" />
         </EntityType>
         <EntityType Name="tblCourseCategory">
           <Key>
@@ -137,6 +162,16 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
           <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblCourseFeature">
+          <Key>
+            <PropertyRef Name="CourseFeatureID" />
+          </Key>
+          <Property Name="CourseFeatureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseFeatureName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShortDesc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Icon" Type="nchar" MaxLength="10" />
+          <Property Name="CourseID" Type="int" />
         </EntityType>
         <EntityType Name="tblCourseTopicsMapping">
           <Key>
@@ -206,7 +241,7 @@
           <Property Name="ExamTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ExamTypeName" Type="nvarchar" MaxLength="250" />
           <Property Name="ExamFees" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="DeletedOn" Type="datetime" />
@@ -266,6 +301,35 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
           <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblHomePageBox">
+          <Key>
+            <PropertyRef Name="HomePageBoxID" />
+          </Key>
+          <Property Name="HomePageBoxID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HeaderText" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShortDesc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblNewsItem">
+          <Key>
+            <PropertyRef Name="NewsItemsID" />
+          </Key>
+          <Property Name="NewsItemsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NewsItemHeader" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="Tages" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
         </EntityType>
         <EntityType Name="tblPartner">
           <Key>
@@ -405,6 +469,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblCourse_tblClassType">
+          <End Role="tblClassType" Type="Self.tblClassType" Multiplicity="0..1" />
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClassType">
+              <PropertyRef Name="ClassTypeID" />
+            </Principal>
+            <Dependent Role="tblCourse">
+              <PropertyRef Name="ClassType_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblCourse_tblCourseCategory">
           <End Role="tblCourseCategory" Type="Self.tblCourseCategory" Multiplicity="0..1" />
           <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="*" />
@@ -438,6 +514,18 @@
             </Principal>
             <Dependent Role="tblCourseCategory">
               <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCourseFeature_tblCourse">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="0..1" />
+          <End Role="tblCourseFeature" Type="Self.tblCourseFeature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="tblCourseFeature">
+              <PropertyRef Name="CourseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -684,14 +772,17 @@
         <EntityContainer Name="SymphonyDBModelStoreContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAboutUs" EntityType="Self.tblAboutUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblApplication" EntityType="Self.tblApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBranch" EntityType="Self.tblBranch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCertificate" EntityType="Self.tblCertificate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCertificateType" EntityType="Self.tblCertificateType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClassType" EntityType="Self.tblClassType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblContactUs" EntityType="Self.tblContactUs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCourseCategory" EntityType="Self.tblCourseCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCourseFeature" EntityType="Self.tblCourseFeature" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCourseTopicsMapping" EntityType="Self.tblCourseTopicsMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEnrollment" EntityType="Self.tblEnrollment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblExam" EntityType="Self.tblExam" Schema="dbo" store:Type="Tables" />
@@ -701,6 +792,8 @@
           <EntitySet Name="tblFAQType" EntityType="Self.tblFAQType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFees" EntityType="Self.tblFees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFeesType" EntityType="Self.tblFeesType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblHomePageBox" EntityType="Self.tblHomePageBox" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewsItem" EntityType="Self.tblNewsItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPartner" EntityType="Self.tblPartner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblResult" EntityType="Self.tblResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
@@ -723,6 +816,10 @@
             <End Role="tblState" EntitySet="tblState" />
             <End Role="tblCity" EntitySet="tblCity" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblCourse_tblClassType" Association="Self.FK_tblCourse_tblClassType">
+            <End Role="tblClassType" EntitySet="tblClassType" />
+            <End Role="tblCourse" EntitySet="tblCourse" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblCourse_tblCourseCategory" Association="Self.FK_tblCourse_tblCourseCategory">
             <End Role="tblCourseCategory" EntitySet="tblCourseCategory" />
             <End Role="tblCourse" EntitySet="tblCourse" />
@@ -734,6 +831,10 @@
           <AssociationSet Name="FK_tblCourseCategory_tblUser" Association="Self.FK_tblCourseCategory_tblUser">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblCourseCategory" EntitySet="tblCourseCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCourseFeature_tblCourse" Association="Self.FK_tblCourseFeature_tblCourse">
+            <End Role="tblCourse" EntitySet="tblCourse" />
+            <End Role="tblCourseFeature" EntitySet="tblCourseFeature" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCourseTopicsMapping_tblCourse" Association="Self.FK_tblCourseTopicsMapping_tblCourse">
             <End Role="tblCourse" EntitySet="tblCourse" />
@@ -949,6 +1050,10 @@
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblCourse_tblUser1" FromRole="tblCourse" ToRole="tblUser" />
           <NavigationProperty Name="tblCourseTopicsMappings" Relationship="Self.FK_tblCourseTopicsMapping_tblCourse" FromRole="tblCourse" ToRole="tblCourseTopicsMapping" />
           <NavigationProperty Name="tblEnrollments" Relationship="Self.FK_tblEnrollment_tblCourse" FromRole="tblCourse" ToRole="tblEnrollment" />
+          <Property Name="Icon" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClassType_FK" Type="Int32" />
+          <NavigationProperty Name="tblClassType" Relationship="SymphonyDBModel.FK_tblCourse_tblClassType" FromRole="tblCourse" ToRole="tblClassType" />
+          <NavigationProperty Name="tblCourseFeatures" Relationship="SymphonyDBModel.FK_tblCourseFeature_tblCourse" FromRole="tblCourse" ToRole="tblCourseFeature" />
         </EntityType>
         <EntityType Name="tblCourseCategory">
           <Key>
@@ -1046,7 +1151,7 @@
           </Key>
           <Property Name="ExamTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ExamFees" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="DeletedOn" Type="DateTime" Precision="3" />
@@ -1684,7 +1789,108 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblTopic" EntitySet="tblTopics" />
           </AssociationSet>
+          <EntitySet Name="tblHomePageBoxes" EntityType="SymphonyDBModel.tblHomePageBox" />
+          <EntitySet Name="tblClassTypes" EntityType="SymphonyDBModel.tblClassType" />
+          <EntitySet Name="tblNewsItems" EntityType="SymphonyDBModel.tblNewsItem" />
+          <AssociationSet Name="FK_tblCourse_tblClassType" Association="SymphonyDBModel.FK_tblCourse_tblClassType">
+            <End Role="tblClassType" EntitySet="tblClassTypes" />
+            <End Role="tblCourse" EntitySet="tblCourses" />
+          </AssociationSet>
+          <EntitySet Name="tblApplications" EntityType="SymphonyDBModel.tblApplication" />
+          <EntitySet Name="tblCourseFeatures" EntityType="SymphonyDBModel.tblCourseFeature" />
+          <AssociationSet Name="FK_tblCourseFeature_tblCourse" Association="SymphonyDBModel.FK_tblCourseFeature_tblCourse">
+            <End Role="tblCourse" EntitySet="tblCourses" />
+            <End Role="tblCourseFeature" EntitySet="tblCourseFeatures" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="tblHomePageBox">
+          <Key>
+            <PropertyRef Name="HomePageBoxID" />
+          </Key>
+          <Property Name="HomePageBoxID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeaderText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblClassType">
+          <Key>
+            <PropertyRef Name="ClassTypeID" />
+          </Key>
+          <Property Name="ClassTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblCourses" Relationship="SymphonyDBModel.FK_tblCourse_tblClassType" FromRole="tblClassType" ToRole="tblCourse" />
+        </EntityType>
+        <EntityType Name="tblNewsItem">
+          <Key>
+            <PropertyRef Name="NewsItemsID" />
+          </Key>
+          <Property Name="NewsItemsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NewsItemHeader" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Tages" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_tblCourse_tblClassType">
+          <End Type="SymphonyDBModel.tblClassType" Role="tblClassType" Multiplicity="0..1" />
+          <End Type="SymphonyDBModel.tblCourse" Role="tblCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClassType">
+              <PropertyRef Name="ClassTypeID" />
+            </Principal>
+            <Dependent Role="tblCourse">
+              <PropertyRef Name="ClassType_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblApplication">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="ApplyStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="GetInTouch" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblCourseFeature">
+          <Key>
+            <PropertyRef Name="CourseFeatureID" />
+          </Key>
+          <Property Name="CourseFeatureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseFeatureName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CourseID" Type="Int32" />
+          <NavigationProperty Name="tblCourse" Relationship="SymphonyDBModel.FK_tblCourseFeature_tblCourse" FromRole="tblCourseFeature" ToRole="tblCourse" />
+        </EntityType>
+        <Association Name="FK_tblCourseFeature_tblCourse">
+          <End Type="SymphonyDBModel.tblCourse" Role="tblCourse" Multiplicity="0..1" />
+          <End Type="SymphonyDBModel.tblCourseFeature" Role="tblCourseFeature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="tblCourseFeature">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1803,6 +2009,8 @@
           <EntitySetMapping Name="tblCourses">
             <EntityTypeMapping TypeName="SymphonyDBModel.tblCourse">
               <MappingFragment StoreEntitySet="tblCourse">
+                <ScalarProperty Name="ClassType_FK" ColumnName="ClassType_FK" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />
                 <ScalarProperty Name="CourseCategory_FK" ColumnName="CourseCategory_FK" />
@@ -2065,6 +2273,73 @@
                 <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
                 <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblHomePageBoxes">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblHomePageBox">
+              <MappingFragment StoreEntitySet="tblHomePageBox">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="ShortDesc" ColumnName="ShortDesc" />
+                <ScalarProperty Name="HeaderText" ColumnName="HeaderText" />
+                <ScalarProperty Name="HomePageBoxID" ColumnName="HomePageBoxID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClassTypes">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblClassType">
+              <MappingFragment StoreEntitySet="tblClassType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ClassTypeName" ColumnName="ClassTypeName" />
+                <ScalarProperty Name="ClassTypeID" ColumnName="ClassTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewsItems">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblNewsItem">
+              <MappingFragment StoreEntitySet="tblNewsItem">
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Tages" ColumnName="Tages" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="NewsItemHeader" ColumnName="NewsItemHeader" />
+                <ScalarProperty Name="NewsItemsID" ColumnName="NewsItemsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblApplications">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblApplication">
+              <MappingFragment StoreEntitySet="tblApplication">
+                <ScalarProperty Name="GetInTouch" ColumnName="GetInTouch" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApplyStatus" ColumnName="ApplyStatus" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCourseFeatures">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblCourseFeature">
+              <MappingFragment StoreEntitySet="tblCourseFeature">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="ShortDesc" ColumnName="ShortDesc" />
+                <ScalarProperty Name="CourseFeatureName" ColumnName="CourseFeatureName" />
+                <ScalarProperty Name="CourseFeatureID" ColumnName="CourseFeatureID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

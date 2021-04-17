@@ -167,6 +167,7 @@
     <Compile Include="Areas\Admin\Controllers\FeesController.cs" />
     <Compile Include="Areas\Admin\Controllers\FeesTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\GeneralController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomePageBoxesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\StatesController.cs" />
     <Compile Include="Areas\Admin\Controllers\TopicsController.cs" />
@@ -201,6 +202,9 @@
     <Compile Include="Models\tblAboutU.cs">
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblApplication.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblBranch.cs">
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
@@ -213,6 +217,9 @@
     <Compile Include="Models\tblCity.cs">
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblClassType.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblContactU.cs">
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
@@ -223,6 +230,9 @@
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCourseCategory.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCourseFeature.cs">
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCourseTopicsMapping.cs">
@@ -250,6 +260,12 @@
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblFeesType.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblHomePageBox.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblNewsItem.cs">
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblPartner.cs">
@@ -1138,6 +1154,11 @@
     <Content Include="Areas\Admin\Views\Fees\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Fees\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Exams\GetAllExamnationStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\HomePageBoxes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\HomePageBoxes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\HomePageBoxes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\HomePageBoxes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\HomePageBoxes\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

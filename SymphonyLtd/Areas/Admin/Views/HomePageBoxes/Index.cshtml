@@ -1,0 +1,76 @@
+﻿@model IEnumerable<SymphonyLtd.Models.tblHomePageBox>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HeaderText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortDesc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Icon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedOn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeaderText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShortDesc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Icon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedOn)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.HomePageBoxID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.HomePageBoxID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.HomePageBoxID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -86,16 +86,21 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         {
             if (tblExam.ExamID==0)
             {
+
                 db.tblExams.Add(tblExam);
                 await db.SaveChangesAsync();
                 var StudentList = Students.Split(',');
                 foreach (var item in StudentList)
                 {
-                    tblExamStudentMapping studentMapping = new tblExamStudentMapping();
-                    studentMapping.ExamID = tblExam.ExamID;
-                    studentMapping.StudentID = Convert.ToInt32(item);
-                    db.tblExamStudentMappings.Add(studentMapping);
-                    await db.SaveChangesAsync();
+                var FeesRec = db.tblFees.Where(x => x.StudentID == Convert.ToInt32(item)).Where(o => o.ForMonth.Value.Year == tblExam.ExamScheduleFrom.Value.Year && o.ForMonth.Value.Month == tblExam.ExamScheduleFrom.Value.Month).FirstOrDefault();
+                    if (FeesRec!=null)
+                    {
+                        tblExamStudentMapping studentMapping = new tblExamStudentMapping();
+                        studentMapping.ExamID = tblExam.ExamID;
+                        studentMapping.StudentID = Convert.ToInt32(item);
+                        db.tblExamStudentMappings.Add(studentMapping);
+                        await db.SaveChangesAsync();
+                    }
                 }                
                 return RedirectToAction("Index");
             }

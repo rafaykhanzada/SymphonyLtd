@@ -19,6 +19,7 @@ namespace SymphonyLtd.Models
         {
             this.tblCourseTopicsMappings = new HashSet<tblCourseTopicsMapping>();
             this.tblEnrollments = new HashSet<tblEnrollment>();
+            this.tblCourseFeatures = new HashSet<tblCourseFeature>();
         }
     
         public int CourseID { get; set; }
@@ -34,6 +35,8 @@ namespace SymphonyLtd.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<int> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedOn { get; set; }
+        public string Icon { get; set; }
+        public Nullable<int> ClassType_FK { get; set; }
     
         public virtual tblCourseCategory tblCourseCategory { get; set; }
         public virtual tblUser tblUser { get; set; }
@@ -41,5 +44,8 @@ namespace SymphonyLtd.Models
         public virtual ICollection<tblCourseTopicsMapping> tblCourseTopicsMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblEnrollment> tblEnrollments { get; set; }
+        public virtual tblClassType tblClassType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCourseFeature> tblCourseFeatures { get; set; }
     }
 }
