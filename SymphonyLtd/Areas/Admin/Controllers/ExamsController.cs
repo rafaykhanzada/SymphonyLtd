@@ -9,9 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using SymphonyLtd.Models;
 using SymphonyLtd.ViewModels;
+using SymphonyLtd.Security;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
+    [FormAuthentication(RoleId = "1")]
+
     public class ExamsController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();
@@ -92,7 +95,7 @@ namespace SymphonyLtd.Areas.Admin.Controllers
                 var StudentList = Students.Split(',');
                 foreach (var item in StudentList)
                 {
-                var FeesRec = db.tblFees.Where(x => x.StudentID == Convert.ToInt32(item)).Where(o => o.ForMonth.Value.Year == tblExam.ExamScheduleFrom.Value.Year && o.ForMonth.Value.Month == tblExam.ExamScheduleFrom.Value.Month).FirstOrDefault();
+                    var FeesRec = db.tblFees.Where(x => x.StudentID == Convert.ToInt32(item)).Where(o => o.ForMonth.Value.Year == tblExam.ExamScheduleFrom.Value.Year && o.ForMonth.Value.Month == tblExam.ExamScheduleFrom.Value.Month).FirstOrDefault();
                     if (FeesRec!=null)
                     {
                         tblExamStudentMapping studentMapping = new tblExamStudentMapping();

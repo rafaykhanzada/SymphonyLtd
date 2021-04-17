@@ -168,11 +168,14 @@
     <Compile Include="Areas\Admin\Controllers\FeesTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\GeneralController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomePageBoxesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsItemsController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\StatesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TeachersController.cs" />
     <Compile Include="Areas\Admin\Controllers\TopicsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AllCoursesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -278,6 +281,9 @@
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblState.cs">
+      <DependentUpon>Symphon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblTeacher.cs">
       <DependentUpon>Symphon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblTopic.cs">
@@ -1159,6 +1165,18 @@
     <Content Include="Areas\Admin\Views\HomePageBoxes\Details.cshtml" />
     <Content Include="Areas\Admin\Views\HomePageBoxes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HomePageBoxes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsItems\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsItems\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsItems\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsItems\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsItems\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Teachers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Teachers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Teachers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Teachers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Teachers\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1192,6 +1210,12 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\AllCourses\Create.cshtml" />
+    <Content Include="Views\AllCourses\Delete.cshtml" />
+    <Content Include="Views\AllCourses\Details.cshtml" />
+    <Content Include="Views\AllCourses\Edit.cshtml" />
+    <Content Include="Views\AllCourses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1200,7 +1224,6 @@
     <Folder Include="Areas\Admin\Views\Ajax\" />
     <Folder Include="Areas\Admin\Views\General\" />
     <Folder Include="Views\Dashboard\" />
-    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -8,9 +8,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SymphonyLtd.Models;
+using SymphonyLtd.Security;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
+    [FormAuthentication(RoleId = "1")]
+
     public class HomePageBoxesController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();
@@ -37,25 +40,34 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         }
 
         // GET: Admin/HomePageBoxes/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return View();
+            }
+            tblHomePageBox tblHomePageBox = await db.tblHomePageBoxes.FindAsync(id);
+            if (tblHomePageBox == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tblHomePageBox);
         }
-
-        // POST: Admin/HomePageBoxes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "HomePageBoxID,HeaderText,ShortDesc,Icon,IsActive,CreatedOn,ModifiedOn,DeletedBy,DeletedOn")] tblHomePageBox tblHomePageBox)
+        public async Task<ActionResult> Create([Bind(Include = "HomePageBoxID,HeaderText,ShortDesc,Icon,IsActive")] tblHomePageBox tblHomePageBox)
         {
-            if (ModelState.IsValid)
+            if (tblHomePageBox.HomePageBoxID == 0)
             {
                 db.tblHomePageBoxes.Add(tblHomePageBox);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+            if (tblHomePageBox.HomePageBoxID > 0)
+            {
+                db.Entry(tblHomePageBox).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
             return View(tblHomePageBox);
         }
 

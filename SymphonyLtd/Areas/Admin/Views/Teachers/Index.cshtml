@@ -1,11 +1,56 @@
-﻿@model IEnumerable<SymphonyLtd.Models.tblHomePageBox>
+﻿@model IEnumerable<SymphonyLtd.Models.tblTeacher>
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<!--Table-->
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TeacherID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TeacherID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TeacherID })
+            </td>
+        </tr>
+    }
+
+</table>*@
+
 
 <div class="block-header">
     <div class="row">
@@ -43,7 +88,7 @@
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <li>
-                                @Html.ActionLink("Create New", "Create", "HomePageBox", new { area = "Admin" })
+                                @Html.ActionLink("Create New", "Create", "Teachers", new { area = "Admin" })
                             </li>
                             <li>
                                 <a href="#" onclick="return false;">Refresh Data</a>
@@ -57,15 +102,17 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.HeaderText)
+                                @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ShortDesc)
+                                @Html.DisplayNameFor(model => model.Subj)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Icon)
+                                @Html.DisplayNameFor(model => model.Image)
                             </th>
-                           
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsActive)
+                            </th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -74,23 +121,24 @@
                         {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.HeaderText)
+                                @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ShortDesc)
+                                @Html.DisplayFor(modelItem => item.Subj)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Icon)
+                                @Html.DisplayFor(modelItem => item.Image)
                             </td>
-                                                    
                             <td>
-                                @Html.ActionLink("Edit", "Create", new { id = item.HomePageBoxID }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.HomePageBoxID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.HomePageBoxID })
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.TeacherID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.TeacherID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.TeacherID })
                             </td>
                         </tr>
                         }
-
                     </tbody>
                 </table>
             </div>

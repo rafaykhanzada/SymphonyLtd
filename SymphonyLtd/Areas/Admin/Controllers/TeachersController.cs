@@ -8,131 +8,134 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SymphonyLtd.Models;
-using SymphonyLtd.Security;
+using System.IO;
+using SymphonyLtd.Helper;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
-    [FormAuthentication(RoleId = "1")]
-
-    public class ExamTypesController : Controller
+    public class TeachersController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();
 
-        // GET: Admin/ExamTypes
+        // GET: Admin/Teachers
         public async Task<ActionResult> Index()
         {
-            var tblExamTypes = db.tblExamTypes.Include(t => t.tblUser);
-            return View(await tblExamTypes.ToListAsync());
+            return View(await db.tblTeachers.ToListAsync());
         }
 
-        // GET: Admin/ExamTypes/Details/5
+        // GET: Admin/Teachers/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tblExamType tblExamType = await db.tblExamTypes.FindAsync(id);
-            if (tblExamType == null)
+            tblTeacher tblTeacher = await db.tblTeachers.FindAsync(id);
+            if (tblTeacher == null)
             {
                 return HttpNotFound();
             }
-            return View(tblExamType);
+            return View(tblTeacher);
         }
 
-        // GET: Admin/ExamTypes/Create
-        public async Task<ActionResult> Create(int? id)
+        // GET: Admin/Teachers/Create
+        public async Task<ActionResult> CreateAsync(int? id)
         {
-            
             if (id == null)
             {
-                return View();
+            return View();
             }
-            tblExamType tblExamType = await db.tblExamTypes.FindAsync(id);
-            if (tblExamType == null)
+            tblTeacher tblTeacher = await db.tblTeachers.FindAsync(id);
+            if (tblTeacher == null)
             {
                 return HttpNotFound();
             }
-            return View(tblExamType);
+            return View(tblTeacher);
         }
 
-        // POST: Admin/ExamTypes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(tblExamType tblExamType)
+        public async Task<ActionResult> Create([Bind(Include = "TeacherID,Name,Subj,Image,IsActive")] tblTeacher tblTeacher, HttpPostedFileBase file)
         {
-            if (tblExamType.ExamTypeID==0)
+            if (file != null)
             {
-                db.tblExamTypes.Add(tblExamType);
+                var UniqueName = Common.GenerateRandomDigitCode(20);
+                var extension = Path.GetExtension(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/uploads"), UniqueName + extension);
+                file.SaveAs(path);
+                tblTeacher.Image = UniqueName + extension;
+            }
+            else
+            {
+                tblTeacher.Image = "Default.jpg";
+            }
+            if (tblTeacher.TeacherID==0)
+            {
+                db.tblTeachers.Add(tblTeacher);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            if (tblExamType.ExamTypeID > 0)
+            if (tblTeacher.TeacherID > 0)
             {
-                db.Entry(tblExamType).State = EntityState.Modified;
+                db.Entry(tblTeacher).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(tblExamType);
+            return View(tblTeacher);
         }
 
-        // GET: Admin/ExamTypes/Edit/5
+        // GET: Admin/Teachers/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tblExamType tblExamType = await db.tblExamTypes.FindAsync(id);
-            if (tblExamType == null)
+            tblTeacher tblTeacher = await db.tblTeachers.FindAsync(id);
+            if (tblTeacher == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DeleteBy = new SelectList(db.tblUsers, "UserID", "Name", tblExamType.DeleteBy);
-            return View(tblExamType);
+            return View(tblTeacher);
         }
 
-        // POST: Admin/ExamTypes/Edit/5
+        // POST: Admin/Teachers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ExamTypeID,ExamName,ExamFees,IsActive,CreatedOn,ModifiedOn,DeletedOn,DeleteBy")] tblExamType tblExamType)
+        public async Task<ActionResult> Edit([Bind(Include = "TeacherID,Name,Subj,Image,IsActive")] tblTeacher tblTeacher)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tblExamType).State = EntityState.Modified;
+                db.Entry(tblTeacher).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.DeleteBy = new SelectList(db.tblUsers, "UserID", "Name", tblExamType.DeleteBy);
-            return View(tblExamType);
+            return View(tblTeacher);
         }
 
-        // GET: Admin/ExamTypes/Delete/5
+        // GET: Admin/Teachers/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tblExamType tblExamType = await db.tblExamTypes.FindAsync(id);
-            if (tblExamType == null)
+            tblTeacher tblTeacher = await db.tblTeachers.FindAsync(id);
+            if (tblTeacher == null)
             {
                 return HttpNotFound();
             }
-            return View(tblExamType);
+            return View(tblTeacher);
         }
 
-        // POST: Admin/ExamTypes/Delete/5
+        // POST: Admin/Teachers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            tblExamType tblExamType = await db.tblExamTypes.FindAsync(id);
-            db.tblExamTypes.Remove(tblExamType);
+            tblTeacher tblTeacher = await db.tblTeachers.FindAsync(id);
+            db.tblTeachers.Remove(tblTeacher);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

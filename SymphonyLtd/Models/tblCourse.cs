@@ -37,6 +37,7 @@ namespace SymphonyLtd.Models
         public Nullable<System.DateTime> DeletedOn { get; set; }
         public string Icon { get; set; }
         public Nullable<int> ClassType_FK { get; set; }
+        public Nullable<int> Starts { get; set; }
     
         public virtual tblCourseCategory tblCourseCategory { get; set; }
         public virtual tblUser tblUser { get; set; }

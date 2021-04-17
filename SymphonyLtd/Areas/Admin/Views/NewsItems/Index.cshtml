@@ -1,9 +1,10 @@
-﻿@model IEnumerable<SymphonyLtd.Models.tblHomePageBox>
+﻿@model IEnumerable<SymphonyLtd.Models.tblNewsItem>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+
 
 <!--Table-->
 
@@ -43,7 +44,7 @@
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <li>
-                                @Html.ActionLink("Create New", "Create", "HomePageBox", new { area = "Admin" })
+                                @Html.ActionLink("Create New", "Create", "NewsItem", new { area = "Admin" })
                             </li>
                             <li>
                                 <a href="#" onclick="return false;">Refresh Data</a>
@@ -57,15 +58,11 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.HeaderText)
-                            </th>
+                                @Html.DisplayNameFor(model => model.NewsItemHeader)
+                            </th>                           
                             <th>
-                                @Html.DisplayNameFor(model => model.ShortDesc)
+                                @Html.DisplayNameFor(model => model.Tages)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Icon)
-                            </th>
-                           
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -73,20 +70,17 @@
                         @foreach (var item in Model)
                         {
                         <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NewsItemHeader)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tages)
+                            </th>
+
                             <td>
-                                @Html.DisplayFor(modelItem => item.HeaderText)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ShortDesc)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Icon)
-                            </td>
-                                                    
-                            <td>
-                                @Html.ActionLink("Edit", "Create", new { id = item.HomePageBoxID }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.HomePageBoxID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.HomePageBoxID })
+                                @Html.ActionLink("Edit", "Create", new { id = item.NewsItemsID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.NewsItemsID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.NewsItemsID })
                             </td>
                         </tr>
                         }

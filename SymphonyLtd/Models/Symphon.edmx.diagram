@@ -64,6 +64,7 @@
         <EntityTypeShape EntityType="SymphonyDBModel.tblApplication" Width="1.5" PointX="10.375" PointY="8.75" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblCourseFeature" Width="1.5" PointX="7.5" PointY="17.875" />
         <AssociationConnector Association="SymphonyDBModel.FK_tblCourseFeature_tblCourse" />
+        <EntityTypeShape EntityType="SymphonyDBModel.tblTeacher" Width="1.5" PointX="12.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -43,12 +43,16 @@ namespace SymphonyLtd.Controllers
                     user.Email = model.Email;
                     user.Password = model.Password;
                     user.PhoneNumber = model.PhoneNumber;
+                    user.UserRole_FK = 2;
                     user.CreatedOn = DateTime.Now;
                     user.Address = null;
                     user.DeletedBy = null;
                     user.IsActive = true;
                     db.tblUsers.Add(user);
                     await db.SaveChangesAsync();
+                    FormsAuthentication.SetAuthCookie(user.Email,false);
+                    Session["User"] = user;
+                    return RedirectToAction("MyAccount", "UserProfile");
                 }
             }
             return View();
@@ -60,7 +64,8 @@ namespace SymphonyLtd.Controllers
             var user =await tblUsers.Where(x => x.Email == model.Email && x.Password == model.Password).ToListAsync();
             if (user.Count()==1)
             {
-                FormsAuthentication.SetAuthCookie(user[0].Email, false);
+                FormsAuthentication.SetAuthCookie(user[0].Email, model.RememberMe);  
+
                 Session["User"] = user[0];
                 if (user[0].tblRole.RoleID==1)
                 {

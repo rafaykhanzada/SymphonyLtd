@@ -8,9 +8,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SymphonyLtd.Models;
+using SymphonyLtd.Security;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
+    [FormAuthentication(RoleId = "1")]
+
     public class EnrollmentsController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();

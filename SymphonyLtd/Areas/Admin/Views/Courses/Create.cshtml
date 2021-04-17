@@ -61,7 +61,19 @@
                                 @Html.ValidationMessageFor(model => model.CourseFees, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <p>
+                                <b>Course Category</b>
+                            </p>
+                            <div class="form-group default-select">
+                                <select class="form-control " name="Starts">
+                                    @for (int i = 1; i < 6; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                            </div>
+                        </div> <div class="col-md-3">
                             <p>
                                 <b>Course Category</b>
                             </p>
@@ -70,7 +82,16 @@
 
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <p>
+                                <b>Course Category</b>
+                            </p>
+                            <div class="form-group default-select select2Style">
+                                @Html.DropDownList("ClassType_FK", null, htmlAttributes: new { @class = "form-control select2", name= "ClassType_FK" })
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <p>
                                 <b>Topic Cover</b>
                             </p>
@@ -146,7 +167,7 @@
 
 
 <script>
-    $("#form_validation").submit((e) => {
+    @*$("#form_validation").submit((e) => {
         e.preventDefault();
         var url = '@Url.Action("Create","Courses")';
         var model = {
@@ -169,5 +190,5 @@
             }
         });
 
-    });
+    });*@
 </script>

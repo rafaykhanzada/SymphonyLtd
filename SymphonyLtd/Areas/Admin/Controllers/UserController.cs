@@ -14,8 +14,7 @@ using SymphonyLtd.Security;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
-    //[FormAuthentication(RoleId = "1")]
-    [AuthorizeAdminOrOwnerOfPostAttribute]
+    [FormAuthentication(RoleId = "1")]
     public class UserController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();

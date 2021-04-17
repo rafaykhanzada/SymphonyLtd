@@ -9,9 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using SymphonyLtd.Models;
 using Newtonsoft.Json;
+using SymphonyLtd.Security;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
+    [FormAuthentication(RoleId = "1")]
+
     public class GeneralController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();

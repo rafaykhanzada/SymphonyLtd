@@ -10,9 +10,12 @@ using System.Web.Mvc;
 using SymphonyLtd.Models;
 using SymphonyLtd.Helper;
 using System.IO;
+using SymphonyLtd.Security;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
+    [FormAuthentication(RoleId = "1")]
+
     public class CoursesController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();
@@ -46,6 +49,7 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             {
                 ViewBag.CourseCategory_FK = new SelectList(db.tblCourseCategories, "CourseCategoryID", "CourseCategory");
                 ViewBag.Topics_FK = new SelectList(db.tblTopics, "TopicID", "Topic");
+                ViewBag.ClassType_FK = new SelectList(db.tblClassTypes, "ClassTypeID", "ClassTypeName");
                 return View();
             }
             tblCourse tblCourse = await db.tblCourses.FindAsync(id);
@@ -54,7 +58,7 @@ namespace SymphonyLtd.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.CourseCategory_FK = new SelectList(db.tblCourseCategories, "CourseCategoryID", "CourseCategory", tblCourse.CourseCategory_FK);
-            //ViewBag.Topics_FK = new SelectList(db.tblTopics, "TopicID", "Topic", tblCourse.tblCourseTopicsMappings.ToList());
+            ViewBag.ClassType_FK = new SelectList(db.tblClassTypes, "ClassTypeID", "ClassTypeName",tblCourse.ClassType_FK);
             return View(tblCourse);          
            
         }
@@ -63,11 +67,12 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "CourseID,CourseName,CourseCategory_FK,CourseDuration,CourseFees,Description,Term,IsActive")] tblCourse tblCourse, HttpPostedFileBase Image,string Topics_FK)
+        public async Task<ActionResult> Create([Bind(Include = "CourseID,CourseName,CourseCategory_FK,CourseDuration,CourseFees,Description,Term,IsActive,Icon,Starts")] tblCourse tblCourse, HttpPostedFileBase Image, List<string> Topics_FK)
         {
             ViewBag.CourseCategory_FK = new SelectList(db.tblCourseCategories, "CourseCategoryID", "CourseCategory", tblCourse.CourseCategory_FK);            
             ViewBag.Topics_FK = new SelectList(db.tblTopics, "TopicID", "Topic");
-          
+            ViewBag.ClassType_FK = new SelectList(db.tblClassTypes, "ClassTypeID", "ClassTypeName",tblCourse.ClassType_FK);
+
             if (Image != null)
             {
                 var UniqueName = Common.GenerateRandomDigitCode(20);
@@ -93,10 +98,10 @@ namespace SymphonyLtd.Areas.Admin.Controllers
                 db.tblCourses.Add(tblCourse);
                 await db.SaveChangesAsync();
             }
-            if (!String.IsNullOrEmpty(Topics_FK))
-            {
-                var Topic = Topics_FK.Split(',');
-                foreach (var item in Topic)
+            //if (!String.IsNullOrEmpty(Topics_FK))
+            //{
+                //var Topic = Topics_FK.Split(',');
+                foreach (var item in Topics_FK)
                 {
                     tblCourseTopicsMapping courseTopicsMapping = new tblCourseTopicsMapping();
                     courseTopicsMapping.CourseID = tblCourse.CourseID;
@@ -106,8 +111,8 @@ namespace SymphonyLtd.Areas.Admin.Controllers
                      await db.SaveChangesAsync();
 
                 }
-                return RedirectToAction("Index");
-            }
+                //return RedirectToAction("Index");
+            //}
             return View(tblCourse);
         }
         // GET: Admin/Courses/Delete/5

@@ -1,4 +1,10 @@
 ﻿
+@{
+    Layout = null;
+}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,21 +21,31 @@
     <meta name="website" content="http://shreethemes.in/" />
     <meta name="Version" content="v3.0.0" />
     <!-- favicon -->
-    <link rel="shortcut icon" src="~/App_Assets/Public/images/favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico">
     <!-- Bootstrap -->
-    <link src="~/App_Assets/Public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/App_Assets/Public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Icons -->
-    <link src="~/App_Assets/Public/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" src="~/App_Assets/Public/../../../unicons.iconscout.com/release/v3.0.6/css/line.css">
+    <link href="~/App_Assets/Public/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../../unicons.iconscout.com/release/v3.0.6/css/line.css">
     <!-- Main Css -->
-    <link src="~/App_Assets/Public/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
-    <link src="~/App_Assets/Public/css/colors/default.css" rel="stylesheet" id="color-opt">
+    <link href="~/App_Assets/Public/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
+    <link href="~/App_Assets/Public/css/colors/default.css" rel="stylesheet" id="color-opt">
 </head>
 
 <body>
+    <!-- Loader -->
+    <!-- <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div> -->
+    <!-- Loader -->
 
     <div class="back-to-home rounded d-none d-sm-block">
-        <a src="~/App_Assets/Public/index.html" class="btn btn-icon btn-soft-primary"><i data-feather="home" class="icons"></i></a>
+        <a href="~/" class="btn btn-icon btn-soft-primary"><i data-feather="home" class="icons"></i></a>
     </div>
 
     <!-- ERROR PAGE -->
@@ -37,7 +53,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-12 text-center">
-                    <img src="images/404.svg" class="img-fluid" alt="">
+                    <img src="~/App_Assets/Public/images/404.svg" class="img-fluid" alt="">
                     <div class="text-uppercase mt-4 display-3">Oh ! no</div>
                     <div class="text-capitalize text-dark mb-4 error-page">Page Not Found</div>
                     <p class="text-muted para-desc mx-auto">Start working with <span class="text-primary fw-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect.</p>
@@ -46,7 +62,7 @@
 
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <a src="~/" class="btn btn-primary mt-4 ms-2">Go To Home</a>
+                    <a href="~/" class="btn btn-primary mt-4 ms-2">Go To Home</a>
                 </div><!--end col-->
             </div><!--end row-->
         </div><!--end container-->
@@ -58,46 +74,46 @@
             <h6 class="title text-center">Select Your Color</h6>
             <ul class="pattern">
                 <li class="list-inline-item">
-                    <a class="color1" src="~/App_Assets/Public/javascript: void(0);" onclick="setColor('default')"></a>
+                    <a class="color1" href="javascript: void(0);" onclick="setColor('default')"></a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="color2" src="~/App_Assets/Public/javascript: void(0);" onclick="setColor('green')"></a>
+                    <a class="color2" href="javascript: void(0);" onclick="setColor('green')"></a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="color3" src="~/App_Assets/Public/javascript: void(0);" onclick="setColor('purple')"></a>
+                    <a class="color3" href="javascript: void(0);" onclick="setColor('purple')"></a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="color4" src="~/App_Assets/Public/javascript: void(0);" onclick="setColor('red')"></a>
+                    <a class="color4" href="javascript: void(0);" onclick="setColor('red')"></a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="color5" src="~/App_Assets/Public/javascript: void(0);" onclick="setColor('skyblue')"></a>
+                    <a class="color5" href="javascript: void(0);" onclick="setColor('skyblue')"></a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="color6" src="~/App_Assets/Public/javascript: void(0);" onclick="setColor('skobleoff')"></a>
+                    <a class="color6" href="javascript: void(0);" onclick="setColor('skobleoff')"></a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="color7" src="~/App_Assets/Public/javascript: void(0);" onclick="setColor('cyan')"></a>
+                    <a class="color7" href="javascript: void(0);" onclick="setColor('cyan')"></a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="color8" src="~/App_Assets/Public/javascript: void(0);" onclick="setColor('slateblue')"></a>
+                    <a class="color8" href="javascript: void(0);" onclick="setColor('slateblue')"></a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="color9" src="~/App_Assets/Public/javascript: void(0);" onclick="setColor('yellow')"></a>
+                    <a class="color9" href="javascript: void(0);" onclick="setColor('yellow')"></a>
                 </li>
             </ul>
 
             <h6 class="title text-center pt-3 mb-0 border-top">Theme Option</h6>
             <ul class="text-center list-unstyled mb-0">
-                <li class="d-grid"><a src="~/App_Assets/Public/javascript:void(0)" class="btn btn-sm btn-block btn-primary rtl-version t-rtl-light mt-2" onclick="setTheme('style-rtl')">RTL</a></li>
-                <li class="d-grid"><a src="~/App_Assets/Public/javascript:void(0)" class="btn btn-sm btn-block btn-primary ltr-version t-ltr-light mt-2" onclick="setTheme('style')">LTR</a></li>
-                <li class="d-grid"><a src="~/App_Assets/Public/javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-rtl-version t-rtl-dark mt-2" onclick="setTheme('style-dark-rtl')">RTL</a></li>
-                <li class="d-grid"><a src="~/App_Assets/Public/javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-ltr-version t-ltr-dark mt-2" onclick="setTheme('style-dark')">LTR</a></li>
-                <li class="d-grid"><a src="~/App_Assets/Public/javascript:void(0)" class="btn btn-sm btn-block btn-dark dark-version t-dark mt-2" onclick="setTheme('style-dark')">Dark</a></li>
-                <li class="d-grid"><a src="~/App_Assets/Public/javascript:void(0)" class="btn btn-sm btn-block btn-dark light-version t-light mt-2" onclick="setTheme('style')">Light</a></li>
+                <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary rtl-version t-rtl-light mt-2" onclick="setTheme('style-rtl')">RTL</a></li>
+                <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary ltr-version t-ltr-light mt-2" onclick="setTheme('style')">LTR</a></li>
+                <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-rtl-version t-rtl-dark mt-2" onclick="setTheme('style-dark-rtl')">RTL</a></li>
+                <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-ltr-version t-ltr-dark mt-2" onclick="setTheme('style-dark')">LTR</a></li>
+                <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-dark dark-version t-dark mt-2" onclick="setTheme('style-dark')">Dark</a></li>
+                <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-dark light-version t-light mt-2" onclick="setTheme('style')">Light</a></li>
             </ul>
         </div>
         <div class="bottom">
-            <a src="~/App_Assets/Public/javascript: void(0);" class="settings bg-white title-bg-dark shadow d-block"><i class="mdi mdi-cog ms-1 mdi-24px position-absolute mdi-spin text-primary"></i></a>
+            <a href="javascript: void(0);" class="settings bg-white title-bg-dark shadow d-block"><i class="mdi mdi-cog ms-1 mdi-24px position-absolute mdi-spin text-primary"></i></a>
         </div>
     </div>
     <!-- end Style switcher -->

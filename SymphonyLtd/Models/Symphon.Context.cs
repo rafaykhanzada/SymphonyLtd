@@ -55,5 +55,6 @@ namespace SymphonyLtd.Models
         public virtual DbSet<tblNewsItem> tblNewsItems { get; set; }
         public virtual DbSet<tblApplication> tblApplications { get; set; }
         public virtual DbSet<tblCourseFeature> tblCourseFeatures { get; set; }
+        public virtual DbSet<tblTeacher> tblTeachers { get; set; }
     }
 }

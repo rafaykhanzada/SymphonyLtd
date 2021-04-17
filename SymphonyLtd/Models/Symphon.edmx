@@ -148,6 +148,7 @@
           <Property Name="DeletedOn" Type="datetime" />
           <Property Name="Icon" Type="nvarchar" MaxLength="500" />
           <Property Name="ClassType_FK" Type="int" />
+          <Property Name="Starts" Type="int" />
         </EntityType>
         <EntityType Name="tblCourseCategory">
           <Key>
@@ -383,6 +384,19 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="DeletedBy" Type="int" />
           <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblTeacher">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Subj" Type="nvarchar" MaxLength="250" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Start" Type="int" />
+          <Property Name="Experience" Type="nvarchar" MaxLength="250" />
+          <Property Name="Likes" Type="int" />
         </EntityType>
         <EntityType Name="tblTopic">
           <Key>
@@ -798,6 +812,7 @@
           <EntitySet Name="tblResult" EntityType="Self.tblResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblState" EntityType="Self.tblState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTeacher" EntityType="Self.tblTeacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTopic" EntityType="Self.tblTopic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tblCertificate_tblCertificateType" Association="Self.FK_tblCertificate_tblCertificateType">
@@ -1054,6 +1069,7 @@
           <Property Name="ClassType_FK" Type="Int32" />
           <NavigationProperty Name="tblClassType" Relationship="SymphonyDBModel.FK_tblCourse_tblClassType" FromRole="tblCourse" ToRole="tblClassType" />
           <NavigationProperty Name="tblCourseFeatures" Relationship="SymphonyDBModel.FK_tblCourseFeature_tblCourse" FromRole="tblCourse" ToRole="tblCourseFeature" />
+          <Property Name="Starts" Type="Int32" />
         </EntityType>
         <EntityType Name="tblCourseCategory">
           <Key>
@@ -1802,6 +1818,7 @@
             <End Role="tblCourse" EntitySet="tblCourses" />
             <End Role="tblCourseFeature" EntitySet="tblCourseFeatures" />
           </AssociationSet>
+          <EntitySet Name="tblTeachers" EntityType="SymphonyDBModel.tblTeacher" />
         </EntityContainer>
         <EntityType Name="tblHomePageBox">
           <Key>
@@ -1891,6 +1908,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblTeacher">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Subj" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Start" Type="Int32" />
+          <Property Name="Experience" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Likes" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2009,6 +2039,7 @@
           <EntitySetMapping Name="tblCourses">
             <EntityTypeMapping TypeName="SymphonyDBModel.tblCourse">
               <MappingFragment StoreEntitySet="tblCourse">
+                <ScalarProperty Name="Starts" ColumnName="Starts" />
                 <ScalarProperty Name="ClassType_FK" ColumnName="ClassType_FK" />
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
@@ -2340,6 +2371,20 @@
                 <ScalarProperty Name="ShortDesc" ColumnName="ShortDesc" />
                 <ScalarProperty Name="CourseFeatureName" ColumnName="CourseFeatureName" />
                 <ScalarProperty Name="CourseFeatureID" ColumnName="CourseFeatureID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTeachers">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblTeacher">
+              <MappingFragment StoreEntitySet="tblTeacher">
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Subj" ColumnName="Subj" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
