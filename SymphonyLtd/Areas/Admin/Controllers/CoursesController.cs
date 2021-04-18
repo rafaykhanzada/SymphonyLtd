@@ -23,7 +23,7 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         // GET: Admin/Courses
         public async Task<ActionResult> Index()
         {
-            var tblCourses = db.tblCourses.Include(t => t.tblCourseCategory).Include(t => t.tblUser);
+            var tblCourses = db.tblCourses.Where(x=>x.DeletedOn==null && x.DeletedBy==null).Include(t => t.tblCourseCategory).Include(t => t.tblUser);
             return View(await tblCourses.ToListAsync());
         }
 
@@ -59,6 +59,7 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             }
             ViewBag.CourseCategory_FK = new SelectList(db.tblCourseCategories, "CourseCategoryID", "CourseCategory", tblCourse.CourseCategory_FK);
             ViewBag.ClassType_FK = new SelectList(db.tblClassTypes, "ClassTypeID", "ClassTypeName",tblCourse.ClassType_FK);
+            ViewBag.Topics_FK = new SelectList(db.tblClassTypes, "ClassTypeID", "ClassTypeName",tblCourse.tblCourseTopicsMappings);
             return View(tblCourse);          
            
         }
@@ -67,23 +68,34 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "CourseID,CourseName,CourseCategory_FK,CourseDuration,CourseFees,Description,Term,IsActive,Icon,Starts")] tblCourse tblCourse, HttpPostedFileBase Image, List<string> Topics_FK)
+        public async Task<ActionResult> Create([Bind(Include = "CourseID,CourseName,CourseCategory_FK,CourseDuration,CourseFees,Description,Term,IsActive,Icon,Starts,ClassType_FK")] tblCourse tblCourse, HttpPostedFileBase Thumbnail, HttpPostedFileBase Icon, List<string> Topics_FK)
         {
             ViewBag.CourseCategory_FK = new SelectList(db.tblCourseCategories, "CourseCategoryID", "CourseCategory", tblCourse.CourseCategory_FK);            
             ViewBag.Topics_FK = new SelectList(db.tblTopics, "TopicID", "Topic");
             ViewBag.ClassType_FK = new SelectList(db.tblClassTypes, "ClassTypeID", "ClassTypeName",tblCourse.ClassType_FK);
-
-            if (Image != null)
+            tblCourse.IsActive = true;
+            if (Thumbnail != null)
             {
                 var UniqueName = Common.GenerateRandomDigitCode(20);
-                var extension = Path.GetExtension(Image.FileName);
+                var extension = Path.GetExtension(Thumbnail.FileName);
                 var path = Path.Combine(Server.MapPath("~/uploads"), UniqueName + extension);
-                Image.SaveAs(path);
+                Thumbnail.SaveAs(path);
                 tblCourse.Image = UniqueName + extension;
             }
             else
             {
                 tblCourse.Image = "Default.jpg";
+            } if (Icon != null)
+            {
+                var UniqueName = Common.GenerateRandomDigitCode(20);
+                var extension = Path.GetExtension(Icon.FileName);
+                var path = Path.Combine(Server.MapPath("~/uploads"), UniqueName + extension);
+                Icon.SaveAs(path);
+                tblCourse.Icon = UniqueName + extension;
+            }
+            else
+            {
+                tblCourse.Icon = "Default.jpg";
             }
             if (tblCourse.CourseID > 0)
             {
@@ -136,7 +148,25 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             tblCourse tblCourse = await db.tblCourses.FindAsync(id);
-            db.tblCourses.Remove(tblCourse);
+            tblUser user = (tblUser)Session["User"];
+            var topic = await db.tblCourseTopicsMappings.Where(x => x.CourseID == id).ToListAsync();
+            if (topic.Count() > 0)
+            {
+                //db.tblCourseTopicsMappings.RemoveRange(topics);
+                foreach (var tblTopics in topic)
+                {
+                    
+                    tblTopics.DeletedOn = DateTime.Now;
+                    tblTopics.DeletedBy = user.UserID;
+                    db.Entry(tblTopics).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+
+                }
+            }
+            //db.tblCourses.Remove(tblCourse);
+            tblCourse.DeletedBy = user.UserID;
+            tblCourse.DeletedOn = DateTime.Now;
+            db.Entry(tblCourse).State = EntityState.Modified;
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

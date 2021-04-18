@@ -22,7 +22,7 @@ namespace SymphonyLtd.Models
     
         public int ClassTypeID { get; set; }
         public string ClassTypeName { get; set; }
-        public Nullable<System.DateTime> IsActive { get; set; }
+        public bool IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCourse> tblCourses { get; set; }

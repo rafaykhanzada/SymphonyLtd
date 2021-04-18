@@ -157,8 +157,10 @@
     <Compile Include="Areas\Admin\Controllers\AjaxController.cs" />
     <Compile Include="Areas\Admin\Controllers\BranchesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ClassTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CountriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CourseCategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CourseFeaturesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CoursesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\EnrollmentsController.cs" />
@@ -1177,6 +1179,16 @@
     <Content Include="Areas\Admin\Views\Teachers\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Teachers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Teachers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassTypes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassTypes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassTypes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassTypes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassTypes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseFeatures\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseFeatures\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseFeatures\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseFeatures\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseFeatures\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1189,8 +1201,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="uploads\09QN560ANN1JLR35FQDZ.jpg" />
+    <Content Include="uploads\4CX3HXELDOW6XCKT77PN.jpg" />
+    <Content Include="uploads\CFR9MPNWK59ZDIX7DPXH.png" />
+    <Content Include="uploads\D82P0JKD5GKF9IN31QES.jpg" />
     <Content Include="uploads\E70XZ85S7IZK8OX5GLTT.jpg" />
     <Content Include="uploads\HH7JCPWEONL2G3QR334H.jpg" />
+    <Content Include="uploads\N214KKO0TEE8DFHHM46R.png" />
+    <Content Include="uploads\Q78IT0EBV38WEMTJQPZK.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

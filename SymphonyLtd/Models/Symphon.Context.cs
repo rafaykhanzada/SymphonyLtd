@@ -51,10 +51,10 @@ namespace SymphonyLtd.Models
         public virtual DbSet<tblTopic> tblTopics { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblHomePageBox> tblHomePageBoxes { get; set; }
-        public virtual DbSet<tblClassType> tblClassTypes { get; set; }
         public virtual DbSet<tblNewsItem> tblNewsItems { get; set; }
         public virtual DbSet<tblApplication> tblApplications { get; set; }
         public virtual DbSet<tblCourseFeature> tblCourseFeatures { get; set; }
         public virtual DbSet<tblTeacher> tblTeachers { get; set; }
+        public virtual DbSet<tblClassType> tblClassTypes { get; set; }
     }
 }

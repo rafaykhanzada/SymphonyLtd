@@ -107,7 +107,7 @@
           </Key>
           <Property Name="ClassTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClassTypeName" Type="nvarchar" MaxLength="250" />
-          <Property Name="IsActive" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tblContactUs">
           <Key>
@@ -1067,9 +1067,9 @@
           <NavigationProperty Name="tblEnrollments" Relationship="Self.FK_tblEnrollment_tblCourse" FromRole="tblCourse" ToRole="tblEnrollment" />
           <Property Name="Icon" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ClassType_FK" Type="Int32" />
-          <NavigationProperty Name="tblClassType" Relationship="SymphonyDBModel.FK_tblCourse_tblClassType" FromRole="tblCourse" ToRole="tblClassType" />
           <NavigationProperty Name="tblCourseFeatures" Relationship="SymphonyDBModel.FK_tblCourseFeature_tblCourse" FromRole="tblCourse" ToRole="tblCourseFeature" />
           <Property Name="Starts" Type="Int32" />
+          <NavigationProperty Name="tblClassType" Relationship="SymphonyDBModel.FK_tblCourse_tblClassType" FromRole="tblCourse" ToRole="tblClassType" />
         </EntityType>
         <EntityType Name="tblCourseCategory">
           <Key>
@@ -1806,12 +1806,7 @@
             <End Role="tblTopic" EntitySet="tblTopics" />
           </AssociationSet>
           <EntitySet Name="tblHomePageBoxes" EntityType="SymphonyDBModel.tblHomePageBox" />
-          <EntitySet Name="tblClassTypes" EntityType="SymphonyDBModel.tblClassType" />
           <EntitySet Name="tblNewsItems" EntityType="SymphonyDBModel.tblNewsItem" />
-          <AssociationSet Name="FK_tblCourse_tblClassType" Association="SymphonyDBModel.FK_tblCourse_tblClassType">
-            <End Role="tblClassType" EntitySet="tblClassTypes" />
-            <End Role="tblCourse" EntitySet="tblCourses" />
-          </AssociationSet>
           <EntitySet Name="tblApplications" EntityType="SymphonyDBModel.tblApplication" />
           <EntitySet Name="tblCourseFeatures" EntityType="SymphonyDBModel.tblCourseFeature" />
           <AssociationSet Name="FK_tblCourseFeature_tblCourse" Association="SymphonyDBModel.FK_tblCourseFeature_tblCourse">
@@ -1819,6 +1814,11 @@
             <End Role="tblCourseFeature" EntitySet="tblCourseFeatures" />
           </AssociationSet>
           <EntitySet Name="tblTeachers" EntityType="SymphonyDBModel.tblTeacher" />
+          <EntitySet Name="tblClassTypes" EntityType="SymphonyDBModel.tblClassType" />
+          <AssociationSet Name="FK_tblCourse_tblClassType" Association="SymphonyDBModel.FK_tblCourse_tblClassType">
+            <End Role="tblClassType" EntitySet="tblClassTypes" />
+            <End Role="tblCourse" EntitySet="tblCourses" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblHomePageBox">
           <Key>
@@ -1833,15 +1833,6 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="DeletedBy" Type="Int32" />
           <Property Name="DeletedOn" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="tblClassType">
-          <Key>
-            <PropertyRef Name="ClassTypeID" />
-          </Key>
-          <Property Name="ClassTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClassTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCourses" Relationship="SymphonyDBModel.FK_tblCourse_tblClassType" FromRole="tblClassType" ToRole="tblCourse" />
         </EntityType>
         <EntityType Name="tblNewsItem">
           <Key>
@@ -1858,18 +1849,6 @@
           <Property Name="DeletedOn" Type="DateTime" Precision="3" />
           <Property Name="DeletedBy" Type="Int32" />
         </EntityType>
-        <Association Name="FK_tblCourse_tblClassType">
-          <End Type="SymphonyDBModel.tblClassType" Role="tblClassType" Multiplicity="0..1" />
-          <End Type="SymphonyDBModel.tblCourse" Role="tblCourse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblClassType">
-              <PropertyRef Name="ClassTypeID" />
-            </Principal>
-            <Dependent Role="tblCourse">
-              <PropertyRef Name="ClassType_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tblApplication">
           <Key>
             <PropertyRef Name="ApplicationID" />
@@ -1921,6 +1900,27 @@
           <Property Name="Experience" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Likes" Type="Int32" />
         </EntityType>
+        <EntityType Name="tblClassType">
+          <Key>
+            <PropertyRef Name="ClassTypeID" />
+          </Key>
+          <Property Name="ClassTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblCourses" Relationship="SymphonyDBModel.FK_tblCourse_tblClassType" FromRole="tblClassType" ToRole="tblCourse" />
+        </EntityType>
+        <Association Name="FK_tblCourse_tblClassType">
+          <End Type="SymphonyDBModel.tblClassType" Role="tblClassType" Multiplicity="0..1" />
+          <End Type="SymphonyDBModel.tblCourse" Role="tblCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClassType">
+              <PropertyRef Name="ClassTypeID" />
+            </Principal>
+            <Dependent Role="tblCourse">
+              <PropertyRef Name="ClassType_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2322,15 +2322,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblClassTypes">
-            <EntityTypeMapping TypeName="SymphonyDBModel.tblClassType">
-              <MappingFragment StoreEntitySet="tblClassType">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ClassTypeName" ColumnName="ClassTypeName" />
-                <ScalarProperty Name="ClassTypeID" ColumnName="ClassTypeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblNewsItems">
             <EntityTypeMapping TypeName="SymphonyDBModel.tblNewsItem">
               <MappingFragment StoreEntitySet="tblNewsItem">
@@ -2385,6 +2376,15 @@
                 <ScalarProperty Name="Subj" ColumnName="Subj" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClassTypes">
+            <EntityTypeMapping TypeName="SymphonyDBModel.tblClassType">
+              <MappingFragment StoreEntitySet="tblClassType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ClassTypeName" ColumnName="ClassTypeName" />
+                <ScalarProperty Name="ClassTypeID" ColumnName="ClassTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

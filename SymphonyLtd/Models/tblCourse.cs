@@ -45,8 +45,8 @@ namespace SymphonyLtd.Models
         public virtual ICollection<tblCourseTopicsMapping> tblCourseTopicsMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblEnrollment> tblEnrollments { get; set; }
-        public virtual tblClassType tblClassType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCourseFeature> tblCourseFeatures { get; set; }
+        public virtual tblClassType tblClassType { get; set; }
     }
 }

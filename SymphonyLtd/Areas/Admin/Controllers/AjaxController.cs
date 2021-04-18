@@ -39,6 +39,20 @@ namespace SymphonyLtd.Areas.Admin.Controllers
                 return null;
             }
         }
+        [HttpPost]
+        public async Task<bool> ApplicationSubmit(tblApplication model)
+        {
+            if (model!=null)
+            {
+                db.tblApplications.Add(model);
+                await db.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {

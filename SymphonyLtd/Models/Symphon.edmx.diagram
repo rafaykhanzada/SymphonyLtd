@@ -58,13 +58,13 @@
         <AssociationConnector Association="SymphonyDBModel.FK_tblUser_tblRole" ManuallyRouted="false" />
         <AssociationConnector Association="SymphonyDBModel.FK_tblTopic_tblUser" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblHomePageBox" Width="1.5" PointX="0.75" PointY="9.75" />
-        <EntityTypeShape EntityType="SymphonyDBModel.tblClassType" Width="1.5" PointX="3" PointY="21.875" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblNewsItem" Width="1.5" PointX="10.375" PointY="4.75" />
-        <AssociationConnector Association="SymphonyDBModel.FK_tblCourse_tblClassType" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblApplication" Width="1.5" PointX="10.375" PointY="8.75" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblCourseFeature" Width="1.5" PointX="7.5" PointY="17.875" />
         <AssociationConnector Association="SymphonyDBModel.FK_tblCourseFeature_tblCourse" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblTeacher" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SymphonyDBModel.tblClassType" Width="1.5" PointX="3" PointY="22.125" />
+        <AssociationConnector Association="SymphonyDBModel.FK_tblCourse_tblClassType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

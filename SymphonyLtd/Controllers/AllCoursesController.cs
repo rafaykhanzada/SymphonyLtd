@@ -18,7 +18,7 @@ namespace SymphonyLtd.Controllers
         // GET: AllCourses
         public async Task<ActionResult> Index()
         {
-            var tblCourses = db.tblCourses.Include(t => t.tblCourseCategory).Include(t => t.tblUser).Include(t => t.tblClassType);
+            var tblCourses = db.tblCourses.Where(x=>x.DeletedOn==null && x.DeletedBy==null).Include(t => t.tblCourseCategory).Include(t => t.tblUser).Include(t => t.tblClassType);
             return View(await tblCourses.ToListAsync());
         }
 

@@ -133,14 +133,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
-                    <form>
+                    @using (Html.BeginForm("ApplicationSubmit", "Ajax", FormMethod.Post, new { id = "form_validation" }))
+                    {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Your Name :<span class="text-danger">*</span></label>
                                     <div class="form-icon position-relative">
                                         <i data-feather="user" class="fea icon-sm icons"></i>
-                                        <input name="name" id="name" type="text" class="form-control ps-5" required placeholder="First Name :">
+                                        <input name="Name" id="Name" type="text" class="form-control ps-5" required placeholder="Your Name :">
                                     </div>
                                 </div>
                             </div><!--end col-->
@@ -149,7 +150,7 @@
                                     <label class="form-label">Your Email :<span class="text-danger">*</span></label>
                                     <div class="form-icon position-relative">
                                         <i data-feather="mail" class="fea icon-sm icons"></i>
-                                        <input name="email" id="email" type="email" class="form-control ps-5" required placeholder="Your email :">
+                                        <input name="Email" id="Email" type="email" class="form-control ps-5" required placeholder="Your email :">
                                     </div>
                                 </div>
                             </div><!--end col-->
@@ -158,28 +159,28 @@
                                     <label class="form-label">Your Phone no. :<span class="text-danger">*</span></label>
                                     <div class="form-icon position-relative">
                                         <i data-feather="phone" class="fea icon-sm icons"></i>
-                                        <input name="number" id="number" type="number" class="form-control ps-5" required placeholder="Your phone no. :">
+                                        <input name="Phone" id="Phone" type="number" class="form-control ps-5" required placeholder="Your phone no. :">
                                     </div>
                                 </div>
                             </div><!--end col-->
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Job Title :</label>
+                                    <label class="form-label">Date Of Birth :</label>
                                     <div class="form-icon position-relative">
                                         <i data-feather="book" class="fea icon-sm icons"></i>
-                                        <input name="subject" id="subject" class="form-control ps-5" required placeholder="Title :">
+                                        <input name="DOB" id="DOB" class="form-control ps-5" type="date" required placeholder="Date Of Birth">
                                     </div>
                                 </div>
                             </div><!--end col-->
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label">Types of jobs :</label>
-                                    <select class="form-select form-control" aria-label="Default select example" id="Sortbylist-job">
-                                        <option selected>All Jobs</option>
-                                        <option>Full Time</option>
-                                        <option>Half Time</option>
-                                        <option>Remote</option>
-                                        <option>In Office</option>
+                                    <select class="form-select form-control" aria-label="Default select example" id="Subject">
+                                        <option selected value="Apply For Admission">Apply For Admission</option>
+                                        <option value="Complaint">Complaint</option>
+                                        <option value="Question">Question</option>
+                                        <option value="Support">Support</option>
+                                        <option value="Others">Others</option>
                                     </select>
                                 </div>
                             </div><!--end col-->
@@ -188,20 +189,21 @@
                                     <label class="form-label">Description :</label>
                                     <div class="form-icon position-relative">
                                         <i data-feather="message-circle" class="fea icon-sm icons"></i>
-                                        <textarea name="comments" id="comments" rows="4" class="form-control ps-5" required placeholder="Describe the job :"></textarea>
+                                        <textarea name="Description" id="Description" rows="4" class="form-control ps-5" required placeholder="Description :"></textarea>
                                     </div>
                                 </div>
                             </div><!--end col-->
-                            <div class="col-md-12">
+                            <!--<div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="formFile" class="form-label">Upload Your Cv / Resume :</label>
                                     <input class="form-control" type="file" id="formFile">
                                 </div>
-                            </div><!--end col-->
+                            </div>-->
+                            <!--end col-->
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" value="" id="GetInTouch">
                                         <label class="form-check-label" for="flexCheckDefault">I Accept <a href="#" class="text-primary">Terms And Condition</a></label>
                                     </div>
                                 </div>
@@ -212,7 +214,7 @@
                                 <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="Apply Now">
                             </div><!--end col-->
                         </div><!--end row-->
-                    </form><!--end form-->
+                    }
                 </div>
             </div>
         </div>
@@ -362,7 +364,9 @@
             <a href="javascript: void(0);" class="settings bg-white title-bg-dark shadow d-block"><i class="mdi mdi-cog ms-1 mdi-24px position-absolute mdi-spin text-primary"></i></a>
         </div>
     </div>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
     @Scripts.Render("~/Public/script")
+
     <script>
         function toggleSwitcher() {
             var i = document.getElementById('style-switcher');
@@ -385,6 +389,33 @@
             toggleSwitcher(false);
         };
 
+    </script>
+
+    <script>
+        $("form#form_validation").submit((e) => {
+        e.preventDefault();
+        var url = '@Url.Action("ApplicationSubmit", "Ajax")';
+        var model = {
+            "Name": $("#Name").val(),
+            "Email": $("#Email").val(),
+            "Phone": $("#Phone").val(),
+            "DOB": $("#DOB").val(),
+            "Subject": $("#Subject").val(),
+            "Description": $("#Description").val(),
+            "GetInTouch": $("#GetInTouch").is(':checked'),
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: model, // serializes the form's elements.
+            success: function (data) {
+                if (data) {
+                    $("#ApplyNow").modal('hide');
+                } 
+            }
+        });
+
+    });
     </script>
 </body>
 
