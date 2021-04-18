@@ -181,6 +181,9 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AllTeachersController.cs" />
+    <Compile Include="Controllers\ResultsController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1134,13 +1137,6 @@
     <Content Include="Areas\Admin\Views\Cities\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Cities\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Cities\Index.cshtml" />
-    <EntityDeploy Include="Models\Symphon.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Symphon.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Symphon.edmx.diagram">
-      <DependentUpon>Symphon.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Exams\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Exams\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Exams\Details.cshtml" />
@@ -1189,6 +1185,13 @@
     <Content Include="Areas\Admin\Views\CourseFeatures\Details.cshtml" />
     <Content Include="Areas\Admin\Views\CourseFeatures\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CourseFeatures\Index.cshtml" />
+    <EntityDeploy Include="Models\Symphon.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Symphon.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Symphon.edmx.diagram">
+      <DependentUpon>Symphon.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1233,6 +1236,20 @@
     <Content Include="Views\AllCourses\Details.cshtml" />
     <Content Include="Views\AllCourses\Edit.cshtml" />
     <Content Include="Views\AllCourses\Index.cshtml" />
+    <Content Include="Views\AllTeachers\Create.cshtml" />
+    <Content Include="Views\AllTeachers\Delete.cshtml" />
+    <Content Include="Views\AllTeachers\Details.cshtml" />
+    <Content Include="Views\AllTeachers\Edit.cshtml" />
+    <Content Include="Views\AllTeachers\Index.cshtml" />
+    <Content Include="Views\UserProfile\MyAccount.cshtml" />
+    <Content Include="Views\UserProfile\Courses.cshtml" />
+    <Content Include="Views\UserProfile\Exams.cshtml" />
+    <Content Include="Views\UserProfile\Results.cshtml" />
+    <Content Include="Views\Results\Create.cshtml" />
+    <Content Include="Views\Results\Delete.cshtml" />
+    <Content Include="Views\Results\Details.cshtml" />
+    <Content Include="Views\Results\Edit.cshtml" />
+    <Content Include="Views\Results\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

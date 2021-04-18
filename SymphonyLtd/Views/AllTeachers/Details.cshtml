@@ -1,0 +1,75 @@
+﻿@model SymphonyLtd.Models.tblTeacher
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblTeacher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subj)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Experience)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Likes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Likes)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TeacherID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

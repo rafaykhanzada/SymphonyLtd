@@ -21,13 +21,13 @@ namespace SymphonyLtd.Models
         }
     
         public int ExamTypeID { get; set; }
+        public string ExamTypeName { get; set; }
         public Nullable<decimal> ExamFees { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<System.DateTime> DeletedOn { get; set; }
         public Nullable<int> DeleteBy { get; set; }
-        public string ExamTypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblExam> tblExams { get; set; }

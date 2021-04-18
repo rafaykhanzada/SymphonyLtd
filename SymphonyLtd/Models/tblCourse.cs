@@ -17,9 +17,9 @@ namespace SymphonyLtd.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblCourse()
         {
+            this.tblCourseFeatures = new HashSet<tblCourseFeature>();
             this.tblCourseTopicsMappings = new HashSet<tblCourseTopicsMapping>();
             this.tblEnrollments = new HashSet<tblEnrollment>();
-            this.tblCourseFeatures = new HashSet<tblCourseFeature>();
         }
     
         public int CourseID { get; set; }
@@ -39,14 +39,14 @@ namespace SymphonyLtd.Models
         public Nullable<int> ClassType_FK { get; set; }
         public Nullable<int> Starts { get; set; }
     
+        public virtual tblClassType tblClassType { get; set; }
         public virtual tblCourseCategory tblCourseCategory { get; set; }
         public virtual tblUser tblUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCourseFeature> tblCourseFeatures { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCourseTopicsMapping> tblCourseTopicsMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblEnrollment> tblEnrollments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblCourseFeature> tblCourseFeatures { get; set; }
-        public virtual tblClassType tblClassType { get; set; }
     }
 }

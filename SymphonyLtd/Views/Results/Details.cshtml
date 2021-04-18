@@ -1,0 +1,99 @@
+﻿@model SymphonyLtd.Models.tblResult
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblResult</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ObtainNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ObtainNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalMarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalMarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFailed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsFailed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblExam.ExamName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblExam.ExamName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblUser.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblUser.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblUser1.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblUser1.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ResultID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -24,8 +24,10 @@ namespace SymphonyLtd.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<System.DateTime> DeletedOn { get; set; }
         public Nullable<int> DeletedBy { get; set; }
+        public Nullable<int> StudentID { get; set; }
     
         public virtual tblExam tblExam { get; set; }
         public virtual tblUser tblUser { get; set; }
+        public virtual tblUser tblUser1 { get; set; }
     }
 }

@@ -8,22 +8,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SymphonyLtd.Models;
-using System.IO;
-using SymphonyLtd.Helper;
 
-namespace SymphonyLtd.Areas.Admin.Controllers
+namespace SymphonyLtd.Controllers
 {
-    public class TeachersController : Controller
+    public class AllTeachersController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();
 
-        // GET: Admin/Teachers
+        // GET: Teachers
         public async Task<ActionResult> Index()
         {
             return View(await db.tblTeachers.ToListAsync());
         }
 
-        // GET: Admin/Teachers/Details/5
+        // GET: Teachers/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,55 +36,30 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             return View(tblTeacher);
         }
 
-        // GET: Admin/Teachers/Create
-        public async Task<ActionResult> Create(int? id)
+        // GET: Teachers/Create
+        public ActionResult Create()
         {
-            if (id == null)
-            {
             return View();
-            }
-            tblTeacher tblTeacher = await db.tblTeachers.FindAsync(id);
-            if (tblTeacher == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tblTeacher);
         }
 
+        // POST: Teachers/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TeacherID,Name,Subj,Start,Experience,Image,IsActive")] tblTeacher tblTeacher, HttpPostedFileBase file)
+        public async Task<ActionResult> Create([Bind(Include = "TeacherID,Name,Subj,Image,IsActive,Start,Experience,Likes")] tblTeacher tblTeacher)
         {
-            tblTeacher.IsActive = true;
-            if (file != null)
-            {
-                var UniqueName = Common.GenerateRandomDigitCode(20);
-                var extension = Path.GetExtension(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/uploads"), UniqueName + extension);
-                file.SaveAs(path);
-                tblTeacher.Image = UniqueName + extension;
-            }
-            else
-            {
-                tblTeacher.Image = "Default.jpg";
-            }
-            if (tblTeacher.TeacherID==0)
+            if (ModelState.IsValid)
             {
                 db.tblTeachers.Add(tblTeacher);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            if (tblTeacher.TeacherID > 0)
-            {
-                db.Entry(tblTeacher).State = EntityState.Modified;
-                db.Entry(tblTeacher).Property(p => p.Likes).IsModified = false;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+
             return View(tblTeacher);
         }
 
-        // GET: Admin/Teachers/Edit/5
+        // GET: Teachers/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -101,12 +74,12 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             return View(tblTeacher);
         }
 
-        // POST: Admin/Teachers/Edit/5
+        // POST: Teachers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "TeacherID,Name,Subj,Image,IsActive")] tblTeacher tblTeacher)
+        public async Task<ActionResult> Edit([Bind(Include = "TeacherID,Name,Subj,Image,IsActive,Start,Experience,Likes")] tblTeacher tblTeacher)
         {
             if (ModelState.IsValid)
             {
@@ -117,7 +90,7 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             return View(tblTeacher);
         }
 
-        // GET: Admin/Teachers/Delete/5
+        // GET: Teachers/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,7 +105,7 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             return View(tblTeacher);
         }
 
-        // POST: Admin/Teachers/Delete/5
+        // POST: Teachers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

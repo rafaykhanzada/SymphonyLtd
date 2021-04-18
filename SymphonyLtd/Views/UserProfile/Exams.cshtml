@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "Exams";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<!-- Navbar End -->
+<!-- Hero Start -->
+<section class="bg-profile d-table w-100 bg-primary" style="background: url('/App_Assets/Public/images/bg.png') center center;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card public-profile border-0 rounded shadow" style="z-index: 1;">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-lg-2 col-md-3 text-md-start text-center">
+                                <img src="~/uploads/@Model.Profile" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                            </div><!--end col-->
+
+                            <div class="col-lg-10 col-md-9">
+                                <div class="row align-items-end">
+                                    <div class="col-md-7 text-md-start text-center mt-4 mt-sm-0">
+                                        <h3 class="title mb-0">@Model.Name</h3>
+                                        <small class="text-muted h6 me-2">@Model.tblRole.RoleName</small>
+
+                                    </div><!--end col-->
+
+                                </div><!--end row-->
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--ed container-->
+</section><!--end section-->
+<!-- Hero End -->
+<!-- Profile Start -->
+<section class="section mt-60">
+    <div class="container mt-lg-3">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
+                <div class="sidebar sticky-bar p-4 rounded shadow">
+
+
+                    <div class="widget mt-4">
+                        <ul class="list-unstyled sidebar-nav mb-0" id="navmenu-nav">
+                            <li class="navbar-item account-menu px-0 mt-2">
+                                <a href="account-setting.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-setting"></i></span>
+                                    <h6 class="mb-0 ms-2">Profile</h6>
+                                </a>
+                            </li>
+
+                            <li class="navbar-item account-menu px-0 mt-2">
+                                <a href="~/UserProfile/Courses" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-users-alt"></i></span>
+                                    <h6 class="mb-0 ms-2">Courses in Enroll</h6>
+                                </a>
+                            </li>
+
+                            <li class="navbar-item account-menu px-0 mt-2">
+                                <a href="~/UserProfile/Exams" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-file"></i></span>
+                                    <h6 class="mb-0 ms-2">Examination</h6>
+                                </a>
+                            </li>
+
+                            <li class="navbar-item account-menu px-0 mt-2">
+                                <a href="~/UserProfile/Results" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-envelope-star"></i></span>
+                                    <h6 class="mb-0 ms-2">Results & Certificates</h6>
+                                </a>
+                            </li>
+
+                            <li class="navbar-item account-menu px-0 mt-2">
+                                <a href="~/UserProfile/Payments" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-transaction"></i></span>
+                                    <h6 class="mb-0 ms-2">Payments</h6>
+                                </a>
+                            </li>
+
+                            <li class="navbar-item account-menu px-0 mt-2">
+                                <a href="~/Account/Logout" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
+                                    <h6 class="mb-0 ms-2">Logout</h6>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div><!--end col-->
+
+            <div class="col-lg-8 col-12">
+                <div class="card border-0 rounded shadow">
+                    <div class="card-body">
+                        <h5 class="text-md-start text-center">Exam Detail :</h5>
+
+                        <!--Exam Table-->
+
+
+                        @if (ViewBag.Exam != null)
+                        {
+                            <div class="table-responsive bg-white shadow rounded">
+                                <table class="table mb-0 table-center table-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="border-bottom">Name</th>
+                                            <th scope="col" class="border-bottom">Topics</th>
+                                            <th scope="col" class="border-bottom">Duration</th>
+                                            <th scope="col" class="border-bottom">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Exam)
+                                        {
+                                        <tr>
+                                            <th scope="row">@item.tblExam.ExamName</th>
+                                            <td class="text-muted">
+                                                 @item.tblExam.tblTopic.Topic
+                                            </td>
+                                            <td class="text-muted">@(item.tblExam.ExamScheduleFrom - item.tblExam.ExamScheduleTo)</td>
+                                                @if (item.tblExam.IsValid)
+                                                {
+
+                                                <td class="text-success">Valid</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-danger">Cancled</td>
+                                            }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+
+                        <!--Exam Table-->
+                        <!--end row-->
+                    </div>
+                </div>
+
+
+
+                <!--<div class="rounded shadow mt-4">
+                    <div class="p-4 border-bottom">
+                        <h5 class="mb-0 text-danger">Delete Account :</h5>
+                    </div>
+
+                    <div class="p-4">
+                        <h6 class="mb-0">Do you want to delete the account? Please press below "Delete" button</h6>
+                        <div class="mt-4">
+                            <button class="btn btn-danger">Delete Account</button>
+                        </div>-->
+                <!--end col-->
+                <!--</div>
+                </div>-->
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</section><!--end section-->
+<!-- Profile Setting End -->

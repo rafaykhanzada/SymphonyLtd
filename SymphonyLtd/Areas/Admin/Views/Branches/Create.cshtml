@@ -35,8 +35,9 @@
                 </ul>
             </div>
             <div class="body">
-                <form id="form_validation">
-
+                @using (Html.BeginForm("Create", "Branches", FormMethod.Post, new {  id = "form_validation" }))
+                {
+                    @Html.AntiForgeryToken()
                     <div class="row clearfix">
                         @Html.HiddenFor(model => model.BranchID)
 
@@ -103,8 +104,8 @@
                         <button style="float:right" class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
                         <input type="reset" id="reset" style="display:none" />
                     </div>
-                </form>
-            </div>
+                }
+                </div>
         </div>
     </div>
 </div>

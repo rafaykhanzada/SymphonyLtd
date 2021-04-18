@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 @*<h2>Create</h2>
@@ -61,7 +62,6 @@
     </div>*@
 
 
-
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
@@ -103,6 +103,7 @@
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.Subj, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-12">
@@ -110,43 +111,38 @@
                                 @Html.ValidationMessageFor(model => model.Subj, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <!-- #END# Tags Input -->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Experience, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Experience, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Experience, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p>
+                                <b>Starts</b>
+                            </p>
+                            <div class="form-group default-select">
+                                <select class="form-control " name="Start">
+                                    @for (int i = 1; i < 6; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                                          
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="file-field input-field">
                                     <div class="btn">
                                         <span>Upload Course Thumbnail</span>
-                                        <input type="file" name="Image">
+                                        <input type="file" name="file">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check m-l-10">
-                                <label class="form-check-label">
-                                    @* @Html.CheckBoxFor(model=>model.IsActive,new { @class = "form-check-input" , type="checkbox", id= "checkbox" })*@
-                                    @if (Model != null)
-                                    {
-                                        if (Model.IsActive.Value)
-                                        {
-                                            <input class="form-check-input" type="checkbox" id="IsActive" checked name="IsActive">
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        <input class="form-check-input" type="checkbox" id="IsActive" name="IsActive">
-
-                                    }
-                                    If you want to active this now?
-                                    <span class="form-check-sign">
-                                        <span class="check"></span>
-                                    </span>
-                                </label>
                             </div>
                         </div>
 
@@ -160,8 +156,3 @@
         </div>
     </div>
 </div>
-<!-- #END# Advanced Select -->
-
-
-<script>
-</script>

@@ -85,7 +85,8 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             else
             {
                 tblCourse.Image = "Default.jpg";
-            } if (Icon != null)
+            } 
+            if (Icon != null)
             {
                 var UniqueName = Common.GenerateRandomDigitCode(20);
                 var extension = Path.GetExtension(Icon.FileName);
@@ -100,6 +101,7 @@ namespace SymphonyLtd.Areas.Admin.Controllers
             if (tblCourse.CourseID > 0)
             {
                 db.Entry(tblCourse).State = EntityState.Modified;
+                db.Entry(tblCourse).Property(p => p.CreatedOn).IsModified = false;
                 db.tblCourseTopicsMappings.RemoveRange(db.tblCourseTopicsMappings.Where(x => x.CourseID == tblCourse.CourseID));
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

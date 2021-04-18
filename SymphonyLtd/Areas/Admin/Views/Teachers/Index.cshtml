@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 @*<h2>Index</h2>
@@ -108,11 +109,9 @@
                                 @Html.DisplayNameFor(model => model.Subj)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Image)
+                                @Html.DisplayNameFor(model => model.Experience)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.IsActive)
-                            </th>
+                            
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -127,13 +126,10 @@
                                 @Html.DisplayFor(modelItem => item.Subj)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Image)
-                            </td>
+                                @Html.DisplayFor(modelItem => item.Experience)
+                            </td>                           
                             <td>
-                                @Html.DisplayFor(modelItem => item.IsActive)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.TeacherID }) |
+                                @Html.ActionLink("Edit", "Create", new { id = item.TeacherID }) |
                                 @Html.ActionLink("Details", "Details", new { id = item.TeacherID }) |
                                 @Html.ActionLink("Delete", "Delete", new { id = item.TeacherID })
                             </td>

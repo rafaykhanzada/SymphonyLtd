@@ -13,7 +13,11 @@
     }
     var name = (user == null) ? "No Name" : user.Name;
     var email = (user == null) ? "No Email" : user.Email;
-    //ViewBag.Services = db.tbl_Services.OrderByDescending(o => o.PK_ID).Where(c => c.Allow == true);
+    var Courses = db.tblCourses.Where(x=>x.DeletedBy==null && x.DeletedOn==null).Select(s=>new { 
+    
+    s.CourseID,
+    s.CourseName,
+    }).Take(10).OrderByDescending(x=>x.CourseID);
 
 
 }
@@ -107,8 +111,20 @@
                 <!-- Navigation Menu-->
                 <ul class="navigation-menu nav-light">
                     <li><a href="index.html" class="sub-menu-item">Home</a></li>
-                    <li><a href="index.html" class="sub-menu-item">Courses</a></li>
-                    <li><a href="index.html" class="sub-menu-item">Our Teachers</a></li>
+                    <li class="has-submenu parent-menu-item">
+                        <a href="~/AllCourses/Index">Courses</a><span class="menu-arrow"></span>
+                        <ul class="submenu">
+                            @if (Courses != null)
+                            {
+                                foreach (var item in Courses)
+                                {
+                                    <li><a href="~/AllCourses/Details/@item.CourseID" class="sub-menu-item">@item.CourseName</a></li>
+                                }
+                            }
+
+                        </ul>
+                    </li>
+                    <li><a href="~/AllTeachers/Index" class="sub-menu-item">Our Teachers</a></li>
                     <li><a href="index.html" class="sub-menu-item">FAQs</a></li>
                     <li><a href="index.html" class="sub-menu-item">About Us</a></li>
                     <li><a href="index.html" class="sub-menu-item">Contact Us</a></li>
@@ -411,7 +427,7 @@
             success: function (data) {
                 if (data) {
                     $("#ApplyNow").modal('hide');
-                } 
+                }
             }
         });
 

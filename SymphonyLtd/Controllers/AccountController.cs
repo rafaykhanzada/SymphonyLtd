@@ -35,8 +35,7 @@ namespace SymphonyLtd.Controllers
         {
             if (ModelState.IsValid)
             {
-                var tblUsers =await db.tblUsers.Where(x=>x.Email==model.Email || x.PhoneNumber==model.PhoneNumber).ToListAsync();
-                if (tblUsers.Count()==0)
+                if (db.tblUsers.Any(x => x.Email == model.Email || x.PhoneNumber == model.PhoneNumber))
                 {
                     tblUser user = new tblUser();
                     user.Name = model.Name;
@@ -54,6 +53,13 @@ namespace SymphonyLtd.Controllers
                     Session["User"] = user;
                     return RedirectToAction("MyAccount", "UserProfile");
                 }
+                else
+                {
+                        ViewBag.alert = "block";
+                        ViewBag.msg = "This Email is already in use";
+                        return View();
+                    
+                }
             }
             return View();
         }
@@ -62,6 +68,7 @@ namespace SymphonyLtd.Controllers
         {
             var tblUsers = db.tblUsers.Include(t => t.tblRole);
             var user =await tblUsers.Where(x => x.Email == model.Email && x.Password == model.Password).ToListAsync();
+
             if (user.Count()==1)
             {
                 FormsAuthentication.SetAuthCookie(user[0].Email, model.RememberMe);  
