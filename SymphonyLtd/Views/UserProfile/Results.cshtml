@@ -1,10 +1,10 @@
-﻿
+﻿@model SymphonyLtd.Models.tblUser
+
 @{
     ViewBag.Title = "Results";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 
-<!-- Navbar End -->
 <!-- Hero Start -->
 <section class="bg-profile d-table w-100 bg-primary" style="background: url('/App_Assets/Public/images/bg.png') center center;">
     <div class="container">
@@ -101,28 +101,31 @@
                         <!--Exam Table-->
 
 
-                        @if (ViewBag.Results != null)
+                        @if (Model.tblResults != null)
                         {
                             <!-- Event Start -->
-                            <div class="row">
-                                <div class="col-lg-5 mt-4 pt-2">
-                                    <div class="card event-schedule rounded border">
-                                        <div class="card-body">
-                                            <div class="d-flex">
-                                                <ul class="date text-center text-primary me-3 mb-0 list-unstyled">
-                                                    <li class="day fw-bold mb-2">11</li>
-                                                    <li class="month fw-bold">OCT</li>
-                                                </ul>
-                                                <div class="flex-1 content">
-                                                    <h4><a href="javascript:void(0)" class="text-dark title">Digital Conference Event Intro</a></h4>
-                                                    <p class="text-muted location-time"><span class="text-dark h6">Address:</span> Hall 3, Sinchang-dong, Kwangju, <span class="text-danger">South Korea</span> <br> <span class="text-dark h6">Time:</span> 10:30AM to 11:15AM</p>
-                                                    <a href="#tickets" class="btn btn-sm btn-outline-primary">Buy Ticket</a>
-                                                </div>
+                    <div class="row">
+                        @foreach (var item in Model.tblResults)
+                        {
+                            <div class="col-12">
+                                <div class="card event-schedule rounded border">
+                                    <div class="card-body">
+                                        <div class="d-flex">
+                                            <ul class="date text-center text-primary me-3 mb-0 list-unstyled">
+                                                <li class="day fw-bold mb-2">@item.CreatedOn.Value.Day</li>
+                                                <li class="month fw-bold">@item.CreatedOn.Value.ToString("MMM")</li>
+                                            </ul>
+                                            <div class="flex-1 content">
+                                                <h4><a href="javascript:void(0)" class="text-dark title">@item.tblExam.ExamName</a></h4>
+                                                <p class="text-muted location-time"><span class="text-dark h6">Total Marks:</span> @item.TotalMarks <br> <span class="text-dark h6">Obtain Marks:</span>  @item.ObtainNo</p>
+                                                <a href="~/UserProfile/Certificate/@item.StudentID" class="btn btn-sm btn-outline-primary">Get Certificate</a>
                                             </div>
                                         </div>
                                     </div>
-                                </div><!--end col-->
+                                </div>
                             </div>
+                        }
+                    </div>
                             <!-- Event End -->
                         }
 

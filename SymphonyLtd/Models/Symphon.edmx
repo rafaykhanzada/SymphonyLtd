@@ -732,18 +732,6 @@
               <PropertyRef Name="UserID" />
             </Principal>
             <Dependent Role="tblResult">
-              <PropertyRef Name="DeletedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblResult_tblUser1">
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblResult" Type="Self.tblResult" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblResult">
               <PropertyRef Name="StudentID" />
             </Dependent>
           </ReferentialConstraint>
@@ -925,10 +913,6 @@
             <End Role="tblResult" EntitySet="tblResult" />
           </AssociationSet>
           <AssociationSet Name="FK_tblResult_tblUser" Association="Self.FK_tblResult_tblUser">
-            <End Role="tblUser" EntitySet="tblUser" />
-            <End Role="tblResult" EntitySet="tblResult" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblResult_tblUser1" Association="Self.FK_tblResult_tblUser1">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblResult" EntitySet="tblResult" />
           </AssociationSet>
@@ -1347,7 +1331,6 @@
           <Property Name="StudentID" Type="Int32" />
           <NavigationProperty Name="tblExam" Relationship="Self.FK_tblResult_tblExam" FromRole="tblResult" ToRole="tblExam" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblResult_tblUser" FromRole="tblResult" ToRole="tblUser" />
-          <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblResult_tblUser1" FromRole="tblResult" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblRole">
           <Key>
@@ -1440,7 +1423,6 @@
           <NavigationProperty Name="tblExamStudentMappings" Relationship="Self.FK_tblExamStudentMapping_tblUser" FromRole="tblUser" ToRole="tblExamStudentMapping" />
           <NavigationProperty Name="tblExamTypes" Relationship="Self.FK_tblExamType_tblUser1" FromRole="tblUser" ToRole="tblExamType" />
           <NavigationProperty Name="tblResults" Relationship="Self.FK_tblResult_tblUser" FromRole="tblUser" ToRole="tblResult" />
-          <NavigationProperty Name="tblResults1" Relationship="Self.FK_tblResult_tblUser1" FromRole="tblUser" ToRole="tblResult" />
           <NavigationProperty Name="tblRoles" Relationship="Self.FK_tblRole_tblUser" FromRole="tblUser" ToRole="tblRole" />
           <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
           <NavigationProperty Name="tblTopics" Relationship="Self.FK_tblTopic_tblUser" FromRole="tblUser" ToRole="tblTopic" />
@@ -1753,18 +1735,6 @@
               <PropertyRef Name="UserID" />
             </Principal>
             <Dependent Role="tblResult">
-              <PropertyRef Name="DeletedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblResult_tblUser1">
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblResult" Type="Self.tblResult" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblResult">
               <PropertyRef Name="StudentID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1938,10 +1908,6 @@
             <End Role="tblFees" EntitySet="tblFees" />
           </AssociationSet>
           <AssociationSet Name="FK_tblResult_tblUser" Association="Self.FK_tblResult_tblUser">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblResult" EntitySet="tblResults" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblResult_tblUser1" Association="Self.FK_tblResult_tblUser1">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblResult" EntitySet="tblResults" />
           </AssociationSet>

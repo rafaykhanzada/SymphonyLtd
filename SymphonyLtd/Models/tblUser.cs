@@ -27,7 +27,6 @@ namespace SymphonyLtd.Models
             this.tblExamStudentMappings = new HashSet<tblExamStudentMapping>();
             this.tblExamTypes = new HashSet<tblExamType>();
             this.tblResults = new HashSet<tblResult>();
-            this.tblResults1 = new HashSet<tblResult>();
             this.tblRoles = new HashSet<tblRole>();
             this.tblTopics = new HashSet<tblTopic>();
         }
@@ -68,8 +67,6 @@ namespace SymphonyLtd.Models
         public virtual ICollection<tblExamType> tblExamTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblResult> tblResults { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblResult> tblResults1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblRole> tblRoles { get; set; }
         public virtual tblRole tblRole { get; set; }

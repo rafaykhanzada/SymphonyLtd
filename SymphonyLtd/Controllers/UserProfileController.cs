@@ -35,12 +35,15 @@ namespace SymphonyLtd.Controllers
         }
         public async Task<ActionResult> Results(int id)
         {
-            tblUser user = await db.tblUsers.FindAsync(id);
-            //var Result = await db.tblResults.Where(x => x.tblExam.tblUser.UserID == id).Include(t => t.tblUser.tblCertificates).ToListAsync();
-            //ViewBag.Results = Result;
+            tblUser user = await db.tblUsers.FindAsync(id);          
             return View(user);
         }
         public async Task<ActionResult> Payments(int id)
+        {
+            tblUser user = await db.tblUsers.FindAsync(id);
+            return View(user);
+        }
+        public async Task<ActionResult> Certificate(int id)
         {
             tblUser user = await db.tblUsers.FindAsync(id);
             return View(user);

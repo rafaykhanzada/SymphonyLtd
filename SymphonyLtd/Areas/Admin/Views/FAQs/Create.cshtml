@@ -1,0 +1,144 @@
+﻿@model SymphonyLtd.Models.tblFAQ
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+                <li class="breadcrumb-item">
+                    <h4 class="page-title">Normal Table</h4>
+                </li>
+                <li class="breadcrumb-item bcrumb-1">
+                    <a href="../../index.html">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item bcrumb-2">
+                    <a href="#" onclick="return false;">Tables</a>
+                </li>
+                <li class="breadcrumb-item active">Normal</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    <strong>Create</strong> Course Category
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="#" onClick="return false;" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="#" onClick="return false;">Back to List</a>
+                            </li>
+                            <li>
+                                <a href="#" onClick="return false;">Rest Form</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm("Create", "FAQs", FormMethod.Post, new { id = "form_validation" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => x.FAQID)
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Question, new { htmlAttributes = new { @class = "form-control" } })
+
+                            <label class="form-label">Question</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Answer, new { htmlAttributes = new { @class = "form-control" } })
+
+                            <label class="form-label">Answer</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p>
+                            <b>Question Type</b>
+                        </p>
+                        <div class="form-group default-select select2Style">
+                            @Html.DropDownList("FAQType_FK", null, htmlAttributes: new { @class = "form-control select2", name = "FAQType_FK" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check m-l-10">
+                            <label class="form-check-label">
+                                @* @Html.CheckBoxFor(model=>model.IsActive,new { @class = "form-check-input" , type="checkbox", id= "checkbox" })*@
+                                @if (Model != null)
+                                {
+                                    if (Model.IsActive.Value)
+                                    {
+                                        <input class="form-check-input" type="checkbox" id="IsActive" checked name="IsActive">
+                                    }
+                                    else
+                                    {
+                                        <input class="form-check-input" type="checkbox" id="IsActive" name="checkbox">
+                                    }
+
+                                }
+                                else
+                                {
+                                    <input class="form-check-input" type="checkbox" id="IsActive" name="checkbox">
+
+                                }
+
+                                If you want to active this now?
+
+
+
+
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <button style="float:right" class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Basic Validation -->
+<script>
+    $("#form_validation").submit((e) => {
+        e.preventDefault();
+        var url = '@Url.Action("Create","FAQs")';
+        var model = {
+            "FAQID": $("#FAQID").val(),
+            "Question": $("#Question").val(),
+            "Answer": $("#Answer").val(),
+            "FAQType_FK": $("#FAQType_FK").val(),
+            "IsActive": $("#IsActive").is(':checked'),
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: model, // serializes the form's elements.
+            success: function (data) {
+                alert(data); // show response from the php script.
+            }
+        });
+
+    });
+</script>

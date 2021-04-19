@@ -4,25 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="731e37451c0e42788e2142fb4d1dc5fb" Name="Diagram1">
+      <Diagram DiagramId="8a291b49d46f4e48a53bcec45b153a4b" Name="Diagram1">
         <EntityTypeShape EntityType="SymphonyDBModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblAboutU" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblApplication" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblBranch" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SymphonyDBModel.tblCertificate" Width="1.5" PointX="5.25" PointY="21.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SymphonyDBModel.tblCertificateType" Width="1.5" PointX="3" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SymphonyDBModel.tblCertificate" Width="1.5" PointX="5.25" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="SymphonyDBModel.tblCertificateType" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblCity" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblClassType" Width="1.5" PointX="3" PointY="24.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblContactU" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblCountry" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblCourse" Width="1.5" PointX="5.25" PointY="25.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SymphonyDBModel.tblCourseCategory" Width="1.5" PointX="3" PointY="28" IsExpanded="true" />
-        <EntityTypeShape EntityType="SymphonyDBModel.tblCourseFeature" Width="1.5" PointX="7.5" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SymphonyDBModel.tblCourseCategory" Width="1.5" PointX="3" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SymphonyDBModel.tblCourseFeature" Width="1.5" PointX="7.5" PointY="26.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblCourseTopicsMapping" Width="1.5" PointX="7.5" PointY="33.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblEnrollment" Width="1.5" PointX="7.5" PointY="21.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SymphonyDBModel.tblExam" Width="1.5" PointX="5.25" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SymphonyDBModel.tblExam" Width="1.5" PointX="5.25" PointY="32" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblExamStudentMapping" Width="1.5" PointX="7.5" PointY="29.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SymphonyDBModel.tblExamType" Width="1.5" PointX="3" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SymphonyDBModel.tblExamType" Width="1.5" PointX="3" PointY="37.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblFAQ" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblFAQType" Width="1.5" PointX="5.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblFee" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
@@ -30,7 +30,7 @@
         <EntityTypeShape EntityType="SymphonyDBModel.tblHomePageBox" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblNewsItem" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblPartner" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SymphonyDBModel.tblResult" Width="1.5" PointX="10.5" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SymphonyDBModel.tblResult" Width="1.5" PointX="10.5" PointY="27" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblRole" Width="1.5" PointX="3" PointY="41.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblState" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="SymphonyDBModel.tblTeacher" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
@@ -62,7 +62,6 @@
         <AssociationConnector Association="SymphonyDBModel.FK_tblFAQ_tblFAQType" ManuallyRouted="false" />
         <AssociationConnector Association="SymphonyDBModel.FK_tblFees_tblFeesType" ManuallyRouted="false" />
         <AssociationConnector Association="SymphonyDBModel.FK_tblResult_tblUser" ManuallyRouted="false" />
-        <AssociationConnector Association="SymphonyDBModel.FK_tblResult_tblUser1" ManuallyRouted="false" />
         <AssociationConnector Association="SymphonyDBModel.FK_tblRole_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="SymphonyDBModel.FK_tblUser_tblRole" ManuallyRouted="false" />
         <AssociationConnector Association="SymphonyDBModel.FK_tblTopic_tblUser" ManuallyRouted="false" />

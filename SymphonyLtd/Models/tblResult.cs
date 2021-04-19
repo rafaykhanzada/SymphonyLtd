@@ -28,6 +28,5 @@ namespace SymphonyLtd.Models
     
         public virtual tblExam tblExam { get; set; }
         public virtual tblUser tblUser { get; set; }
-        public virtual tblUser tblUser1 { get; set; }
     }
 }
