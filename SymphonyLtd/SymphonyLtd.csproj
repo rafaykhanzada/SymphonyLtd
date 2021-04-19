@@ -154,6 +154,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminAboutUsController.cs" />
     <Compile Include="Areas\Admin\Controllers\AjaxController.cs" />
     <Compile Include="Areas\Admin\Controllers\BranchesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AllCoursesController.cs" />
+    <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PublicFAQsController.cs" />
@@ -1214,6 +1216,11 @@
     <Content Include="Areas\Admin\Views\FAQTypes\Details.cshtml" />
     <Content Include="Areas\Admin\Views\FAQTypes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\FAQTypes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminAboutUs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminAboutUs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminAboutUs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminAboutUs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminAboutUs\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1273,11 +1280,13 @@
     <Content Include="Views\PublicFAQs\Details.cshtml" />
     <Content Include="Views\PublicFAQs\Edit.cshtml" />
     <Content Include="Views\PublicFAQs\Index.cshtml" />
-    <Content Include="Views\AboutUs\Create.cshtml" />
-    <Content Include="Views\AboutUs\Delete.cshtml" />
-    <Content Include="Views\AboutUs\Details.cshtml" />
-    <Content Include="Views\AboutUs\Edit.cshtml" />
     <Content Include="Views\AboutUs\Index.cshtml" />
+    <Content Include="Views\ContactUs\Create.cshtml" />
+    <Content Include="Views\ContactUs\Delete.cshtml" />
+    <Content Include="Views\ContactUs\Details.cshtml" />
+    <Content Include="Views\ContactUs\Edit.cshtml" />
+    <Content Include="Views\ContactUs\Index.cshtml" />
+    <Content Include="Views\UserProfile\Payments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -28,5 +28,7 @@ namespace SymphonyLtd.Models
         public Nullable<int> DeleteOn { get; set; }
     
         public virtual tblFeesType tblFeesType { get; set; }
+        public virtual tblEnrollment tblEnrollment { get; set; }
+        public virtual tblUser tblUser { get; set; }
     }
 }

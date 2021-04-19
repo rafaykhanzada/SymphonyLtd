@@ -13,7 +13,7 @@ using SymphonyLtd.Security;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
-    [FormAuthentication(RoleId = "1")]
+    //[FormAuthentication(RoleId = "1")]
 
     public class FeesController : Controller
     {
@@ -42,37 +42,15 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         }
 
         // GET: Admin/Fees/Create
-        public ActionResult Create()
-        {
-            ViewBag.FeesType = new SelectList(db.tblFeesTypes, "FeesTypeID", "FeesType");
-            ViewBag.ForMonth = new SelectList(Common.GetMonths());
-            return View();
-        }
-
-        // POST: Admin/Fees/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "FeesID,EnrollmentID,StudentID,PaidAmount,PaidDate,FeesType,ForMonth,ChargeBy,CreateOn,ModifiedOn,DeleteBy,DeleteOn")] tblFee tblFee)
-        {
-            if (ModelState.IsValid)
-            {
-                db.tblFees.Add(tblFee);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.FeesType = new SelectList(db.tblFeesTypes, "FeesTypeID", "FeesType", tblFee.FeesType);
-            return View(tblFee);
-        }
-
-        // GET: Admin/Fees/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
+        public async Task<ActionResult> Create(int? id)
+        {            
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.FeesType = new SelectList(db.tblFeesTypes, "FeesTypeID", "FeesType");
+                ViewBag.EnrollmentID = new SelectList(db.tblEnrollments, "EnrollmentID", "EnrollmentID");
+                ViewBag.StudentID = new SelectList(db.tblUsers, "UserID", "Name");
+                ViewBag.ForMonth = new SelectList(Common.GetMonths(), Common.GetMonths());
+                return View();
             }
             tblFee tblFee = await db.tblFees.FindAsync(id);
             if (tblFee == null)
@@ -80,27 +58,46 @@ namespace SymphonyLtd.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.FeesType = new SelectList(db.tblFeesTypes, "FeesTypeID", "FeesType", tblFee.FeesType);
+            ViewBag.ForMonth = new SelectList(Common.GetMonths(),tblFee.ForMonth);
+            ViewBag.EnrollmentID = new SelectList(db.tblEnrollments, "EnrollmentID", "EnrollmentID",tblFee.EnrollmentID);
+            ViewBag.StudentID = new SelectList(db.tblUsers, "UserID", "Name",tblFee.StudentID);
             return View(tblFee);
         }
 
-        // POST: Admin/Fees/Edit/5
+        // POST: Admin/Fees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "FeesID,EnrollmentID,StudentID,PaidAmount,PaidDate,FeesType,ForMonth,ChargeBy,CreateOn,ModifiedOn,DeleteBy,DeleteOn")] tblFee tblFee)
+        public async Task<ActionResult> Create([Bind(Include = "FeesID,EnrollmentID,StudentID,PaidAmount,PaidDate,FeesType,ForMonth")] tblFee tblFee)
         {
-            if (ModelState.IsValid)
+            tblUser user = (tblUser)Session["User"];
+            if (user==null)
+            {
+                user = new SymphonyLtd.Models.SymphonyDBEntities().tblUsers.FirstOrDefault(x => x.Email == User.Identity.Name);
+            }
+            tblFee.ChargeBy = user.UserID;
+            if (tblFee.FeesID == 0)
+            {
+                tblFee.CreateOn = DateTime.Now;
+                db.tblFees.Add(tblFee);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            if (tblFee.FeesID > 0)
             {
                 db.Entry(tblFee).State = EntityState.Modified;
+                db.Entry(tblFee).Property(p => p.CreateOn).IsModified = false;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.FeesType = new SelectList(db.tblFeesTypes, "FeesTypeID", "FeesType", tblFee.FeesType);
+            ViewBag.ForMonth = new SelectList(Common.GetMonths(), tblFee.ForMonth);
+            ViewBag.EnrollmentID = new SelectList(db.tblEnrollments, "EnrollmentID", "EnrollmentID", tblFee.EnrollmentID);
+            ViewBag.StudentID = new SelectList(db.tblUsers, "UserID", "Name", tblFee.StudentID);
             return View(tblFee);
         }
 
-        // GET: Admin/Fees/Delete/5
+      
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)

@@ -62,6 +62,10 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         public async Task<ActionResult> Create([Bind(Include = "NewsItemsID,NewsItemHeader,Image,Tages")] tblNewsItem tblNewsItem, HttpPostedFileBase file)
         {
             tblUser user = (SymphonyLtd.Models.tblUser)Session["User"];
+            if (user == null)
+            {
+                user = new SymphonyLtd.Models.SymphonyDBEntities().tblUsers.FirstOrDefault(x => x.Email == User.Identity.Name);
+            }
             if (file != null)
             {
                 var UniqueName = Common.GenerateRandomDigitCode(20);

@@ -29,6 +29,7 @@ namespace SymphonyLtd.Models
             this.tblResults = new HashSet<tblResult>();
             this.tblRoles = new HashSet<tblRole>();
             this.tblTopics = new HashSet<tblTopic>();
+            this.tblFees = new HashSet<tblFee>();
         }
     
         public int UserID { get; set; }
@@ -72,5 +73,7 @@ namespace SymphonyLtd.Models
         public virtual tblRole tblRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTopic> tblTopics { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFee> tblFees { get; set; }
     }
 }

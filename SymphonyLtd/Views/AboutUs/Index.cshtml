@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SymphonyLtd.Models.tblAboutU>
+﻿@model SymphonyLtd.Models.tblAboutU
 
 @{
     ViewBag.Title = "Index";
@@ -13,13 +13,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="page-next-level title-heading">
-                    <h1 class="text-white title-dark"> Aboutus </h1>
-                    <p class="text-white-50 para-desc mb-0 mx-auto">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>
+                    <h1 class="text-white title-dark"> About us </h1>
+                    <p class="text-white-50 para-desc mb-0 mx-auto">The singular purpose of providing high quality education to the deserving and talented sections of society saw new light with its collaboration.</p>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                <li class="breadcrumb-item"><a href="index.html">Landrick</a></li>
-                                <li class="breadcrumb-item"><a href="#">Company</a></li>
+                                <li class="breadcrumb-item"><a href="~/">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Aboutus</li>
                             </ul>
                         </nav>
@@ -42,52 +41,35 @@
         <div class="container">
             <div class="row align-items-center" id="counter">
                 <div class="col-md-6">
-                    <img src="~/App_Assets/Public/images/company/about2.png" class="img-fluid" alt="">
+                    <img src="~/uploads/@Model.Image" class="img-fluid" alt="">
                 </div><!--end col-->
 
                 <div class="col-md-6 mt-4 pt-2 mt-sm-0 pt-sm-0">
                     <div class="ms-lg-4">
-                        <div class="d-flex mb-4">
-                            <span class="text-primary h1 mb-0"><span class="counter-value display-1 fw-bold" data-target="15">0</span>+</span>
-                            <span class="h6 align-self-end ms-2">Years <br> Experience</span>
-                        </div>
+                       
                         <div class="section-title">
-                            <h4 class="title mb-4">Who we are ?</h4>
-                            <p class="text-muted">Start working with <span class="text-primary fw-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect. Dummy text is text that is used in the publishing industry or by web designers to occupy the space which will later be filled with 'real' content. This is required when, for example, the final text is not yet available. Dummy texts have been in use by typesetters since the 16th century.</p>
-                            <a href="javascript:void(0)" class="btn btn-primary mt-3">Contact us</a>
+                            <h4 class="title mb-4">@Model.SubTitle</h4>
+                            <p class="text-muted">@Model.Description</p>
+                            <a href="@Model.ButtonUrl" class="btn btn-primary mt-3">@Model.ButtonText</a>
                         </div>
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
         </div><!--end container-->
 
-        <div class="container mt-4">
-            <div class="row justify-content-center">
-                <div class="col-lg-2 col-md-2 col-6 text-center pt-4">
-                    <img src="~/App_Assets/Public/~/App_Assets/Public/images/client/amazon.svg" class="avatar avatar-ex-sm" alt="">
-                </div><!--end col-->
-
-                <div class="col-lg-2 col-md-2 col-6 text-center pt-4">
-                    <img src="~/App_Assets/Public/images/client/google.svg" class="avatar avatar-ex-sm" alt="">
-                </div><!--end col-->
-
-                <div class="col-lg-2 col-md-2 col-6 text-center pt-4">
-                    <img src="~/App_Assets/Public/images/client/lenovo.svg" class="avatar avatar-ex-sm" alt="">
-                </div><!--end col-->
-
-                <div class="col-lg-2 col-md-2 col-6 text-center pt-4">
-                    <img src="~/App_Assets/Public/images/client/paypal.svg" class="avatar avatar-ex-sm" alt="">
-                </div><!--end col-->
-
-                <div class="col-lg-2 col-md-2 col-6 text-center pt-4">
-                    <img src="~/App_Assets/Public/images/client/shopify.svg" class="avatar avatar-ex-sm" alt="">
-                </div><!--end col-->
-
-                <div class="col-lg-2 col-md-2 col-6 text-center pt-4">
-                    <img src="~/App_Assets/Public/images/client/spotify.svg" class="avatar avatar-ex-sm" alt="">
-                </div><!--end col-->
-            </div><!--end row-->
-        </div><!--end container-->
+        @if (ViewBag.Partners != null)
+        {
+            <div class="container mt-4">
+                <div class="row justify-content-center">
+                    @foreach (var item in ViewBag.Partners)
+                    {
+                        <div class="col-lg-2 col-md-2 col-6 text-center pt-4">
+                            <img src="~/uploads/@item.Logo" class="avatar avatar-ex-sm" alt="">
+                        </div>
+                    }
+                </div><!--end row-->
+            </div><!--end container-->
+        }
     </section><!--end section-->
 
     <!-- End -->

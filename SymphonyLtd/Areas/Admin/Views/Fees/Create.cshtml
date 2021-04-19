@@ -144,61 +144,56 @@
                 </ul>
             </div>
             <div class="body">
-                @using (Html.BeginForm("Create", "Fees", FormMethod.Post, new { enctype = "multipart/form-data", id = "form_validation" }))
+                @using (Html.BeginForm("Create", "Fees", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="row clearfix">
-                        @Html.HiddenFor(model => model.FeesID)
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.EnrollmentID, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.EnrollmentID, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EnrollmentID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                <div class="row clearfix">
+                    @Html.HiddenFor(model => model.FeesID)
+                    <div class="col-md-12">
+                        <p>
+                            <b>Student Enrollment ID</b>
+                        </p>
+                        <div class="form-group default-select select2Style">
+                            @Html.DropDownList("EnrollmentID", null, htmlAttributes: new { @class = "form-control select2", name = "EnrollmentID" })
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.StudentID, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.StudentID, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.StudentID, "", new { @class = "text-danger" })
-                            </div>
                         </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PaidAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.PaidAmount, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.PaidAmount, "", new { @class = "text-danger" })
-                            </div>
-                        </div>  <div class="form-group">
-                            @Html.LabelFor(model => model.PaidDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.PaidDate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.PaidDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <p>
-                                <b>Course Category</b>
-                            </p>
-                            <div class="form-group default-select select2Style">
-                                @Html.DropDownList("ForMonth", null, htmlAttributes: new { @class = "form-control select2", name = "ForMonth" })
-
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <p>
-                                <b>Topic Cover</b>
-                            </p>
-                            <div class="form-group default-select select2Style">
-                                @Html.DropDownList("FeesType", null, htmlAttributes: new { @class = "form-control select2", name = "FeesType" })
-
-                            </div>
-                        </div>                        
-                       
-                      
                     </div>
+                    <div class="col-md-12">
+                        <p>
+                            <b>Student</b>
+                        </p>
+                        <div class="form-group default-select select2Style">
+                            @Html.DropDownList("StudentID", null, htmlAttributes: new { @class = "form-control select2", name = "StudentID" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PaidAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.PaidAmount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PaidAmount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>  <div class="form-group">
+                        @Html.LabelFor(model => model.PaidDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.PaidDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                            @Html.ValidationMessageFor(model => model.PaidDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                  
+                    <div class="col-md-12">
+                        <p>
+                            <b>Fees Type</b>
+                        </p>
+                        <div class="form-group default-select select2Style">
+                            @Html.DropDownList("FeesType", null, htmlAttributes: new { @class = "form-control select2", name = "FeesType" })
+
+                        </div>
+                    </div>
+
+
+                </div>
                     <div class="form-group">
                         <button style="float:right" class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
 
@@ -211,7 +206,7 @@
 <!-- #END# Advanced Select -->
 
 
-<script>
+@*<script>
     $("#form_validation").submit((e) => {
         e.preventDefault();
         var url = '@Url.Action("Create","Courses")';
@@ -236,4 +231,4 @@
         });
 
     });
-</script>
+</script>*@

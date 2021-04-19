@@ -14,7 +14,7 @@ namespace SymphonyLtd.Security
         public string RoleId { get; set; }
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-
+            
             if (!base.AuthorizeCore(httpContext))
             {
                 return false;

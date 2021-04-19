@@ -151,6 +151,10 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         {
             tblCourse tblCourse = await db.tblCourses.FindAsync(id);
             tblUser user = (tblUser)Session["User"];
+            if (user == null)
+            {
+                user = new SymphonyLtd.Models.SymphonyDBEntities().tblUsers.FirstOrDefault(x => x.Email == User.Identity.Name);
+            }
             var topic = await db.tblCourseTopicsMappings.Where(x => x.CourseID == id).ToListAsync();
             if (topic.Count() > 0)
             {

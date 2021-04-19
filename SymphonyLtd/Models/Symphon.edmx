@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SymphonyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SymphonyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -700,6 +700,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblFees_tblEnrollment">
+          <End Role="tblEnrollment" Type="Self.tblEnrollment" Multiplicity="0..1" />
+          <End Role="tblFees" Type="Self.tblFees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEnrollment">
+              <PropertyRef Name="EnrollmentID" />
+            </Principal>
+            <Dependent Role="tblFees">
+              <PropertyRef Name="EnrollmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblFees_tblFeesType">
           <End Role="tblFeesType" Type="Self.tblFeesType" Multiplicity="0..1" />
           <End Role="tblFees" Type="Self.tblFees" Multiplicity="*" />
@@ -709,6 +721,18 @@
             </Principal>
             <Dependent Role="tblFees">
               <PropertyRef Name="FeesType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFees_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblFees" Type="Self.tblFees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblFees">
+              <PropertyRef Name="StudentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -904,8 +928,16 @@
             <End Role="tblFAQType" EntitySet="tblFAQType" />
             <End Role="tblFAQ" EntitySet="tblFAQ" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblFees_tblEnrollment" Association="Self.FK_tblFees_tblEnrollment">
+            <End Role="tblEnrollment" EntitySet="tblEnrollment" />
+            <End Role="tblFees" EntitySet="tblFees" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblFees_tblFeesType" Association="Self.FK_tblFees_tblFeesType">
             <End Role="tblFeesType" EntitySet="tblFeesType" />
+            <End Role="tblFees" EntitySet="tblFees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFees_tblUser" Association="Self.FK_tblFees_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblFees" EntitySet="tblFees" />
           </AssociationSet>
           <AssociationSet Name="FK_tblResult_tblExam" Association="Self.FK_tblResult_tblExam">
@@ -933,8 +965,7 @@
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SymphonyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1161,6 +1192,7 @@
           <NavigationProperty Name="tblBranch" Relationship="Self.FK_tblEnrollment_tblBranch" FromRole="tblEnrollment" ToRole="tblBranch" />
           <NavigationProperty Name="tblCourse" Relationship="Self.FK_tblEnrollment_tblCourse" FromRole="tblEnrollment" ToRole="tblCourse" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblEnrollment_tblUser1" FromRole="tblEnrollment" ToRole="tblUser" />
+          <NavigationProperty Name="tblFees" Relationship="SymphonyDBModel.FK_tblFees_tblEnrollment" FromRole="tblEnrollment" ToRole="tblFee" />
         </EntityType>
         <EntityType Name="tblExam">
           <Key>
@@ -1258,6 +1290,8 @@
           <Property Name="DeleteBy" Type="Int32" />
           <Property Name="DeleteOn" Type="Int32" />
           <NavigationProperty Name="tblFeesType" Relationship="Self.FK_tblFees_tblFeesType" FromRole="tblFees" ToRole="tblFeesType" />
+          <NavigationProperty Name="tblEnrollment" Relationship="SymphonyDBModel.FK_tblFees_tblEnrollment" FromRole="tblFee" ToRole="tblEnrollment" />
+          <NavigationProperty Name="tblUser" Relationship="SymphonyDBModel.FK_tblFees_tblUser" FromRole="tblFee" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblFeesType">
           <Key>
@@ -1426,6 +1460,7 @@
           <NavigationProperty Name="tblRoles" Relationship="Self.FK_tblRole_tblUser" FromRole="tblUser" ToRole="tblRole" />
           <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
           <NavigationProperty Name="tblTopics" Relationship="Self.FK_tblTopic_tblUser" FromRole="tblUser" ToRole="tblTopic" />
+          <NavigationProperty Name="tblFees" Relationship="SymphonyDBModel.FK_tblFees_tblUser" FromRole="tblUser" ToRole="tblFee" />
         </EntityType>
         <Association Name="FK_tblEnrollment_tblBranch">
           <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="0..1" />
@@ -1923,7 +1958,39 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblTopic" EntitySet="tblTopics" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblFees_tblEnrollment" Association="SymphonyDBModel.FK_tblFees_tblEnrollment">
+            <End Role="tblEnrollment" EntitySet="tblEnrollments" />
+            <End Role="tblFee" EntitySet="tblFees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFees_tblUser" Association="SymphonyDBModel.FK_tblFees_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblFee" EntitySet="tblFees" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_tblFees_tblEnrollment">
+          <End Type="SymphonyDBModel.tblEnrollment" Role="tblEnrollment" Multiplicity="0..1" />
+          <End Type="SymphonyDBModel.tblFee" Role="tblFee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEnrollment">
+              <PropertyRef Name="EnrollmentID" />
+            </Principal>
+            <Dependent Role="tblFee">
+              <PropertyRef Name="EnrollmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFees_tblUser">
+          <End Type="SymphonyDBModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="SymphonyDBModel.tblFee" Role="tblFee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblFee">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
