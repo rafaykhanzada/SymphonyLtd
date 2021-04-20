@@ -18,6 +18,7 @@ namespace SymphonyLtd.Controllers
         // GET: Teachers
         public async Task<ActionResult> Index()
         {
+            ViewBag.TeacherCount = db.tblTeachers.Count();
             return View(await db.tblTeachers.ToListAsync());
         }
 

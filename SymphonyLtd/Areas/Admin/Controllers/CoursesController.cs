@@ -21,10 +21,35 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         private SymphonyDBEntities db = new SymphonyDBEntities();
 
         // GET: Admin/Courses
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int pageNumber = 1, string Search = null)
         {
-            var tblCourses = db.tblCourses.Where(x=>x.DeletedOn==null && x.DeletedBy==null).Include(t => t.tblCourseCategory).Include(t => t.tblUser);
-            return View(await tblCourses.ToListAsync());
+            //var tblCourses = db.tblCourses.Where(x=>x.DeletedOn==null && x.DeletedBy==null).Include(t => t.tblCourseCategory).Include(t => t.tblUser);
+            //return View(await tblCourses.ToListAsync());
+            IQueryable<tblCourse> tblCourses;
+            try
+            {
+                if (!String.IsNullOrEmpty(Search))
+                {
+                    tblCourses = db.tblCourses.Where(x => x.CourseName.Contains(Search)).Where(x => x.DeletedOn == null && x.DeletedBy == null).Include(t => t.tblCourseCategory).Include(t => t.tblUser).AsNoTracking();
+
+                    if (tblCourses.Count() == 0)
+                    {
+                        ViewBag.Product = "No Result Found";
+                        return View();
+                    }
+                }
+                else
+                {
+                    tblCourses = db.tblCourses.Where(x => x.DeletedOn == null && x.DeletedBy == null).Include(t => t.tblCourseCategory).Include(t => t.tblUser);
+                }
+
+                int pageSize = 10;
+                return View(await PaginatedList<tblCourse>.CreateAsync(tblCourses.OrderBy(x => x.CreatedOn), pageNumber, pageSize));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         // GET: Admin/Courses/Details/5

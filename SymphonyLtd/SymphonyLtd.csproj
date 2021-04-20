@@ -1287,6 +1287,7 @@
     <Content Include="Views\ContactUs\Edit.cshtml" />
     <Content Include="Views\ContactUs\Index.cshtml" />
     <Content Include="Views\UserProfile\Payments.cshtml" />
+    <Content Include="Views\UserProfile\NavMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

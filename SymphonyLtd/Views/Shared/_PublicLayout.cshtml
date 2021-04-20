@@ -39,9 +39,10 @@
     <meta name="Version" content="v3.0.0" />
     <!-- favicon -->
     <link rel="shortcut icon" href="images/favicon.ico">
-
     @Styles.Render("~/Public/css")
-
+    <link href="~/App_Assets/Custom/duDialog/duDialog.css" rel="stylesheet" />
+    <link href="~/App_Assets/Custom/Toast/toastr.css" rel="stylesheet" />
+    <link href="~/App_Assets/Custom/Pace/minimal.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -78,7 +79,7 @@
                     }
                     else if (user.UserRole_FK == 2)
                     {
-                        <a href="~/UserProfile/Index">
+                        <a href="~/UserProfile/MyAccount">
                             <div class="btn btn-primary login-btn-primary">My Account</div>
                             <div class="btn btn-light login-btn-light">My Account</div>
                         </a>
@@ -125,9 +126,9 @@
                         </ul>
                     </li>
                     <li><a href="~/AllTeachers/Index" class="sub-menu-item">Our Teachers</a></li>
-                    <li><a href="index.html" class="sub-menu-item">FAQs</a></li>
-                    <li><a href="index.html" class="sub-menu-item">About Us</a></li>
-                    <li><a href="index.html" class="sub-menu-item">Contact Us</a></li>
+                    <li><a href="~/PublicFAQs/Index" class="sub-menu-item">FAQs</a></li>
+                    <li><a href="~/AboutUs" class="sub-menu-item">About Us</a></li>
+                    <li><a href="~/ContactUs/Index" class="sub-menu-item">Contact Us</a></li>
                 </ul><!--end navigation menu-->
                 <div class="buy-menu-btn d-none">
                     <a href="https://1.envato.market/4n73n" target="_blank" class="btn btn-primary">Buy Now</a>
@@ -254,27 +255,29 @@
                     </ul><!--end icon-->
                 </div><!--end col-->
 
-                <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                    <h5 class="text-light footer-head">Company</h5>
-                    <ul class="list-unstyled footer-list mt-4">
-                        <li><a href="page-aboutus.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> About us</a></li>
-                        <li><a href="page-services.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Services</a></li>
-                        <li><a href="page-team.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Team</a></li>
-                        <li><a href="page-pricing.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Pricing</a></li>
-                        <li><a href="page-portfolio-modern.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Project</a></li>
-                        <li><a href="page-jobs.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Careers</a></li>
-                        <li><a href="page-blog-grid.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Blog</a></li>
-                        <li><a href="auth-cover-login.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Login</a></li>
-                    </ul>
-                </div><!--end col-->
+                @if (Courses != null)
+                {
 
+
+                    <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                        <h5 class="text-light footer-head">Courses</h5>
+                        <ul class="list-unstyled footer-list mt-4">
+                            @foreach (var item in Courses)
+                            {
+                                <li><a href="~/AllCourses/Details/@item.CourseID" class="sub-menu-item">@item.CourseName</a></li>
+
+                            }
+                        </ul>
+                    </div><!--end col-->
+                }
                 <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                     <h5 class="text-light footer-head">Usefull Links</h5>
                     <ul class="list-unstyled footer-list mt-4">
-                        <li><a href="page-terms.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Terms of Services</a></li>
-                        <li><a href="page-privacy.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Privacy Policy</a></li>
-                        <li><a href="documentation.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Documentation</a></li>
-                        <li><a href="changelog.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Changelog</a></li>
+                        <li><a href="page-terms.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Home Page</a></li>
+                        <li><a href="page-privacy.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Teachers</a></li>
+                        <li><a href="page-privacy.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Courses</a></li>
+                        <li><a href="documentation.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> About Us</a></li>
+                        <li><a href="changelog.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Contact Us</a></li>
                         <li><a href="components.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Components</a></li>
                     </ul>
                 </div><!--end col-->
@@ -282,14 +285,16 @@
                 <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                     <h5 class="text-light footer-head">Newsletter</h5>
                     <p class="mt-4">Sign up and receive the latest tips via email.</p>
-                    <form>
+                    @using (Html.BeginForm("Create", "ContactUs", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="foot-subscribe mb-3">
                                     <label class="form-label">Write your email <span class="text-danger">*</span></label>
                                     <div class="form-icon position-relative">
                                         <i data-feather="mail" class="fea icon-sm icons"></i>
-                                        <input type="email" name="email" id="emailsubscribe" class="form-control ps-5 rounded" placeholder="Your email : " required>
+                                        <input type="email" name="Email" id="emailsubscribe" class="form-control ps-5 rounded" placeholder="Your email : " required>
                                     </div>
                                 </div>
                             </div>
@@ -299,11 +304,12 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div><!--end col-->
+                    }
+                    </div><!--end col-->
             </div><!--end row-->
         </div><!--end container-->
     </footer><!--end footer-->
+
     <footer class="footer footer-bar">
         <div class="container text-center">
             <div class="row align-items-center">
@@ -382,7 +388,10 @@
     </div>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     @Scripts.Render("~/Public/script")
+<script src="~/App_Assets/Custom/duDialog/duDialog.js"></script>
+<script src="~/App_Assets/Custom/Pace/pace.js"></script>
 
+<script src="~/App_Assets/Custom/Toast/toastr.min.js"></script>
     <script>
         function toggleSwitcher() {
             var i = document.getElementById('style-switcher');
@@ -431,7 +440,22 @@
             }
         });
 
-    });
+        });
+        function showToast(msg) {
+            toastr.options = {
+                positionClass: "toast-bottom-right",
+                timeOut: 2000,
+                extendedTimeOut: 0,
+                fadeOut: 0,
+                fadeIn: 0,
+                showDuration: 0,
+                hideDuration: 0,
+                debug: false,
+                showDuration: "100",
+                hideDuration: "100"
+            }
+            toastr.success(msg);
+        }
     </script>
 </body>
 

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using SymphonyLtd.Models;
 using SymphonyLtd.ViewModels;
 using SymphonyLtd.Security;
+using SymphonyLtd.Helper;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
@@ -20,10 +21,37 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         private SymphonyDBEntities db = new SymphonyDBEntities();
 
         // GET: Admin/Exams
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int pageNumber = 1, string Search = null)
         {
-            var tblExams = db.tblExams.Include(t => t.tblExamType).Include(t => t.tblTopic).Include(t => t.tblUser);
-            return View(await tblExams.ToListAsync());
+            //var tblExams = db.tblExams.Include(t => t.tblExamType).Include(t => t.tblTopic).Include(t => t.tblUser);
+            //return View(await tblExams.ToListAsync());
+            IQueryable<tblExam> tblExams;
+
+            try
+            {
+                if (!String.IsNullOrEmpty(Search))
+                {
+                    tblExams = db.tblExams.Where(x => x.ExamName == Search).Include(t => t.tblExamType).Include(t => t.tblTopic).Include(t => t.tblUser);
+
+                    if (tblExams.Count() == 0)
+                    {
+                        ViewBag.Product = "No Result Found";
+                        return View();
+                    }
+                }
+                else
+                {
+                    tblExams = db.tblExams.Include(t => t.tblExamType).Include(t => t.tblTopic).Include(t => t.tblUser).AsNoTracking();
+                }
+
+                int pageSize = 10;
+                return View(await PaginatedList<tblExam>.CreateAsync(tblExams.OrderBy(x => x.CreatedOn), pageNumber, pageSize));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+
         }
         public async Task<ActionResult> GetAllExamnationStudent()
         {

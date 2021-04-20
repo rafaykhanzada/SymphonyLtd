@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SymphonyLtd.Models.tblResult>
+﻿@model SymphonyLtd.Helper.PaginatedList<SymphonyLtd.Models.tblResult>
 
 @{
     ViewBag.Title = "Index";
@@ -33,9 +33,37 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header">
-                <h2>
-                    <strong>Striped</strong> Rows
-                </h2>
+                <form action="~/Admin/Results/Index" method="post">
+                    <div class="row clearfix">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="StudentName" class="form-control" placeholder="Student Name">
+                                </div>
+                            </div>
+                        </div><div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="StudentID" class="form-control" placeholder="Student ID">
+                                </div>
+                            </div>
+                        </div><div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="Marks" class="form-control" placeholder="Marks">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <button style="margin: 5% 0;" type="submit">Search</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
                 <ul class="header-dropdown m-r--5">
                     <li class="dropdown">
                         <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -57,57 +85,78 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.tblUser.Name)
+                            Student Name
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.tblExam.ExamName)
+                              ExamName
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ObtainNo)
+                            ObtainNo
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.TotalMarks)
+                            TotalMarks
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Remarks)
+                              Remarks
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.IsFailed)
-                            </th>                          
+                              IsFailed
+                            </th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @if (Model!=null)
                         {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.tblUser.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.tblExam.ExamName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ObtainNo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TotalMarks)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Remarks)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsFailed)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ResultID }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.ResultID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ResultID })
-                            </td>
-                        </tr>
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tblUser.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tblExam.ExamName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ObtainNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalMarks)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Remarks)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsFailed)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ResultID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.ResultID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ResultID })
+                                    </td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>
+                @{
+                    if (Model != null)
+                    {
+                        var preDis = !Model.HasPrePage ? "disabled" : "";
+                        var nextDis = !Model.HasNextPage ? "disabled" : "";
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex - 1)"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="btn btn-primary @preDis">Previous</a>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex + 1)"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="btn btn-primary @nextDis">Next</a>
+
+                    }
+                }
             </div>
         </div>
     </div>

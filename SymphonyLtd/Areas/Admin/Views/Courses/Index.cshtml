@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SymphonyLtd.Models.tblCourse>
+﻿@model SymphonyLtd.Helper.PaginatedList<SymphonyLtd.Models.tblCourse>
 
 @{
     ViewBag.Title = "Index";
@@ -33,9 +33,25 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header">
-                <h2>
-                    <strong>Striped</strong> Rows
-                </h2>
+                <form action="~/Admin/Courses/Index" method="post">
+                    <div class="row clearfix">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="Search" class="form-control" placeholder="Course Name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <button style="margin: 5% 0;" type="submit">Search</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
                 <ul class="header-dropdown m-r--5">
                     <li class="dropdown">
                         <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -57,51 +73,71 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.CourseName)
-                            </th>                           
-                            <th>
-                                @Html.DisplayNameFor(model => model.CourseDuration)
-                            </th>                           
-                            <th>
-                                @Html.DisplayNameFor(model => model.tblCourseCategory.CourseCategory)
-                            </th> 
-                            <th>
-                                @Html.DisplayNameFor(model => model.IsActive)
+                                model.CourseName
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedOn)
-                            </th>                          
+                                model.CourseDuration
+                            </th>
+                            <th>
+                                CourseCategory
+                            </th>
+                            <th>
+                                model.IsActive
+                            </th>
+                            <th>
+                                model.CreatedOn
+                            </th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @if (Model != null)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CourseName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CourseDuration)
-                                </td>                              
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.tblCourseCategory.CourseCategory)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IsActive)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                                </td> 
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
-                                </td>
-                           </tr>
-                                }
-                        </tbody>
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CourseName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CourseDuration)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tblCourseCategory.CourseCategory)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsActive)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
+                                    </td>
+                                </tr>
+                            }                        }
+                    </tbody>
                 </table>
+                @{
+                    if (Model != null)
+                    {
+                        var preDis = !Model.HasPrePage ? "disabled" : "";
+                        var nextDis = !Model.HasNextPage ? "disabled" : "";
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex - 1)"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="btn btn-primary @preDis">Previous</a>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex + 1)"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="btn btn-primary @nextDis">Next</a>
+
+                    }
+                }
             </div>
         </div>
     </div>

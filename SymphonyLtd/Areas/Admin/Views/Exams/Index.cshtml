@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SymphonyLtd.Models.tblExam>
+﻿@model SymphonyLtd.Helper.PaginatedList<SymphonyLtd.Models.tblExam>
+@*@model IEnumerable<SymphonyLtd.Models.tblExam>*@
 
 @{
     ViewBag.Title = "Index";
@@ -143,9 +144,25 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header">
-                <h2>
-                    <strong>Striped</strong> Rows
-                </h2>
+                    <form action="~/Admin/Exams/Index" method="post">
+                <div class="row clearfix">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="Search" class="form-control" placeholder="col-sm-3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <button style="margin: 5% 0;" type="submit">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                                     
+                </div>
+                    </form>
                 <ul class="header-dropdown m-r--5">
                     <li class="dropdown">
                         <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -167,111 +184,99 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.ExamName)
+                                ExamName
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ExamDuration)
+                                ExamDuration
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ExamScheduleFrom)
+                                ExamScheduleFrom
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ExamScheduleTo)
+                                ExamScheduleTo
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.TotalMarks)
+                                TotalMarks
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.PassingMarks)
+                                PassingMarks
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.IsValid)
+                                IsValid
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.IsCancled)
+                                IsCancled
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.IsCancledReason)
+                                IsCancledReason
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CreatedOn)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ModifiedOn)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DeleteOn)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.tblExamType.ExamTypeName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.tblTopic.Topic)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.tblUser.Name)
-                            </th>
+
+
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @if (Model != null)
                         {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ExamName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ExamDuration)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ExamScheduleFrom)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ExamScheduleTo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TotalMarks)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PassingMarks)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsValid)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsCancled)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsCancledReason)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreatedOn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ModifiedOn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DeleteOn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.tblExamType.ExamTypeName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.tblTopic.Topic)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.tblUser.Name)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Create", new { id = item.ExamID }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.ExamID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ExamID })
-                            </td>
-                        </tr>
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExamName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExamDuration)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExamScheduleFrom)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExamScheduleTo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalMarks)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PassingMarks)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsValid)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsCancled)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsCancledReason)
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink("Edit", "Create", new { id = item.ExamID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.ExamID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ExamID })
+                                    </td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>
+                @{
+                    if (Model != null)
+                    {
+                        var preDis = !Model.HasPrePage ? "disabled" : "";
+                        var nextDis = !Model.HasNextPage ? "disabled" : "";
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex - 1)"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="btn btn-primary @preDis">Previous</a>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex + 1)"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="btn btn-primary @nextDis">Next</a>
+
+                    }
+                }
             </div>
         </div>
     </div>

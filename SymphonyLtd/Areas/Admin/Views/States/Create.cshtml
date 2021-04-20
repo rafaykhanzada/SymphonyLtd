@@ -100,7 +100,8 @@
             url: url,
             data: model, // serializes the form's elements.
             success: function (data) {
-                $("#reset").click(); // show response from the php script.
+                $("#reset").click();
+                showToast("Successful")// show response from the php script.
             }
         });
 

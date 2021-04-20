@@ -13,17 +13,42 @@ using SymphonyLtd.Security;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
-    //[FormAuthentication(RoleId = "1")]
+    [FormAuthentication(RoleId = "1")]
 
     public class FeesController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();
 
         // GET: Admin/Fees
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int pageNumber = 1, string Search = null)
         {
-            var tblFees = db.tblFees.Include(t => t.tblFeesType);
-            return View(await tblFees.ToListAsync());
+            //var tblFees = db.tblFees.Include(t => t.tblFeesType);
+            //return View(await tblFees.ToListAsync());
+            IQueryable<tblFee> tblFees;
+            try
+            {
+                if (!String.IsNullOrEmpty(Search))
+                {
+                    tblFees = db.tblFees.Where(x => x.StudentID == Convert.ToInt32(Search)).Include(t => t.tblFeesType).AsNoTracking();
+
+                    if (tblFees.Count() == 0)
+                    {
+                        ViewBag.Product = "No Result Found";
+                        return View();
+                    }
+                }
+                else
+                {
+                    tblFees = db.tblFees.Include(t => t.tblFeesType).AsNoTracking();
+                }
+
+                int pageSize = 10;
+                return View(await PaginatedList<tblFee>.CreateAsync(tblFees.OrderBy(x => x.CreateOn), pageNumber, pageSize));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         // GET: Admin/Fees/Details/5

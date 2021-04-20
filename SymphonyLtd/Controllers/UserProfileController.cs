@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace SymphonyLtd.Controllers
 {
-    //[FormAuthentication(RoleId = "2")]
+    [FormAuthentication(RoleId = "2")]
     public class UserProfileController : Controller
     {
         private SymphonyDBEntities db = new SymphonyDBEntities();
@@ -68,9 +68,9 @@ namespace SymphonyLtd.Controllers
             tblUser user = await db.tblUsers.FindAsync(GetUser().UserID);          
             return View(user);
         }
-        public async Task<ActionResult> Payments(int id)
+        public async Task<ActionResult> Payments()
         {
-            tblUser user = await db.tblUsers.FindAsync(id);            
+            tblUser user = await db.tblUsers.FindAsync(GetUser().UserID);            
             return View(user);
         }
         public async Task<ActionResult> Certificate()

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SymphonyLtd.Models;
+using SymphonyLtd.Helper;
 
 namespace SymphonyLtd.Areas.Admin.Controllers
 {
@@ -16,10 +17,55 @@ namespace SymphonyLtd.Areas.Admin.Controllers
         private SymphonyDBEntities db = new SymphonyDBEntities();
 
         // GET: Admin/Results
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int pageNumber = 1, string StudentName = null,int Marks=0,int StudentID=0)
         {
-            var tblResults = db.tblResults.Include(t => t.tblExam).Include(t => t.tblUser);
-            return View(await tblResults.ToListAsync());
+            //var tblResults = db.tblResults.Include(t => t.tblExam).Include(t => t.tblUser);
+            //return View(await tblResults.ToListAsync());
+            List<tblResult> tblResults = new List<tblResult>();
+
+            try
+            {
+                if (!String.IsNullOrEmpty(StudentName))
+                {
+                    tblResults = await db.tblResults.Where(x => x.tblUser.Name.Contains(StudentName)).Include(t => t.tblExam).Include(t => t.tblUser).AsNoTracking().ToListAsync();
+
+                } 
+                if (Marks > 0)
+                {
+                    if (tblResults.Count() == 0)
+                    {
+                    tblResults = await db.tblResults.Where(x => x.ObtainNo==Marks).Include(t => t.tblExam).Include(t => t.tblUser).AsNoTracking().ToListAsync();
+
+                    }
+                    else
+                    {
+                        tblResults =  tblResults.Where(x => x.ObtainNo == Marks).ToList();
+
+                    }
+
+                }
+                if (StudentID > 0)
+                {
+                    if (tblResults.Count()==0)
+                    {
+                        tblResults = await db.tblResults.Where(x => x.StudentID == StudentID).Include(t => t.tblExam).Include(t => t.tblUser).AsNoTracking().ToListAsync();
+
+                    }
+                    tblResults = tblResults.Where(x => x.StudentID == StudentID).ToList();
+
+                }
+                else
+                {
+                    tblResults =await db.tblResults.Include(t => t.tblExam).Include(t => t.tblUser).AsNoTracking().ToListAsync();
+                }
+
+                int pageSize = 10;
+                return View(await PaginatedList<tblResult>.CreateAsync((IQueryable<tblResult>)tblResults.OrderBy(x=>x.CreatedOn), pageNumber, pageSize));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         // GET: Admin/Results/Details/5

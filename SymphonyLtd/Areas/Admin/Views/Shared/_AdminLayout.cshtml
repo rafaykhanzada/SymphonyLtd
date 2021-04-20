@@ -81,7 +81,7 @@
                     </li>
                     <!-- #END# Full Screen Button -->
                     <!-- #START# Notifications-->
-                    <li class="dropdown">
+                    @*<li class="dropdown">
                         <a href="~/Account/Logout" onClick="return false;" class="dropdown-toggle" data-toggle="dropdown"
                            role="button">
                             <i class="far fa-bell"></i>
@@ -195,31 +195,16 @@
                                 <a href="#" onClick="return false;">View All Notifications</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
                     <!-- #END# Notifications-->
-                    @*<li class="dropdown user_profile" id="userSettings">
+                    <li class="dropdown user_profile" id="userSettings">
                         <a href="#" onClick="return false;" class="dropdown-toggle" data-toggle="dropdown"
                            role="button">
-                            <img src="~/App_Assets/Admin/images/user.jpg" width="32" height="32" alt="User">
+                            <img src="~/uploads/@user.Profile" width="32" height="32" alt="User">
                         </a>
                         <ul class="dropdown-menu pullDown">
                             <li class="body">
-                                <ul class="user_dw_menu">
-                                    <li>
-                                        <a href="#" onClick="return false;">
-                                            <i class="material-icons">person</i>Profile
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" onClick="return false;">
-                                            <i class="material-icons">feedback</i>Feedback
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" onClick="return false;">
-                                            <i class="material-icons">help</i>Help
-                                        </a>
-                                    </li>
+                                <ul class="user_dw_menu">                                   
                                     <li>
                                         <a href="~/Account/Logout" onClick="return false;">
                                             <i class="material-icons">power_settings_new</i>Logout
@@ -228,7 +213,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>*@
+                    </li>
                     <!-- #END# Tasks -->
                     <li class="pull-right">
                         <a href="#" onClick="return false;" class="js-right-sidebar" data-close="true">
@@ -249,13 +234,13 @@
                     <li class="sidebar-user-panel active">
                         <div class="user-panel">
                             <div class=" image">
-                                <img src="~/App_Assets/Admin/images/usrbig.jpg" class="img-circle user-img-circle"
+                                <img src="~/uploads/@user.Profile" class="img-circle user-img-circle"
                                      alt="User Image" />
                             </div>
                         </div>
                         <div class="profile-usertitle">
-                            <div class="sidebar-userpic-name"> Emily Smith </div>
-                            <div class="profile-usertitle-job ">Manager </div>
+                            <div class="sidebar-userpic-name"> @user.Name</div>
+                            <div class="profile-usertitle-job ">Admin </div>
                         </div>
                     </li>
                     <li>
@@ -265,7 +250,7 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="~/Admin/Dashboard">Dashboard 1</a>
+                                <a href="~/Admin/Dashboard">Dashboard</a>
                             </li>
                         </ul>
                     </li>
@@ -278,6 +263,9 @@
                         <ul class="ml-menu">
                             <li>
                                 <a href="~/Admin/Courses">Course</a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/CourseFeatures">CourseFeatures</a>
                             </li>
                             <li>
                                 <a href="~/Admin/CourseCategories">Course Category</a>
@@ -293,6 +281,8 @@
                         <ul class="ml-menu">
                             <li>
                                 <a href="~/Admin/Topics">Topics List</a>
+                            </li><li>
+                                <a href="~/Admin/ClassTypes">Class Type</a>
                             </li>
                         </ul>
                     </li>
@@ -363,6 +353,42 @@
                             </li>
                             <li>
                                 <a href="~/Admin/FeesTypes">Fees Types</a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" onClick="return false;" class="menu-toggle">
+                            <i class="fas fa-table"></i>
+                            <span>Content Managment</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="~/Admin/FAQs">FAQ</a>
+                            </li><li>
+                                <a href="~/Admin/FAQTypes">FAQ Type</a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/AdminAboutUs/Create">About US</a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" onClick="return false;" class="menu-toggle">
+                            <i class="fas fa-table"></i>
+                            <span>Location</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="~/Admin/Countries">Country</a>
+                            </li><li>
+                                <a href="~/Admin/States">State</a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/Cities">City</a>
                             </li>
 
 
